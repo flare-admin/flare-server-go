@@ -1,0 +1,225 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 领域层规范指南
+
+## 领域模型规范 (Model)
+
+### 模型定义
+- 使用充血模型
+- 包含业务规则
+- 实现领域行为
+- 保持不可变性
+
+### 标签命名规范
+- JSON标签：使用驼峰命名（camelCase）
+- Form标签：使用驼峰命名（camelCase）
+- Query标签：使用驼峰命名（camelCase）
+- 保持命名一致性
+- 不使用binding标签
+
+示例：
+```go
+type Template struct {
+    // 模板ID
+    ID          string    `json:"id" form:"id" query:"id"`
+    // 模板编码
+    Code        string    `json:"code" form:"code" query:"code"`
+    // 模板名称
+    Name        string    `json:"name" form:"name" query:"name"`
+    // 模板描述
+    Description string    `json:"description" form:"description" query:"description"`
+    // 分类ID
+    CategoryID  string    `json:"categoryId" form:"categoryId" query:"categoryId"`
+    // 模板属性
+    Attributes  []Attribute `json:"attributes" form:"attributes" query:"attributes"`
+    // 状态
+    Status      int       `json:"status" form:"status" query:"status"`
+    // 创建时间
+    CreatedAt   int64     `json:"createdAt" form:"createdAt" query:"createdAt"`
+    // 更新时间
+    UpdatedAt   int64     `json:"updatedAt" form:"updatedAt" query:"updatedAt"`
+}
+```
+
+### 常见字段命名规范
+- ID字段：`id`
+- 外键字段：`xxxId`（如：`userId`、`categoryId`）
+- 时间字段：`xxxAt`（如：`createdAt`、`updatedAt`）
+- 状态字段：`status`
+- 类型字段：`type`
+- 名称字段：`name`
+- 编码字段：`code`
+- 描述字段：`description`
+
+### 模型方法规范
+- 提供工厂方法
+- 实现领域行为
+- 添加验证逻辑
+- 实现序列化方法
+
+示例：
+```go
+func NewTemplate(code, name, description, categoryID string) *Template {
+    return &Template{
+        Code:        code,
+        Name:        name,
+        Description: description,
+        CategoryID:  categoryID,
+        Status:      1,
+        Attributes:  make([]Attribute, 0),
+        CreatedAt:   utils.GetDateUnix(),
+        UpdatedAt:   utils.GetDateUnix(),
+    }
+}
+```
+
+## 值对象规范 (ValueObject)
+
+### 值对象定义
+- 不可变对象
+- 包含验证逻辑
+- 实现相等性比较
+- 使用值语义
+
+### 标签命名规范
+- JSON标签：使用驼峰命名（camelCase）
+- Form标签：使用驼峰命名（camelCase）
+- Query标签：使用驼峰命名（camelCase）
+- 保持命名一致性
+- 不使用binding标签
+
+示例：
+```go
+type TemplateAttribute struct {
+    // 属性键
+    Key         string      `json:"key" form:"key" query:"key"`
+    // 属性名称
+    Name        string      `json:"name" form:"name" query:"name"`
+    // 属性类型
+    Type        string      `json:"type" form:"type" query:"type"`
+    // 是否必填
+    Required    bool        `json:"required" form:"required" query:"required"`
+    // 是否可查询
+    IsQuery     bool        `json:"isQuery" form:"isQuery" query:"isQuery"`
+    // 国际化键
+    I18nKey     string      `json:"i18nKey" form:"i18nKey" query:"i18nKey"`
+    // 选项列表
+    Options     []Option    `json:"options" form:"options" query:"options"`
+    // 默认值
+    Default     interface{} `json:"default" form:"default" query:"default"`
+    // 验证规则
+    Validation  Validation  `json:"validation" form:"validation" query:"validation"`
+    // 描述
+    Description string      `json:"description" form:"description" query:"description"`
+}
+```
+
+### 命令对象规范
+- 包含验证方法
+- 使用绑定标签
+- 添加字段注释
+- 实现业务规则
+
+示例：
+```go
+type CreateTemplateCommand struct {
+    Code        string              `json:"code" binding:"required" comment:"模板编码"`
+    Name        string              `json:"name" binding:"required" comment:"模板名称"`
+    Description string              `json:"description" comment:"模板描述"`
+    CategoryID  string              `json:"category_id" binding:"required" comment:"分类ID"`
+    Attributes  []TemplateAttribute `json:"attributes" binding:"required" comment:"模板属性"`
+}
+```
+
+## 仓储接口规范 (Repository)
+
+### 接口定义
+- 定义在领域层
+- 使用接口类型
+- 包含完整方法集
+- 添加方法注释
+
+示例：
+```go
+type TemplateRepository interface {
+    Create(ctx context.Context, template *model.Template) error
+    Update(ctx context.Context, template *model.Template) error
+    Delete(ctx context.Context, id string) error
+    FindByID(ctx context.Context, id string) (*model.Template, error)
+    // ... 其他方法
+}
+```
+
+### 方法命名规范
+- 使用动词开头
+- 方法名要具体
+- 参数要明确
+- 返回值要清晰
+
+## 领域服务规范 (Service)
+
+### 服务定义
+- 处理跨实体逻辑
+- 实现复杂业务规则
+- 协调多个仓储
+- 处理事务
+
+示例：
+```go
+type TemplateService struct {
+    templateRepo repository.TemplateRepository
+    categoryRepo repository.CategoryRepository
+}
+```
+
+### 方法实现规范
+- 参数验证
+- 业务规则检查
+- 错误处理
+- 日志记录
+
+## 错误处理规范 (Error)
+
+### 错误定义
+- 使用常量定义
+- 区分业务错误
+- 区分系统错误
+- 添加错误描述
+
+示例：
+```go
+var (
+    TemplateCreateFailed = herrors.NewServerError("TemplateCreateFailed")
+    TemplateDisabled    = herrors.NewBusinessServerError("TemplateDisabled")
+    TemplateNotExist    = herrors.NewBusinessServerError("TemplateNotExist")
+)
+```
+
+### 错误使用规范
+- 使用预定义错误
+- 添加错误上下文
+- 记录错误日志
+- 返回适当错误
+
+## 通用规范
+
+### 代码组织
+- 按功能模块划分
+- 清晰的包结构
+- 统一的命名规范
+- 完整的注释文档
+
+### 依赖原则
+- 依赖倒置原则
+- 接口隔离原则
+- 单一职责原则
+- 开闭原则
+
+### 测试规范
+- 单元测试覆盖
+- 领域逻辑测试
+- 边界条件测试
+- 错误场景测试

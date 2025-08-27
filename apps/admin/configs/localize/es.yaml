@@ -1,0 +1,148 @@
+ServerBusy: El servidor está ocupado
+Success: Éxito
+GetUserProfileErr: Error al obtener la información del usuario
+UserNotFind: Usuario no encontrado
+StatusInvalidParam: Error en los parámetros
+tokenEmpty: El token no puede estar vacío, por favor inicie sesión nuevamente
+tokenVerifyFail: Token no válido, por favor inicie sesión nuevamente
+RPC_CALL_ERROR: Error en la llamada al servicio
+UNKNOWN: Error desconocido
+PLEASE_DO_NOT_RESUBMIT: Por favor, no envíe la solicitud nuevamente
+isNotAdminAccount: No es una cuenta de administrador
+STATUS_INTERNAL_SERVER_ERROR: Error en el servidor
+PARAMETER_ERROR: Error en los parámetros
+sqlInjectionDetected: Inyección SQL detectada
+# Común
+QUERY_FAIL: Error en la consulta
+CREATE_FAIL: Error al crear
+UPDATE_FAIL: Error al actualizar
+DELETE_FAIL: Error al eliminar
+PARAMETER_TRANSFER_FAIL: Error en la conversión de parámetros
+RESULT_TRANSFER_FAIL: Error en la conversión de resultados
+
+# Autenticación
+PasswordsDoNotMatch: Las contraseñas no coinciden
+IncorrectAccountOrPassword: Cuenta o contraseña incorrecta
+IncorrectVerificationCode: Código de verificación incorrecto
+AccountAlreadyExists: La cuenta ya existe
+ErrorGetTokenError: Error al generar el token
+OldPasswordFail: La contraseña anterior es incorrecta
+VerifiedError: Error en la verificación de identidad
+IDCardFailed: Número de identificación incorrecto
+GetUserRolesError: Error al obtener los roles del usuario
+
+# Anuncios
+AddAnnouncementFail: Error al agregar el anuncio
+EditAnnouncementFail: Error al editar el anuncio
+DeleteAnnouncementFail: Error al eliminar el anuncio
+GetAnnouncementFail: Error al obtener el anuncio
+
+# Solicitudes
+HandleMaterialApplication: Error al procesar la solicitud de material
+AddMaterialApplication: Error al agregar la solicitud de material
+GetMaterialApplicationFail: Error al obtener la solicitud de material
+NotMeetingApplicationRequirements: No cumple con los requisitos de la solicitud
+
+PendingApplications: Hay solicitudes pendientes
+ApplicationApproved: La solicitud ha sido aprobada
+
+# Solicitud de líder de grupo
+HandleHeadOfGroupApplication: Error al procesar la solicitud de líder de grupo
+AddHeadOfGroupApplication: Error al agregar la solicitud de líder de grupo
+GetHeadOfGroupApplicationFail: Error al obtener la solicitud de líder de grupo
+
+# Tarjetas bancarias
+ChickBankCardField: Error en la validación del número de tarjeta
+BankCardField: Número de tarjeta incorrecto
+AddBankField: Error al agregar la tarjeta bancaria
+SetDefaultBankCardField: Error al establecer la tarjeta bancaria predeterminada
+DeleteBankCardField: Error al eliminar la tarjeta bancaria
+GetBankListField: Error al obtener la lista de tarjetas bancarias
+TheCardNumberHasBeenBound: El número de tarjeta ya está vinculado
+UpToThreeBankCardsCanBeBound: Se pueden vincular hasta tres tarjetas bancarias
+UserIsNotRealName: El usuario no está verificado
+GetBankCardField: Error al obtener la tarjeta bancaria
+
+# Pedidos
+CreateOrderFailed: Error al crear el pedido
+EditOrderFailed: Error al editar el pedido
+GetOrderFailed: Error al obtener el pedido
+AmountIsEmpty: El monto del pedido no puede estar vacío
+AmountFailed: El formato del monto es incorrecto
+ProductIsNotAvailable: El producto no está disponible
+LessThanTheMinimumPurchaseAmount: Monto menor al mínimo de compra
+GreaterThanTheMaximumPurchaseAmount: Monto mayor al máximo de compra
+ItemSoldOut: El producto está agotado
+TheProductHasNotYetBeenSold: El producto no ha comenzado a venderse
+
+# Productos
+AddProductFail: Error al agregar el producto
+EditProductFail: Error al editar el producto
+GetProductFail: Error al obtener el producto
+ProductNotExist: El producto no existe
+AddProductClassFail: Error al agregar la categoría de producto
+GetProductClassFail: Error al obtener la categoría de producto
+EditProductClassFail: Error al editar la categoría de producto
+DeleteProductFail: Error al eliminar el producto
+
+# RBAC
+RbacPhoneOrNameIsExistError: El número de teléfono o el nombre de usuario ya existe
+RbacMenuNameIsExistError: El nombre del menú ya existe
+RbacRoleNameIsExistError: El nombre del rol ya existe
+AddMenuError: Error al agregar el menú
+DeleteMenuError: Error al eliminar el menú
+EditMenuError: Error al editar el menú
+GetMenuError: Error al obtener el menú
+NameRealNameInconsistentErr: El nombre o el icono están vacíos
+AddUserError: Error al agregar el usuario
+UpdatePasswordError: Error al actualizar la contraseña
+
+# Firmar
+SignInFail: Error al firmar
+GetSignInFail: Error al obtener el registro de firmas
+SignInCompletedToday: Ya has firmado hoy
+
+# Configuración del sistema
+SysConfigurationTypeIsExist: El tipo de configuración ya existe
+CreateConfigurationFiled: Error al crear la configuración del sistema
+UpdateConfigurationFiled: Error al actualizar la configuración del sistema
+SysConfigurationNotExist: La configuración no existe
+GetConfigurationFile: Error al obtener la configuración del sistema
+
+# Usuarios
+AddUserFailed: Error al agregar el usuario
+DelUserFailed: Error al eliminar el usuario
+EditUserFailed: Error al editar el usuario
+GetUserFailed: Error al obtener el usuario
+UserNotFond: El usuario no existe
+InvitationCodeFailed: El código de invitación no es válido
+PersonIdIsInvalid: El número de identificación es incorrecto
+GetUserNumberOfInvitations: Error al obtener la cantidad de invitaciones del usuario
+GetUserApplicationFailed: Error al obtener la solicitud del usuario
+RealApplicationHasBeenProcessed: La solicitud de verificación de identidad ya ha sido procesada
+RealApplicationProcessedFail: Error al procesar la solicitud de verificación de identidad
+PasswordGenerateFailed: Error al generar la contraseña
+
+# Billetera
+OpenWalletError: Error al abrir la billetera
+GetUserWalletError: Error al obtener la billetera
+ChangeWalletStatusError: Error al cambiar el estado de la billetera
+PleaseDoNotResubmit: Por favor, no envíe la solicitud nuevamente
+WithdrawalPermissionIsNotEnabled: No tiene permisos para retirar
+AmountCanNotBetLessThan: El monto es inferior al mínimo permitido
+WithdrawalField: Error en la solicitud de retiro
+WithdrawalAmountField: Error en el monto solicitado para retiro
+TodayWithdrawalNumUsed: Se han agotado los intentos de retiro de hoy
+InsufficientAccountBalance: Saldo insuficiente en la cuenta
+GetAccountRequestLogField: Error al obtener los registros de solicitud de cuenta
+AccountWalletFrozen: La billetera de la cuenta está congelada
+HandleApplicationField: Error al procesar la solicitud
+ApplicationHasBeenProcessed: La solicitud ya ha sido procesada
+AccountUnavailable: La cuenta no está disponible
+HdbField: Error en la transacción
+GetHdbLogField: Error al obtener los registros de transacciones
+
+# Activos
+TheStockIsZeroAndCannotBeExchanged: El stock es cero y no puede ser intercambiado
+ExchangeFail: Error al intercambiar
+ExchangeConditionsNotMet: No se cumplen las condiciones para el intercambio

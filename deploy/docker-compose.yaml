@@ -1,0 +1,107 @@
+version: '3'
+services:
+  nsqlookupd:
+    image: nsqio/nsq
+    command: /nsqlookupd
+    container_name: nsqlookupd
+    ports:
+      - "4160:4160"
+      - "4161:4161"
+    networks:
+      - default
+  nsqd:
+    image: nsqio/nsq
+    container_name: nsqd
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 --data-path=/data
+    ports:
+      - "4150:4150"
+      - "4151:4151"
+    volumes:
+      - ./data/nsq/data:/data
+    depends_on:
+      - nsqlookupd
+    networks:
+      - default
+
+  nsqadmin:
+    image: nsqio/nsq
+    container_name: nsqadmin
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    ports:
+      - "4171:4171"
+    depends_on:
+      - nsqlookupd
+      - nsqd
+    networks:
+      - default
+
+  postgresql:
+    image: bitnami/postgresql:15
+    container_name: pgsql
+    shm_size: '2g'
+    environment:
+      - POSTGRESQL_USERNAME=root
+      - POSTGRESQL_PASSWORD=opeIM123
+      - POSTGRESQL_DATABASE=f02
+      - POSTGRESQL_MAX_CONNECTIONS=500          # 降低最大连接数
+      - POSTGRESQL_SHARED_BUFFERS=256MB         # 合理设置 shared_buffers
+      - POSTGRESQL_WORK_MEM=4MB                 # 每个连接的工作内存
+      - POSTGRESQL_MAINTENANCE_WORK_MEM=64MB    # 维护任务的工作内存
+      - POSTGRESQL_EFFECTIVE_CACHE_SIZE=1GB     # 缓存大小
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgresql:/bitnami/postgresql
+    networks:
+      - default
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - '16379:6379'
+    volumes:
+      - ./data/redis/data:/data
+      - ./configs/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./data/redislogs:/logs
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    networks:
+      - default
+  minio:
+    image: minio/minio:RELEASE.2024-01-11T07-46-16Z
+    hostname: "minio"
+    ports:
+      - "10005:9000"
+      - "19090:9090"
+    container_name: minio
+    volumes:
+      - "./data/minio/data:/data"
+      - "./data/minio/config:/root/.minio"
+    environment:
+      TZ: Asia/Shanghai
+      MINIO_ROOT_USER: root
+      MINIO_ROOT_PASSWORD: opeIM123
+    restart: always
+    command: minio server /data --console-address ':9090'
+    networks:
+      - default
+
+  nats:
+    image: nats:2.10.11-alpine
+    container_name: nats
+    command: ["-js"]  # 启用 JetStream
+    ports:
+      - "4222:4222"   # 客户端连接端口
+      - "8222:8222"   # HTTP 监控端口
+    volumes:
+      - ./data/nats:/data/nats-server
+    environment:
+      - TZ=Asia/Shanghai
+    restart: always
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

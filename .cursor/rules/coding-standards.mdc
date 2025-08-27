@@ -1,0 +1,90 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 代码规范指南
+
+## 命名规范
+
+### 基本命名规范
+- 包名：使用小写字母，简短且具有描述性
+- 接口名：使用大驼峰命名法，通常以 "er" 结尾
+- 结构体：使用大驼峰命名法
+- 方法名：使用大驼峰命名法
+- 变量名：使用小驼峰命名法
+
+### 标签命名规范
+- JSON标签：使用驼峰命名（camelCase）
+- Form标签：使用驼峰命名（camelCase）
+- Query标签：使用驼峰命名（camelCase）
+- 保持命名一致性
+- 不使用binding标签
+
+示例：
+```go
+// 正确的标签命名
+type User struct {
+    // 用户ID
+    UserID string `json:"userId" form:"userId" query:"userId"`
+    // 用户名称
+    UserName string `json:"userName" form:"userName" query:"userName"`
+    // 创建时间
+    CreatedAt int64 `json:"createdAt" form:"createdAt" query:"createdAt"`
+}
+
+// 错误的标签命名
+type User struct {
+    // 错误：使用下划线
+    UserID string `json:"user_id" form:"user_id" query:"user_id"`
+    // 错误：使用连字符
+    UserName string `json:"user-name" form:"user-name" query:"user-name"`
+    // 错误：全小写
+    CreatedAt int64 `json:"createdat" form:"createdat" query:"createdat"`
+}
+```
+
+### 常见字段命名规范
+- ID字段：`id`
+- 外键字段：`xxxId`（如：`userId`、`categoryId`）
+- 时间字段：`xxxAt`（如：`createdAt`、`updatedAt`）
+- 状态字段：`status`
+- 类型字段：`type`
+- 名称字段：`name`
+- 编码字段：`code`
+- 描述字段：`description`
+
+## 错误处理
+
+- 使用统一的错误处理中间件
+- 所有错误必须被正确处理和记录
+- 使用自定义错误类型
+- 实现错误码系统
+
+## 日志规范
+
+- 使用结构化日志
+- 记录关键业务操作
+- 包含请求追踪ID
+- 区分不同日志级别
+
+## 注释规范
+
+- 所有导出的函数必须有注释
+- 使用 godoc 格式的注释
+- 复杂逻辑必须添加注释说明
+- 注释应该解释"为什么"而不是"是什么"
+
+## 测试规范
+
+- 单元测试覆盖率要求 > 80%
+- 使用表驱动测试
+- 模拟外部依赖
+- 测试用例命名清晰
+
+## API 规范
+
+- 遵循 RESTful 设计原则
+- 使用统一的响应格式
+- 实现参数验证
+- 提供 API 文档

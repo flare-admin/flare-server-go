@@ -1,0 +1,5 @@
+/v1/product
+/v1/pay_channel/all_merchant
+/v1/wallet/type/all
+/v1/news/categories/all
+/v1/product/temple/all

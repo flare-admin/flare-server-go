@@ -1,0 +1,62 @@
+# 服务配置
+server:
+  port: 8848
+  tracer_port: 8849
+  rate_qps: 0 # 整体QPS，0表示不限流
+  name: 'app' # 当前服务
+#数据库配置
+data:
+  database:
+    enable_migrate: true
+    driver: pgsql
+    source: "host=localhost user=root password=opeIM123 dbname=s06 port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+    max_idle_cons: 10 # 最大空闲连接数
+    max_open_cons: 100 # 最大连接数
+    id_table_num: 20
+
+  redis:
+    addr: localhost:16379
+    password: 'openIM123' # REDIS密码
+    db: 0
+    read_timeout: 10
+    write_timeout: 10
+
+# 日志配置
+log:
+  output_dir: './logs/'
+  file_prefix: 'app'
+  level: 4 #日志级别
+  max_size: 20 #单位m
+  max_backups: 5 #最多同时保存几个文件
+  max_age: 10 #一个文件最多可以保存多少天
+  compress: true #文件是否压缩
+# JWT配置(APP端)
+jwt:
+  issuer: 'brian-god'
+  signing_key: 'uAYnaSgAiYzAiGwLFe'
+  expiration_token: 360000
+  expiration_refresh: 720000
+
+# 平台服务配置
+super_admin:
+  nickname: 超级管理员
+  phone: 15888888888
+  password: Super123
+
+# nats 配置
+nats:
+  address: "nats://127.0.0.1:4222"
+#mq
+nsq:
+  address: "127.0.0.1:4150"
+
+# 存储配置
+storage:
+  type: "minio"
+  minio:
+    endpoint: "127.0.0.1:10005"
+    access_key: "root"
+    secret_key: "opeIM123"
+    bucket: "go-dev"
+
+

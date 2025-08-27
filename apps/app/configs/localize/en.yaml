@@ -1,0 +1,281 @@
+ServerBusy: Server busy
+Success: Success
+GetUserProfileErr: Error in getting user information
+UserNotFind: User does not exist
+StatusInvalidParam: Parameter error
+tokenEmpty: Token cannot be empty, please log in again
+tokenVerifyFail: Token is invalid, please log in again
+RPC_CALL_ERROR: Service call exception
+UNKNOWN: Unknown error
+PLEASE_DO_NOT_RESUBMIT: Do not submit repeatedly
+isNotAdminAccount: Not an administrative account
+STATUS_INTERNAL_SERVER_ERROR: Server error
+PARAMETER_ERROR: Parameter error
+sqlInjectionDetected: sql injection
+
+#General
+QUERY_FAIL: Query failed
+CREATE_FAIL: Create failed
+UPDATE_FAIL: Update failed
+DELETE_FAIL: Delete failed
+PARAMETER_TRANSFER_FAIL: Parameter conversion failed
+RESULT_TRANSFER_FAIL: Result conversion failed
+RealNameNotCompleted: Real-name authentication not completed
+#Authentication
+PasswordsDoNotMatch: Two passwords do not match
+IncorrectAccountOrPassword: Account or password is incorrect
+IncorrectVerificationCode: Verification code is incorrect
+AccountAlreadyExists: Account already exists
+ErrorGetTokenError: Failed to generate token
+OldPasswordFail: Old password is incorrect
+VerifiedError: Real-name authentication failed
+IDCardFailed: ID card number is incorrect
+RealNameApplicationFailed: Real name application failed
+TheUserHasCompletedRealNameAuthentication: The user has completed real-name authentication
+TooManyRegistrationsRorTheSameIP: Too many registrations for the same IP address
+TooManyRealNameRorTheSameIP: Too many real name registrations for the same IP address
+VaptchaVerificationFailed: Please complete verification first
+PayPasswordFailed: Payment password error
+IDNumberHasBeenUsed: The ID number has been used
+UserProhibitedFromLoggingIn: User is prohibited from logging in
+
+#Announcement
+AddAnnouncementFail: Failed to add an announcement
+EditAnnouncementFail: Failed to modify an announcement
+DeleteAnnouncementFail: Failed to delete an announcement
+GetAnnouncementFail: Failed to get an announcement
+
+#Application
+HandleMaterialApplication: Failed to handle material application
+AddMaterialApplication: Failed to add a material application
+GetMaterialApplicationFail: Failed to get a material application
+NotMeetingApplicationRequirements: Application conditions are not met
+TheNumberOfDirectInviteesDidNotReach60: The number of direct invitees did not reach 60.
+
+PendingApplications: There are requests being processed
+ApplicationApproved: The application has been approved
+#Group leader application
+HandleHeadOfGroupApplication: Failed to process the group leader application
+AddHeadOfGroupApplication: Failed to add a group leader application
+GetHeadOfGroupApplicationFail: Failed to get the group leader application
+#Bank card
+ChickBankCardField: Card number verification failed
+BankCardField: Card number error
+AddBankField: Add a new bank card, right?
+SetDefaultBankCardField: Failed to set the default bank card
+DeleteBankCardField: Failed to delete a bank card
+GetBankListField: Failed to get the bank card list
+TheCardNumberHasBeenBound: The card number has been bound
+UpToThreeBankCardsCanBeBound: Up to one bank cards can be bound
+UserIsNotRealName: User is not real-named
+GetBankCardField: Failed to get a bank card
+#Order
+CreateOrderFailed: Failed to create an order
+EditOrderFailed: Failed to edit an order
+GetOrderFailed: Failed to get the order
+AmountIsEmpty: The order amount cannot be empty
+AmountFailed: The amount format is incorrect
+ProductIsNotAvailable: The product is not available
+LessThanTheMinimumPurchaseAmount: Less than the minimum purchase amount
+GreaterThanTheMaximumPurchaseAmount: Greater than the maximum purchase amount
+ItemSoldOut: The product has been sold out
+TheProductHasNotYetBeenSold: The product has not started selling
+TheOrderingUserIsInconsistent2ithTheCurrentUser: The ordering user is inconsistent with the current user
+OrderOotCompleted: The order is not completed
+TheOrderDoesNotSupportRedemption: The order does not support redemption
+RedemptionFailed: Redemption failed
+YouNeedToActivateYourIdentityBeforePurchasing: You need to activate your identity before purchasing
+ThePaymentAmountIsLessThanTheMinimumLimitOfTheChannel: The payment amount is less than the minimum limit of the channel
+ThePaymentAmountIsGreaterTheMaximumLimitOfTheChannel: The payment amount is greater than the maximum limit of the channel
+TheCurrentLevelDoesDotDeedToBeUpgraded: The current level does not need to be upgraded
+TopUpFail: TopUp failed
+BuyNumExceedsLimit: The purchase quantity exceeds the limit
+ExceedingTheLimitOfPlacingOrdersPerMinute: Exceeding the limit of placing orders per minute
+UnapprovedHousingApplications: Unapproved housing applications
+
+#Product
+AddProductFail: Failed to add the product
+EditProductFail: Failed to edit the product
+GetProductFail: Failed to get the product
+ProductNotExist: The product does not exist
+AddProductClassFail: Failed to add a new category
+GetProductClassFail: Failed to get the product category
+EditProductClassFail: Failed to edit the product category
+DeleteProductFail: Failed to delete the product
+
+#rbac
+RbacPhoneOrNameIsExistError: Add user, the user's mobile number already exists error
+RbacMenuNameIsExistError: Menu name already exists
+RbacRoleNameIsExistError: Role name already exists
+AddMenuError: Add menu failed
+DeleteMenuError: Delete menu failed
+EditMenuError: Change menu failed
+GetMenuError: Get menu failed
+NameRealNameInconsistentErr: Name or iocn is empty
+AddUserError: Add user failed
+UpdatePasswordError: Update password failed
+
+#Sign in
+GetSignInFail: Get sign in record failed
+SignInCompletedToday: You have completed sign in
+
+#System configuration
+SysConfigurationTypeIsExist: Configuration type already exists
+CreateConfigurationFiled: Create system configuration error
+UpdateConfigurationFiled: Modify system configuration error
+SysConfigurationNotExist: Configuration does not exist
+GetConfigurationFile: Get system configuration error
+
+#User
+AddUserFailed: Add user failed
+DelUserFailed: Failed to delete user
+EditUserFailed: Failed to edit user
+GetUserFailed: Failed to get user
+UserNotFond: User does not exist
+InvitationCodeFailed: Invalid promotion code
+PersonIdIsInvalid: ID card error
+GetUserNumberOfInvitations: Failed to get promotion number
+GetUserApplicationFailed: Failed to get user application
+RealApplicationHasBeenProcessed: Real-name authentication has been processed
+RealApplicationProcessedFail: Real-name authentication failed
+PasswordGenerateFailed: Password generation failed
+TheUserJasNotCompletedRealNameAuthentication: The user did not complete the real-name authentication
+
+#Wallet
+OpenWalletError: Failed to open wallet
+GetUserWalletError: Failed to get wallet
+ChangeWalletStatusError: Failed to change wallet status
+PleaseDoNotResubmit: Please do not submit repeatedly
+WithdrawalPermissionIsNotEnabled: No withdrawal permission
+AmountCanNotBetLessThan: The amount is less than the minimum amount
+TheAmountIsGreaterThanTheMaximumLimit: The amount exceeds the maximum limit
+WithdrawalField: Withdrawal error
+WithdrawalAmountField: Request amount error
+TodayWithdrawalNumUsed: The number of withdrawals for the day has been used up
+InsufficientAccountBalance: Insufficient account balance
+GetAccountRequestLogField: or request information failed
+AccountWalletFrozen: Account frozen
+HandleApplicationField: Failed to process the request
+ApplicationHasBeenProcessed: The request has been processed
+AccountUnavailable: Account unavailable
+HdbField: Hdb failed
+GetHdbLogField: Failed to get Hdb records
+GetWalletLockFail: Failed to get wallet lock
+WithdrawalsAreSuspendedDuringSystemUpgrade: WithdrawalsAreSuspendedDuringSystemUpgrade
+TheTransferInAndOutCannotBeToTheSameAccount: The transfer in and out cannot be to the same account
+AmountCannotBeZero: The amount cannot be zero
+InvalidAmountFormat: The amount format is incorrect
+TheAccountDoesNotSupportTransfers: The account does not support transfers
+InsufficientCashWithdrawalAmount: Insufficient cash withdrawal amount
+AccountsAndAccountsThatAreNotBoundToTheCurrentUser: Accounts and accounts that are not bound to the current user
+NeedToBindBankCard: Need to bind bank card
+
+#statistics
+GetAppTeamStatistics: Failed to get team statistics
+
+#User Tasks
+AddUserTaskFail: Adding a new task failed
+EditUserTaskFail: Editing a task failed
+GetUserTaskFail: Getting a task failed
+ReceiveTaskRewards: Receiving a task reward failed
+GetUserTaskLockFail: Failed to get the user task lock
+MissionRewardsHaveBeenReceivedFail: The task reward has been received
+TheTaskDoesNotMeetTheConditionsForReceiving: The task does not meet the conditions for receiving
+
+GetPaymentAddressFail: Failed to get the payment address
+NoPaymentAddressAvailable: No payment address is available
+
+#幸运大转盘
+FailedToObtainTheNumberOfDraws: Failed to obtain the number of draws
+TheDrawTimesHaveBeenUsedUp: The number of draws has been used up
+ThereAreNoProductsOnTheTurntable: No prizes are on the turntable
+FailedToDrawPPrize: The prize draw failed
+ConsigneeCannotBeEmpty: The consignee cannot be empty
+PhoneCannotBeEmpty: The phone number cannot be empty
+AddressCannotBeEmpty: The address cannot be empty
+PrizesHaveNotBeenShippedYet: The prizes have not been shipped yet
+
+#Task Management
+AddTaskFail: Failed to add task
+EditTaskFail: Failed to edit task
+GetTaskFail: Failed to get task
+DeleteTaskFail: Failed to delete task
+AddTaskCategoryFail: Failed to add task category
+EditTaskCategoryFail: Failed to edit task category
+GetTaskCategoryFail: Failed to get task category
+DeleteTaskCategoryFail: Failed to delete task category
+GetTaskProgressFail: Failed to get task progress
+UpdateTaskProgressFail: Failed to update task progress
+GetTaskRewardsFail: Failed to get task rewards
+UpdateTaskRewardsFail: Failed to update task rewards
+GetTaskConditionsFail: Failed to get task conditions
+UpdateTaskConditionsFail: Failed to update task conditions
+
+#Task Business
+TaskNotFound: Task not found
+TaskAlreadyExists: Task already exists
+TaskDisabled: Task is disabled
+TaskNotStarted: Task has not started
+TaskExpired: Task has expired
+TaskNotCompleted: Task is not completed
+TaskTypeError: Invalid task type
+TaskConditionError: Invalid task condition
+TaskRewardError: Invalid task reward
+InvalidTaskTime: Invalid task time
+TaskAlreadyCompleted: Task is already completed
+
+#Task Category
+CategoryNotFound: Category not found
+CategoryDisabled: Category is disabled
+CategoryHasActiveTasks: Category has active tasks
+CategoryTypeError: Invalid category type
+DuplicateCategoryName: Duplicate category name
+
+#Task Rewards
+RewardTypeError: Invalid reward type
+RewardClaimFailed: Failed to claim reward
+RewardAlreadyClaimed: Reward already claimed
+InvalidRewardAmount: Invalid reward amount
+InvalidWalletType: Invalid wallet type
+
+#Task Progress
+TaskProgressError: Task progress error
+InvalidProgressType: Invalid progress type
+ProgressTypeRequired: Progress type is required
+InvalidProgressValue: Invalid progress value
+
+#Task Reset
+ResetTypeError: Invalid reset type
+InvalidResetDays: Invalid reset days
+
+#Sign Module
+# Sign Management Errors
+AddSignConfigFail: Failed to add sign-in configuration
+EditSignConfigFail: Failed to edit sign-in configuration
+GetSignConfigFail: Failed to get sign-in configuration
+DeleteSignConfigFail: Failed to delete sign-in configuration
+GetSignRecordFail: Failed to get sign-in record
+UpdateSignRecordFail: Failed to update sign-in record
+CreateSignConfigFailed: Failed to create sign-in configuration
+UpdateSignConfigFailed: Failed to update sign-in configuration
+DeleteSignConfigFailed: Failed to delete sign-in configuration
+GetSignConfigListFailed: Failed to get sign-in configuration list
+
+# Sign Business Errors
+SignInFail: Sign-in failed
+AlreadySignedToday: Already signed in today
+DailyLimitExceeded: Daily sign-in limit exceeded
+SignConfigNotFound: Sign-in configuration not found
+SignConfigDisabled: Sign-in configuration is disabled
+InvalidPeriodType: Invalid period type
+InvalidContinuousType: Invalid continuous type
+InvalidPeriodDays: Invalid period days
+SignRecordNotFound: Sign-in record not found
+SignInFailed: Sign-in operation failed
+
+# Sign Statistics Errors
+GetSignCountFail: Failed to get sign-in count
+GetPeriodSignsFail: Failed to get period sign-in records
+GetContinuousSignFail: Failed to get continuous sign-in records
+GetSignInfoFailed: Failed to get sign-in information
+GetSignStatisticsFailed: Failed to get sign-in statistics

@@ -1,0 +1,331 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 应用层规范指南
+
+## 命令规范 (Command)
+
+### 命令定义
+- 使用命令对象
+- 包含验证标签
+- 添加字段注释
+- 实现业务规则
+
+示例：
+```go
+type CreateTemplateCommand struct {
+    Code        string              `json:"code" binding:"required" comment:"模板编码"`
+    Name        string              `json:"name" binding:"required" comment:"模板名称"`
+    Description string              `json:"description" comment:"模板描述"`
+    CategoryID  string              `json:"categoryId" binding:"required" comment:"分类ID"`
+    Attributes  []TemplateAttribute `json:"attributes" binding:"required" comment:"模板属性"`
+}
+```
+
+### 命令验证
+- 实现验证方法
+- 检查必填字段
+- 验证业务规则
+- 返回错误信息
+
+### 命令对象规范
+- 使用Command后缀
+- 字段使用驼峰命名
+- 添加注释说明
+- 不使用binding标签
+
+示例：
+```go
+type CreateTemplateCommand struct {
+    // 模板名称
+    Name string `json:"name" form:"name" query:"name"`
+    // 模板编码
+    Code string `json:"code" form:"code" query:"code"`
+    // 模板类型
+    Type string `json:"type" form:"type" query:"type"`
+    // 模板内容
+    Content string `json:"content" form:"content" query:"content"`
+    // 模板状态
+    Status int `json:"status" form:"status" query:"status"`
+}
+```
+
+### 标签命名规范
+
+#### 基本原则
+- JSON标签：使用驼峰命名
+- Form标签：使用驼峰命名
+- Query标签：使用驼峰命名
+- 保持一致性
+- 不使用binding标签
+
+#### 命名规则
+- 使用驼峰命名法（camelCase）
+- 首字母小写
+- 复合词首字母大写
+- 保持命名语义清晰
+
+示例：
+```go
+// 正确的标签命名
+type UserCommand struct {
+    // 用户ID
+    UserID string `json:"userId" form:"userId" query:"userId"`
+    // 用户名称
+    UserName string `json:"userName" form:"userName" query:"userName"`
+    // 用户年龄
+    UserAge int `json:"userAge" form:"userAge" query:"userAge"`
+    // 用户地址
+    UserAddress string `json:"userAddress" form:"userAddress" query:"userAddress"`
+    // 创建时间
+    CreatedAt int64 `json:"createdAt" form:"createdAt" query:"createdAt"`
+    // 更新时间
+    UpdatedAt int64 `json:"updatedAt" form:"updatedAt" query:"updatedAt"`
+}
+
+// 错误的标签命名
+type UserCommand struct {
+    // 错误：使用下划线
+    UserID string `json:"user_id" form:"user_id" query:"user_id"`
+    // 错误：使用连字符
+    UserName string `json:"user-name" form:"user-name" query:"user-name"`
+    // 错误：全小写
+    UserAge int `json:"userage" form:"userage" query:"userage"`
+    // 错误：全大写
+    UserAddress string `json:"USERADDRESS" form:"USERADDRESS" query:"USERADDRESS"`
+}
+```
+
+#### 常见字段命名规范
+- ID字段：`id`
+- 外键字段：`xxxId`（如：`userId`、`categoryId`）
+- 时间字段：`xxxAt`（如：`createdAt`、`updatedAt`）
+- 状态字段：`status`
+- 类型字段：`type`
+- 名称字段：`name`
+- 编码字段：`code`
+- 描述字段：`description`
+
+#### 特殊字段处理
+- 分页参数：`pageNum`、`pageSize`
+- 时间范围：`startTime`、`endTime`
+- 排序字段：`sortField`、`sortOrder`
+- 搜索字段：`searchKey`、`searchValue`
+
+#### 注意事项
+1. 保持命名一致性
+2. 避免使用特殊字符
+3. 使用有意义的命名
+4. 遵循Go语言命名规范
+5. 保持字段命名语义清晰
+
+## 查询规范 (Query)
+
+### 查询对象定义
+- 继承分页对象
+- 使用查询标签
+- 添加字段注释
+- 支持条件查询
+
+示例：
+```go
+type GetTemplateListReq struct {
+    db_query.Page
+    Name       string `form:"name" query:"name" json:"name" comment:"模板名称"`
+    CategoryID string `form:"categoryId" query:"categoryId" json:"categoryId" comment:"分类ID"`
+    Code       string `form:"code" query:"code" json:"code" comment:"模板编码"`
+    Status     int32  `form:"status" query:"status" json:"status" comment:"状态"`
+}
+```
+
+### 查询对象规范
+- 使用Query后缀
+- 包含分页参数
+- 字段使用驼峰命名
+- 添加注释说明
+- 不使用binding标签
+
+示例：
+```go
+type GetTemplateListReq struct {
+    // 页码
+    PageNum int `json:"pageNum" form:"pageNum" query:"pageNum"`
+    // 每页数量
+    PageSize int `json:"pageSize" form:"pageSize" query:"pageSize"`
+    // 模板名称
+    Name string `json:"name" form:"name" query:"name"`
+    // 模板编码
+    Code string `json:"code" form:"code" query:"code"`
+    // 模板类型
+    Type string `json:"type" form:"type" query:"type"`
+    // 模板状态
+    Status int `json:"status" form:"status" query:"status"`
+}
+```
+
+### 查询条件构建
+- 使用查询构建器
+- 支持多条件组合
+- 实现排序功能
+- 处理分页逻辑
+
+## DTO规范 (Data Transfer Object)
+
+### DTO定义
+- 使用JSON标签
+- 添加字段注释
+- 实现转换方法
+- 处理空值情况
+
+示例：
+```go
+type TemplateDTO struct {
+    ID          string         `json:"id"`          // 模板ID
+    Code        string         `json:"code"`        // 模板编码
+    Name        string         `json:"name"`        // 模板名称
+    Description string         `json:"description"` // 模板描述
+    CategoryID  string         `json:"categoryId"` // 分类ID
+    Attributes  []AttributeDTO `json:"attributes"`  // 模板属性
+    Status      int            `json:"status"`      // 状态
+    CreatedAt   int64          `json:"created_at"`  // 创建时间
+    UpdatedAt   int64          `json:"updated_at"`  // 更新时间
+}
+```
+
+### DTO定义规范
+- 使用DTO后缀
+- 包含序列化标签
+- 字段使用驼峰命名
+- 添加注释说明
+- 时间字段使用int64时间戳
+- 不使用binding标签
+
+示例：
+```go
+type TemplateDTO struct {
+    // 模板ID
+    ID string `json:"id"`
+    // 模板名称
+    Name string `json:"name"`
+    // 模板编码
+    Code string `json:"code"`
+    // 模板类型
+    Type string `json:"type"`
+    // 模板内容
+    Content string `json:"content"`
+    // 模板状态
+    Status int `json:"status"`
+    // 创建时间（时间戳）
+    CreatedAt int64 `json:"createdAt"`
+    // 更新时间（时间戳）
+    UpdatedAt int64 `json:"updatedAt"`
+}
+```
+
+### 转换方法规范
+- 实现实体转换
+- 处理JSON序列化
+- 处理集合转换
+- 添加空值检查
+
+### 时间处理规范
+- 所有时间字段使用int64类型
+- 时间戳单位为秒
+- 前端展示时转换为本地时间
+- 后端存储时使用UTC时间
+
+示例：
+```go
+// 正确的时间字段定义
+type UserDTO struct {
+    // 用户ID
+    ID string `json:"id"`
+    // 创建时间（时间戳）
+    CreatedAt int64 `json:"createdAt"`
+    // 更新时间（时间戳）
+    UpdatedAt int64 `json:"updatedAt"`
+    // 最后登录时间（时间戳）
+    LastLoginAt int64 `json:"lastLoginAt"`
+}
+
+// 错误的时间字段定义
+type UserDTO struct {
+    // 错误：使用time.Time类型
+    CreatedAt time.Time `json:"createdAt"`
+    // 错误：使用string类型
+    UpdatedAt string `json:"updatedAt"`
+    // 错误：使用int类型
+    LastLoginAt int `json:"lastLoginAt"`
+}
+```
+
+## 命令处理器规范 (Command Handler)
+
+### 处理器定义
+- 依赖领域服务
+- 实现命令处理
+- 添加日志记录
+- 处理错误返回
+
+示例：
+```go
+type TemplateCommandHandler struct {
+    templateService *service.TemplateService
+}
+```
+
+### 处理方法规范
+- 验证命令参数
+- 转换命令对象
+- 调用领域服务
+- 记录操作日志
+
+## 查询处理器规范 (Query Handler)
+
+### 处理器定义
+- 依赖仓储接口
+- 实现查询处理
+- 构建查询条件
+- 处理分页逻辑
+
+示例：
+```go
+type TemplateQueryHandler struct {
+    templateRepo repository.ITemplateRepository
+    categoryRepo repository.ICategoryRepository
+}
+```
+
+### 查询方法规范
+- 构建查询条件
+- 处理分页参数
+- 转换返回结果
+- 处理错误情况
+
+## 通用规范
+
+### 错误处理
+- 使用统一错误类型
+- 记录错误日志
+- 返回适当错误
+- 处理异常情况
+
+### 日志规范
+- 记录操作日志
+- 记录错误日志
+- 包含上下文信息
+- 使用结构化日志
+
+### 代码组织
+- 按功能模块划分
+- 清晰的包结构
+- 统一的命名规范
+- 完整的注释文档
+
+### 性能优化
+- 优化查询性能
+- 控制返回数据量
+- 使用适当的索引
+- 实现缓存策略

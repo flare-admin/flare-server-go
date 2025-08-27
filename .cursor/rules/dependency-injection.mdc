@@ -1,0 +1,143 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 依赖注入规范指南
+
+## 依赖注入原则
+
+### 基本原则
+- 依赖倒置原则
+- 接口隔离原则
+- 单一职责原则
+- 开闭原则
+
+### 依赖方向
+- 领域层不依赖基础设施层
+- 应用层不依赖基础设施层
+- 接口层不依赖基础设施层
+- 通过接口进行依赖
+
+## Wire配置规范
+
+### ProviderSet定义
+- 按模块划分
+- 清晰的分组
+- 完整的依赖
+- 合理的命名
+
+示例：
+```go
+var ProviderSet = wire.NewSet(
+    // 公共依赖
+    BaseProviderSet,
+    // 命令处理器
+    commondhandler.NewTemplateCommandHandler,
+    commondhandler.NewCategoryCommandHandler,
+    // 查询处理器
+    queryhandler.NewTemplateQueryHandler,
+    queryhandler.NewCategoryQueryHandler,
+    // 接口层
+    admin.NewTemplateService,
+    admin.NewCategoryService,
+    // 服务
+    NewTempServer,
+)
+```
+
+### 基础依赖集
+- 数据层依赖
+- 仓储层依赖
+- 领域服务依赖
+- 内部接口依赖
+
+示例：
+```go
+var BaseProviderSet = wire.NewSet(
+    //数据层
+    data.NewTemplateRepository,
+    data.NewCategoryRepository,
+    // 仓储层
+    repository.NewTemplateRepository,
+    repository.NewCategoryRepository,
+    // 领域服务
+    service.NewTemplateService,
+    service.NewCategoryService,
+    // 内部接口
+    templateapi.NewTemplateService,
+)
+```
+
+## 依赖注入规范
+
+### 构造函数规范
+- 使用New前缀
+- 返回接口类型
+- 参数使用接口
+- 添加错误处理
+
+示例：
+```go
+func NewTemplateService(
+    templateRepo repository.TemplateRepository,
+    categoryRepo repository.CategoryRepository,
+) *TemplateService {
+    return &TemplateService{
+        templateRepo: templateRepo,
+        categoryRepo: categoryRepo,
+    }
+}
+```
+
+### 接口定义规范
+- 定义在领域层
+- 使用接口类型
+- 方法要具体
+- 添加注释说明
+
+### 实现类规范
+- 实现接口方法
+- 处理依赖注入
+- 添加错误处理
+- 实现日志记录
+
+## 模块化规范
+
+### 模块划分
+- 按功能划分
+- 清晰的边界
+- 独立的依赖
+- 完整的接口
+
+### 模块依赖
+- 通过接口通信
+- 避免循环依赖
+- 控制依赖方向
+- 使用依赖注入
+
+## 通用规范
+
+### 错误处理
+- 使用统一错误
+- 处理依赖错误
+- 记录错误日志
+- 返回适当错误
+
+### 日志规范
+- 记录依赖注入
+- 记录初始化过程
+- 记录错误情况
+- 使用结构化日志
+
+### 测试规范
+- 单元测试覆盖
+- 模拟依赖对象
+- 测试错误情况
+- 验证依赖关系
+
+### 性能优化
+- 控制依赖数量
+- 优化初始化过程
+- 使用懒加载
+- 实现缓存策略

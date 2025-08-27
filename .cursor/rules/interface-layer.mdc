@@ -1,0 +1,159 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 接口层规范指南
+
+## API接口规范 (API)
+
+### 接口定义
+- 使用接口类型
+- 定义清晰方法
+- 添加方法注释
+- 返回统一格式
+
+示例：
+```go
+type ITemplateService interface {
+    // ValidateContent 验证模板内容
+    ValidateContent(ctx context.Context, templateID string, content map[string]interface{}) *herrors.HError
+    GetById(ctx context.Context, templateID string) (*model.Template, *herrors.HError)
+    // Exists 检查模板是否存在
+    Exists(ctx context.Context, templateID string) (bool, *herrors.HError)
+}
+```
+
+### 接口实现
+- 依赖领域服务
+- 实现接口方法
+- 处理错误返回
+- 添加日志记录
+
+## 管理接口规范 (Admin)
+
+### 服务定义
+- 依赖命令处理器
+- 依赖查询处理器
+- 实现权限控制
+- 添加操作日志
+
+示例：
+```go
+type TemplateService struct {
+    th *queryhandler.TemplateQueryHandler
+    tc *commandhandler.TemplateCommandHandler
+    ef *casbin.Enforcer
+}
+```
+
+### 路由注册
+- 使用路由分组
+- 添加中间件
+- 实现权限控制
+- 记录操作日志
+
+示例：
+```go
+func (ts *TemplateService) RegisterRouter(rg *route.RouterGroup, t token.IToken) {
+    g := rg.Group("/v1/template/center", jwt.Handler(t))
+    {
+        g.POST("", oplog.Record(oplog.LogOption{
+            IncludeBody: true,
+            Module:      "模板管理",
+            Action:      "新建",
+        }), hserver.NewHandlerFu[command.CreateTemplateCommand](mdc:ts.CreateTemplate))
+        // ... 其他路由
+    }
+}
+```
+
+## API文档规范
+
+### Swagger注释
+- 添加接口描述
+- 定义请求参数
+- 定义响应格式
+- 添加错误说明
+
+示例：
+```go
+// CreateTemplate 创建模板
+// @Summary 创建模板
+// @Description 创建新模板
+// @Tags 模板管理
+// @ID CreateCenterTemplate
+// @Accept application/json
+// @Produce application/json
+// @Param Authorization header string true "Bearer token"
+// @Param req body command.CreateTemplateCommand true "模板信息"
+// @Success 200 {object} base_info.Success{} "创建成功"
+// @Failure 400 {object} base_info.Swagger400Resp "参数错误"
+// @Failure 401 {object} base_info.Swagger401Resp "未授权"
+// @Failure 500 {object} base_info.Swagger500Resp "服务器内部错误"
+// @Router/v1/template/center [post]
+```
+
+### 响应格式
+- 使用统一响应
+- 处理错误情况
+- 添加数据包装
+- 支持分页格式
+
+示例：
+```go
+func (ts *TemplateService) GetTemplateList(ctx context.Context, req *queries.GetTemplateListReq) *hserver.ResponseResult {
+    res := hserver.DefaultResponseResult()
+    data, total, err := ts.th.HandleGetTemplateList(ctx, req)
+    if herrors.HaveError(err) {
+        return res.WithError(err)
+    }
+    return res.WithData(models.NewPageRes(total, data))
+}
+```
+
+## 中间件规范
+
+### 认证中间件
+- 实现JWT认证
+- 处理token验证
+- 添加用户信息
+- 处理过期情况
+
+### 权限中间件
+- 实现RBAC控制
+- 检查用户权限
+- 处理权限验证
+- 记录权限日志
+
+### 日志中间件
+- 记录操作日志
+- 包含请求信息
+- 记录响应结果
+- 处理错误情况
+
+## 通用规范
+
+### 错误处理
+- 使用统一错误
+- 处理业务错误
+- 处理系统错误
+- 返回友好提示
+
+### 参数验证
+- 使用绑定标签
+- 实现参数校验
+- 处理验证错误
+- 返回验证信息
+
+### 安全规范
+- 实现认证机制
+- 实现权限控制
+- 防止SQL注入
+- 防止XSS攻击
+
+### 性能优化
+- 使用连接池
+- 实现缓存策略
+- 控制响应大小
+- 优化查询性能

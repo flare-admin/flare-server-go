@@ -1,0 +1,268 @@
+ServerBusy: El servidor está ocupado
+Success: Éxito
+GetUserProfileErr: Error al obtener la información del usuario
+UserNotFind: Usuario no encontrado
+StatusInvalidParam: Error de parámetros
+tokenEmpty: El token no puede estar vacío, por favor, inicia sesión nuevamente
+tokenVerifyFail: Token inválido, por favor, inicia sesión nuevamente
+RPC_CALL_ERROR: Error en la llamada al servicio
+UNKNOWN: Error desconocido
+PLEASE_DO_NOT_RESUBMIT: No envíes de nuevo
+isNotAdminAccount: No es una cuenta de administrador
+STATUS_INTERNAL_SERVER_ERROR: Error interno del servidor
+PARAMETER_ERROR: Error en los parámetros
+sqlInjectionDetected: Inyección SQL detectada
+
+# General
+QUERY_FAIL: Error en la consulta
+CREATE_FAIL: Error al crear
+UPDATE_FAIL: Error al actualizar
+DELETE_FAIL: Error al eliminar
+PARAMETER_TRANSFER_FAIL: Error en la conversión de parámetros
+RESULT_TRANSFER_FAIL: Error en la conversión de resultados
+
+# Autenticación
+PasswordsDoNotMatch: Las contraseñas no coinciden
+IncorrectAccountOrPassword: Cuenta o contraseña incorrectos
+IncorrectVerificationCode: Código de verificación incorrecto
+AccountAlreadyExists: La cuenta ya existe
+ErrorGetTokenError: Error al generar el token
+OldPasswordFail: La contraseña antigua es incorrecta
+VerifiedError: Error en la verificación de identidad
+IDCardFailed: Número de identificación incorrecto
+RealNameApplicationFailed: Error en la solicitud de verificación de identidad
+TheUserHasCompletedRealNameAuthentication: El usuario ya ha completado la verificación de identidad
+TooManyRegistrationsRorTheSameIP: Demasiados registros desde la misma IP
+TooManyRealNameRorTheSameIP: Demasiadas verificaciones de identidad desde la misma IP
+VaptchaVerificationFailed: Por favor, completa la verificación primero
+PayPasswordFailed: Contraseña de pago incorrecta
+IDNumberHasBeenUsed: El número de identificación ya ha sido utilizado
+UserProhibitedFromLoggingIn: El usuario está prohibido de iniciar sesión
+
+# Anuncios
+AddAnnouncementFail: Error al agregar el anuncio
+EditAnnouncementFail: Error al editar el anuncio
+DeleteAnnouncementFail: Error al eliminar el anuncio
+GetAnnouncementFail: Error al obtener el anuncio
+
+# Solicitudes
+HandleMaterialApplication: Error al manejar la solicitud de material
+AddMaterialApplication: Error al agregar la solicitud de material
+GetMaterialApplicationFail: Error al obtener la solicitud de material
+NotMeetingApplicationRequirements: No cumple con los requisitos para la solicitud
+TheNumberOfDirectInviteesDidNotReach60: El número de invitaciones directas no alcanzó 60
+
+PendingApplications: Hay solicitudes en proceso
+ApplicationApproved: Solicitud aprobada
+
+# Solicitud de líder de grupo
+HandleHeadOfGroupApplication: Error al manejar la solicitud de líder de grupo
+AddHeadOfGroupApplication: Error al agregar la solicitud de líder de grupo
+GetHeadOfGroupApplicationFail: Error al obtener la solicitud de líder de grupo
+
+# Tarjeta bancaria
+ChickBankCardField: Error en la validación del número de tarjeta
+BankCardField: Número de tarjeta incorrecto
+AddBankField: Error al agregar tarjeta bancaria
+SetDefaultBankCardField: Error al establecer la tarjeta bancaria predeterminada
+DeleteBankCardField: Error al eliminar la tarjeta bancaria
+GetBankListField: Error al obtener la lista de tarjetas bancarias
+TheCardNumberHasBeenBound: El número de tarjeta ya está vinculado
+UpToThreeBankCardsCanBeBound: Solo se pueden vincular hasta tres tarjetas bancarias
+UserIsNotRealName: El usuario no está verificado
+GetBankCardField: Error al obtener la tarjeta bancaria
+
+# Pedidos
+CreateOrderFailed: Error al crear el pedido
+EditOrderFailed: Error al editar el pedido
+GetOrderFailed: Error al obtener el pedido
+AmountIsEmpty: El monto del pedido no puede estar vacío
+AmountFailed: El formato del monto es incorrecto
+ProductIsNotAvailable: El producto no está disponible
+LessThanTheMinimumPurchaseAmount: Monto inferior al mínimo de compra
+GreaterThanTheMaximumPurchaseAmount: Monto superior al máximo de compra
+ItemSoldOut: El producto está agotado
+TheProductHasNotYetBeenSold: El producto aún no está a la venta
+TheOrderingUserIsInconsistent2ithTheCurrentUser: El usuario que realiza el pedido no coincide con el usuario actual
+OrderOotCompleted: El pedido no está completado
+TheOrderDoesNotSupportRedemption: El pedido no admite canje
+RedemptionFailed: Error al canjear
+TheSharesHeldDoNotMeetRheUpgradeConditions: Las acciones poseídas no cumplen con los requisitos para la actualización
+GetUserAccessFailed: Error al obtener los activos del usuario
+YouNeedToActivateYourIdentityBeforePurchasing: Debes activar tu identidad antes de realizar la compra
+ThePaymentAmountIsLessThanTheMinimumLimitOfTheChannel: El monto del pago es menor que el límite mínimo del canal
+ThePaymentAmountIsGreaterTheMaximumLimitOfTheChannel: El monto del pago es mayor que el límite máximo del canal
+TheCurrentLevelDoesDotDeedToBeUpgraded: El nivel actual no necesita ser actualizado
+TopUpFail: Error al recargar
+NeedToBindBankCard: Debes vincular tu tarjeta bancaria antes de realizar la compra
+# Productos
+AddProductFail: Error al agregar producto
+EditProductFail: Error al editar producto
+GetProductFail: Error al obtener producto
+ProductNotExist: El producto no existe
+AddProductClassFail: Error al agregar categoría de producto
+GetProductClassFail: Error al obtener la categoría de producto
+EditProductClassFail: Error al editar la categoría de producto
+DeleteProductFail: Error al eliminar producto
+
+# RBAC
+RbacPhoneOrNameIsExistError: Error al agregar usuario, el número de teléfono del usuario ya existe
+RbacMenuNameIsExistError: El nombre del menú ya existe
+RbacRoleNameIsExistError: El nombre del rol ya existe
+AddMenuError: Error al agregar menú
+DeleteMenuError: Error al eliminar menú
+EditMenuError: Error al editar menú
+GetMenuError: Error al obtener el menú
+NameRealNameInconsistentErr: El nombre o icono está vacío
+AddUserError: Error al agregar usuario
+UpdatePasswordError: Error al actualizar contraseña
+
+# Firma
+GetSignInFail: Error al obtener registros de firma
+SignInCompletedToday: Ya has completado la firma hoy
+
+# Configuración del sistema
+SysConfigurationTypeIsExist: El tipo de configuración ya existe
+CreateConfigurationFiled: Error al crear configuración del sistema
+UpdateConfigurationFiled: Error al modificar configuración del sistema
+SysConfigurationNotExist: La configuración no existe
+GetConfigurationFile: Error al obtener configuración del sistema
+
+# Usuario
+AddUserFailed: Error al agregar usuario
+DelUserFailed: Error al eliminar usuario
+EditUserFailed: Error al editar usuario
+GetUserFailed: Error al obtener usuario
+UserNotFond: Usuario no encontrado
+InvitationCodeFailed: Código de invitación inválido
+PersonIdIsInvalid: El número de identificación es incorrecto
+GetUserNumberOfInvitations: Error al obtener número de invitaciones del usuario
+GetUserApplicationFailed: Error al obtener solicitud del usuario
+RealApplicationHasBeenProcessed: La verificación de identidad ya ha sido procesada
+RealApplicationProcessedFail: Error en el procesamiento de la verificación de identidad
+PasswordGenerateFailed: Error al generar la contraseña
+TheUserJasNotCompletedRealNameAuthentication: El usuario no ha completado la autenticación de nombre real
+
+# Billetera
+OpenWalletError: Error al abrir la billetera
+GetUserWalletError: Error al obtener billetera
+ChangeWalletStatusError: Error al cambiar el estado de la billetera
+PleaseDoNotResubmit: No envíes de nuevo
+WithdrawalPermissionIsNotEnabled: No tienes permiso para retirar
+AmountCanNotBetLessThan: El monto no puede ser menor que el mínimo
+TheAmountIsGreaterThanTheMaximumLimit: El monto es mayor que el límite máximo
+WithdrawalField: Error en la solicitud de retiro
+WithdrawalAmountField: Error en el monto solicitado para retiro
+TodayWithdrawalNumUsed: El número de retiros hoy ha sido alcanzado
+InsufficientAccountBalance: Saldo insuficiente
+GetAccountRequestLogField: Error al obtener registros de solicitud
+AccountWalletFrozen: Billetera congelada
+HandleApplicationField: Error al manejar solicitud
+ApplicationHasBeenProcessed: La solicitud ya ha sido procesada
+AccountUnavailable: Cuenta no disponible
+HdbField: Error en la transacción
+GetHdbLogField: Error al obtener registros de transacción
+GetWalletLockFail: Error al obtener el bloqueo de billetera
+WithdrawalsAreSuspendedDuringSystemUpgrade: Los retiros están suspendidos durante la actualización del sistema
+TheTransferInAndOutCannotBeToTheSameAccount: La transferencia de entrada y salida no puede ser a la misma cuenta
+AmountCannotBeZero: El monto no puede ser cero
+InvalidAmountFormat: Formato de monto inválido
+TheAccountDoesNotSupportTransfers: La cuenta no soporta transferencias
+InsufficientCashWithdrawalAmount: No hay suficiente saldo para retiro
+AccountsAndAccountsThatAreNotBoundToTheCurrentUser: Cuentas no vinculadas al usuario actual
+
+# Estadísticas
+GetAppTeamStatistics: Error al obtener estadísticas del equipo
+
+# Tareas de usuario
+AddUserTaskFail: Error al agregar tarea
+EditUserTaskFail: Error al editar tarea
+GetUserTaskFail: Error al obtener tarea
+ReceiveTaskRewards: Error al recibir recompensas de tareas
+GetUserTaskLockFail: Error al obtener bloqueo de tarea de usuario
+MissionRewardsHaveBeenReceivedFail: Las recompensas de misión ya han sido recibidas TheTaskDoesNot
+
+# Gestión de Tareas
+AddTaskFail: Error al agregar tarea
+EditTaskFail: Error al editar tarea
+GetTaskFail: Error al obtener tarea
+DeleteTaskFail: Error al eliminar tarea
+AddTaskCategoryFail: Error al agregar categoría de tarea
+EditTaskCategoryFail: Error al editar categoría de tarea
+GetTaskCategoryFail: Error al obtener categoría de tarea
+DeleteTaskCategoryFail: Error al eliminar categoría de tarea
+GetTaskProgressFail: Error al obtener progreso de tarea
+UpdateTaskProgressFail: Error al actualizar progreso de tarea
+GetTaskRewardsFail: Error al obtener recompensas de tarea
+UpdateTaskRewardsFail: Error al actualizar recompensas de tarea
+GetTaskConditionsFail: Error al obtener condiciones de tarea
+UpdateTaskConditionsFail: Error al actualizar condiciones de tarea
+
+# Negocio de Tareas
+TaskNotFound: Tarea no encontrada
+TaskAlreadyExists: La tarea ya existe
+TaskDisabled: Tarea deshabilitada
+TaskNotStarted: La tarea no ha comenzado
+TaskExpired: La tarea ha expirado
+TaskNotCompleted: Tarea no completada
+TaskTypeError: Tipo de tarea inválido
+TaskConditionError: Condición de tarea inválida
+TaskRewardError: Recompensa de tarea inválida
+InvalidTaskTime: Tiempo de tarea inválido
+TaskAlreadyCompleted: Tarea ya completada
+
+# Categoría de Tareas
+CategoryNotFound: Categoría no encontrada
+CategoryDisabled: Categoría deshabilitada
+CategoryHasActiveTasks: La categoría tiene tareas activas
+CategoryTypeError: Tipo de categoría inválido
+DuplicateCategoryName: Nombre de categoría duplicado
+
+# Recompensas de Tareas
+RewardTypeError: Tipo de recompensa inválido
+RewardClaimFailed: Error al reclamar recompensa
+RewardAlreadyClaimed: Recompensa ya reclamada
+InvalidRewardAmount: Monto de recompensa inválido
+InvalidWalletType: Tipo de billetera inválido
+
+# Progreso de Tareas
+TaskProgressError: Error en progreso de tarea
+InvalidProgressType: Tipo de progreso inválido
+ProgressTypeRequired: Se requiere tipo de progreso
+InvalidProgressValue: Valor de progreso inválido
+
+# Reinicio de Tareas
+ResetTypeError: Tipo de reinicio inválido
+InvalidResetDays: Días de reinicio inválidos
+
+# Módulo de registro
+# Errores de gestión de registro
+AddSignConfigFail: Error al agregar configuración de registro
+EditSignConfigFail: Error al editar configuración de registro
+GetSignConfigFail: Error al obtener configuración de registro
+DeleteSignConfigFail: Error al eliminar configuración de registro
+GetSignRecordFail: Error al obtener registro
+UpdateSignRecordFail: Error al actualizar registro
+CreateSignConfigFailed: Error al crear configuración de registro
+UpdateSignConfigFailed: Error al actualizar configuración de registro
+DeleteSignConfigFailed: Error al eliminar configuración de registro
+GetSignConfigListFailed: Error al obtener lista de configuraciones de registro
+
+# Errores de negocio de registro
+SignInFail: Error al registrarse
+AlreadySignedToday: Ya registrado hoy
+DailyLimitExceeded: Límite diario de registros excedido
+SignConfigNotFound: Configuración de registro no encontrada
+SignConfigDisabled: Configuración de registro deshabilitada
+InvalidPeriodType: Tipo de período inválido
+InvalidContinuousType: Tipo de continuidad inválido
+InvalidPeriodDays: Días de período inválidos
+SignRecordNotFound: Registro no encontrado
+SignInFailed: Operación de registro fallida
+
+# Errores de estadísticas de registro
+GetSignCountFail: Error al obtener conteo de registros
+GetPeriodSignsFail: Error al obtener registros del período
+GetContinuousSignFail: Error al obtener registros continuos
+GetSignInfoFailed: Error al obtener información de registro
+GetSignStatisticsFailed: Error al obtener estadísticas de registro

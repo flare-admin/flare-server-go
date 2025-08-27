@@ -1,0 +1,114 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 基础设施层规范指南
+
+## 实体层规范 (Entity)
+
+### 实体定义
+- 实体必须嵌入 `database.BaseModel`
+- 必须实现 `TableName()` 方法
+- 必须实现 `GetPrimaryKey()` 方法
+- 字段必须包含 GORM 标签
+- 必须添加字段注释
+
+示例：
+```go
+type Template struct {
+    database.BaseModel
+    ID          string `gorm:"primarykey"`
+    Code        string `gorm:"size:100;not null;uniqueIndex;comment:模板编码"`
+    Name        string `gorm:"size:100;not null;comment:模板名称"`
+    // ... 其他字段
+}
+```
+
+### 实体命名规范
+- 使用大驼峰命名法
+- 表名使用小写复数形式
+- 主键统一使用 `ID` 字段
+- 状态字段使用 `Status` 命名
+
+## 数据访问层规范 (Data)
+
+### 仓储实现
+- 继承 `baserepo.BaseRepo`
+- 实现数据同步
+- 处理数据库错误
+- 使用事务管理
+
+示例：
+```go
+type templateRepository struct {
+    *baserepo.BaseRepo[entity.Template, string]
+}
+```
+
+### 数据操作规范
+- 使用 GORM 进行数据库操作
+- 实现软删除
+- 添加必要的索引
+- 处理并发问题
+
+### 查询方法规范
+- 方法名以 `Find` 开头
+- 返回指针类型
+- 处理空结果
+- 添加错误处理
+
+## 仓储层规范 (Repository)
+
+### 接口定义
+- 继承 `baserepo.IBaseRepo`
+- 定义领域特定的方法
+- 使用泛型参数
+- 添加方法注释
+
+示例：
+```go
+type ITemplateRepository interface {
+    baserepo.IBaseRepo[entity.Template, string]
+    FindByCode(ctx context.Context, code string) (*entity.Template, error)
+    // ... 其他方法
+}
+```
+
+### 仓储实现规范
+- 实现领域模型转换
+- 处理 JSON 序列化
+- 实现数据验证
+- 添加错误处理
+
+### 模型转换规范
+- 实现 `toModel` 方法
+- 实现 `toModels` 方法
+- 处理空值情况
+- 处理 JSON 解析错误
+
+## 通用规范
+
+### 错误处理
+- 使用统一的错误类型
+- 记录错误日志
+- 处理数据库错误
+- 实现优雅降级
+
+### 性能优化
+- 使用适当的索引
+- 优化查询语句
+- 实现缓存策略
+- 控制查询范围
+
+### 代码组织
+- 按功能模块划分
+- 清晰的目录结构
+- 统一的命名规范
+- 完整的注释文档
+
+### 测试规范
+- 单元测试覆盖
+- 集成测试
+- 性能测试
+- 并发测试

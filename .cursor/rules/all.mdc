@@ -1,0 +1,658 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 项目技术栈规范
+[项目底子]
+框架 = Go + Hertz
+数据库 = PostgreSQL + GORM
+缓存 = Redis
+API = RESTful
+基础包 = github.com/flare-admin/flare-server-go
+
+# 代码规范
+[代码规矩]
+项目结构 = 模块化 + DDD + CQRS
+错误处理 = 统一错误处理中间件
+日志 = 结构化日志
+基础包引用 = github.com/flare-admin/flare-server-go
+
+# AI 开发规则
+[AI规则]
+代码必须包含注释
+接口必须有文档
+错误处理必须完整
+性能优化必须考虑
+基础包引用必须正确
+
+# 目录结构规范
+[目录结构]
+├── application/      # 应用服务层（用例、CQRS命令/查询处理器）
+│   ├── handlers/     # 处理器（命令处理器和查询处理器）
+│   ├── command/      # 命令对象（CQRS中的Command）
+│   ├── queries/      # 查询对象（CQRS中的Query）
+│   └── dto/          # 数据传输对象
+├── domain/           # 领域层（实体、聚合、值对象、领域服务、仓储接口）
+│   ├── model/        # 领域模型
+│   ├── service/      # 领域服务
+│   ├── repository/   # 仓储接口
+│   ├── events/       # 领域事件
+│   └── err/          # 领域错误
+├── infrastructure/   # 基础设施层（数据库、缓存、第三方服务实现）
+│   ├── persistence/  # 持久化实现
+│   │   ├── data/     # 数据访问实现
+│   │   └── entity/   # 数据库实体
+│   └── repository/   # 仓储实现
+├── interfaces/       # 接口层（API、RPC、Web、DTO、参数校验、路由等）
+│   ├── admin/        # 管理后台接口
+│   └── app/          # 应用接口
+├── wire.go           # 依赖注入
+└── README.md         # 文档
+
+# 模块化规范
+[模块化规范]
+1. 每个模块独立封装
+2. 模块间通过接口通信
+3. 模块内部实现 DDD
+4. 模块内部实现 CQRS
+5. 模块间依赖通过依赖注入
+6. 模块必须引用基础包 github.com/flare-admin/flare-server-go
+
+# 领域驱动设计规范
+[DDD规范]
+1. 使用领域模型
+2. 实现仓储模式
+3. 使用值对象
+4. 实现领域事件
+5. 使用领域服务
+6. 使用基础包中的领域工具
+
+# 领域层规范
+[Domain规范]
+1. 领域模型规范
+   - 命名规范: 以 Model 结尾
+   - 字段定义: 使用基本类型
+   - 字段注释: 使用 comment 标签
+   - 字段验证: 使用 validate 标签
+   - 字段标签: 使用 json 标签
+
+2. 领域服务规范
+   - 命名规范: 以 Service 结尾
+   - 接口定义: 使用 interface
+   - 方法命名: 使用动词开头
+   - 错误处理: 返回 *herrors.HError
+   - 事务处理: 使用事务管理器
+   - 方法签名规范:
+     * 必须包含 context.Context 参数
+     * 必须返回 *herrors.HError
+     * 业务参数使用基本类型
+     * 返回值使用领域模型
+   - 错误处理规范:
+     * 使用 herrors.NewBusinessError 创建业务错误
+     * 使用 herrors.Wrap 包装错误
+     * 使用 herrors.WithCode 添加错误码
+     * 使用 herrors.WithMessage 添加错误信息
+     * 使用 herrors.WithData 添加错误数据
+
+3. 仓储接口规范
+   - 命名规范: 以 Repository 结尾
+   - 接口定义: 使用 interface
+   - 方法命名: 使用动词开头
+   - 错误处理: 返回 *herrors.HError
+   - 事务处理: 使用事务管理器
+   - 方法签名规范:
+     * 必须包含 context.Context 参数
+     * 必须返回 *herrors.HError
+     * 查询方法返回领域模型
+     * 列表查询返回分页结果
+
+4. 领域事件规范
+   - 命名规范: 以 Event 结尾
+   - 事件定义: 使用 struct
+   - 事件发布: 使用事件总线
+   - 事件处理: 使用事件处理器
+   - 事件存储: 使用事件存储
+
+5. 领域错误规范
+   - 错误定义: 使用 herrors 包
+   - 错误类型: 使用 herrors.HError
+   - 错误码: 使用常量定义
+   - 错误信息: 使用常量定义
+   - 错误包装: 使用 herrors.Wrap
+
+# 基础设施层规范
+[Infrastructure规范]
+1. 持久化实现规范：
+   - 数据访问实现规范：
+     * 命名规范：以Repository结尾
+     * 必须继承baserepo.BaseRepo
+     * 构造函数以New开头
+     * 必须实现数据库表自动迁移
+     * 必须处理数据库错误
+   - 数据库实体规范：
+     * 命名规范：以Entity结尾
+     * 必须嵌入database.BaseModel
+     * 必须实现TableName方法
+     * 必须实现GetPrimaryKey方法
+     * 必须提供ToModel和FromModel方法
+     * 字段必须包含gorm标签和注释
+
+2. 仓储实现规范：
+   - 接口规范：
+     * 必须继承baserepo.IBaseRepo
+     * 必须包含基础仓储接口
+     * 必须包含其他依赖服务
+   - 实现规范：
+     * 命名规范：以Repository结尾
+     * 构造函数以New开头
+     * 必须实现领域仓储接口
+     * 必须处理事务
+     * 必须处理错误转换
+     * 必须处理数据转换
+
+3. 数据转换规范：
+   - 实体转模型：
+     * 必须实现ToModel方法
+     * 必须处理所有字段映射
+     * 必须处理时间转换
+     * 必须处理租户ID
+   - 模型转实体：
+     * 必须实现FromModel方法
+     * 必须处理所有字段映射
+     * 必须处理时间转换
+     * 必须处理租户ID
+
+4. 事务处理规范：
+   - 事务方法规范：
+     * 使用InTx方法
+     * 必须处理事务错误
+     * 必须处理回滚
+   - 事务范围规范：
+     * 必须包含所有相关操作
+     * 必须处理并发问题
+     * 必须处理死锁
+
+5. 错误处理规范：
+   - 错误转换规范：
+     * 必须转换为领域错误
+     * 必须包含错误上下文
+     * 必须记录错误日志
+   - 错误处理规范：
+     * 必须处理数据库错误
+     * 必须处理事务错误
+     * 必须处理并发错误
+
+# 接口层规范
+[Interface规范]
+1. 接口分类规范：
+   - 管理后台接口：
+     * 放在 admin 目录下
+     * 必须包含权限控制
+     * 必须包含操作日志
+     * 必须包含参数验证
+   - 应用接口：
+     * 放在 app 目录下
+     * 必须包含用户认证
+     * 必须包含参数验证
+     * 必须处理用户上下文
+
+2. 服务结构规范：
+   - 命名规范：
+     * 以Service结尾
+     * 例如：UserService
+   - 依赖规范：
+     * 必须包含命令处理器
+     * 必须包含查询处理器
+     * 必须包含认证服务
+     * 必须包含权限服务（管理后台）
+
+3. 路由注册规范：
+   - 路由分组规范：
+     * 使用版本号前缀
+     * 使用模块名分组
+     * 必须包含认证中间件
+     * 必须包含权限中间件（管理后台）
+   - 路由命名规范：
+     * 使用RESTful风格
+     * 使用小写字母
+     * 使用下划线分隔
+     * 必须包含注释说明
+
+4. 接口文档规范：
+   - 注释规范：
+     * 必须包含@Summary
+     * 必须包含@Description
+     * 必须包含@Tags
+     * 必须包含@ID
+     * 必须包含@Accept
+     * 必须包含@Produce
+     * 必须包含@Param
+     * 必须包含@Success
+     * 必须包含@Failure
+     * 必须包含@Router
+   - 参数规范：
+     * 必须包含参数说明
+     * 必须包含参数类型
+     * 必须包含是否必须
+     * 必须包含示例值
+
+5. 响应处理规范：
+   - 响应格式规范：
+     * 使用统一响应格式
+     * 必须包含状态码
+     * 必须包含消息
+     * 必须包含数据
+   - 错误处理规范：
+     * 使用统一错误处理
+     * 必须包含错误码
+     * 必须包含错误信息
+     * 必须记录错误日志
+
+6. 参数验证规范：
+   - 请求参数规范：
+     * 必须使用结构体
+     * 必须包含json标签
+     * 必须包含验证标签
+     * 必须包含注释说明
+   - 路径参数规范：
+     * 必须使用结构体
+     * 必须包含uri标签
+     * 必须包含验证标签
+     * 必须包含注释说明
+
+7. 上下文处理规范：
+   - 用户上下文：
+     * 必须从token获取
+     * 必须包含用户ID
+     * 必须包含租户ID
+     * 必须包含权限信息
+   - 请求上下文：
+     * 必须包含请求ID
+     * 必须包含请求时间
+     * 必须包含请求IP
+     * 必须包含请求参数
+
+8. 中间件规范：
+   - 认证中间件：
+     * 必须验证token
+     * 必须解析用户信息
+     * 必须设置用户上下文
+   - 权限中间件：
+     * 必须验证权限
+     * 必须记录操作日志
+     * 必须处理权限错误
+   - 日志中间件：
+     * 必须记录请求日志
+     * 必须记录响应日志
+     * 必须记录错误日志
+
+# CQRS规范
+[CQRS规范]
+1. 命令和查询分离
+2. 使用命令处理器
+3. 使用查询处理器
+4. 实现事件溯源
+5. 使用事件总线
+6. 使用基础包中的 CQRS 工具
+
+# Application层规范
+[Application规范]
+1. 命令处理器规范
+   - 命名规范: 以 Handler 结尾
+   - 依赖注入: 通过构造函数注入
+   - 错误处理: 返回 *herrors.HError
+   - 日志记录: 使用结构化日志
+   - 事务处理: 使用事务管理器
+   - 方法签名规范:
+     * 必须包含 context.Context 参数
+     * 必须返回 *herrors.HError
+     * 命令参数使用命令对象
+     * 不返回业务数据
+   - 错误处理规范:
+     * 使用 herrors.Wrap 包装领域服务错误
+     * 使用 herrors.WithCode 添加错误码
+     * 使用 herrors.WithMessage 添加错误信息
+     * 使用 herrors.WithData 添加错误数据
+     * 记录错误日志
+
+2. 查询处理器规范
+   - 命名规范: 以 QueryHandler 结尾
+   - 依赖注入: 通过构造函数注入
+   - 错误处理: 返回 *herrors.HError
+   - 缓存处理: 使用缓存服务
+   - 分页处理: 使用分页对象
+   - 方法签名规范:
+     * 必须包含 context.Context 参数
+     * 必须返回 *herrors.HError
+     * 查询参数使用查询对象
+     * 返回值使用 DTO 对象
+   - 错误处理规范:
+     * 使用 herrors.Wrap 包装仓储错误
+     * 使用 herrors.WithCode 添加错误码
+     * 使用 herrors.WithMessage 添加错误信息
+     * 使用 herrors.WithData 添加错误数据
+     * 记录错误日志
+
+3. 命令对象规范
+   - 命名规范: 以 Command 结尾
+   - 字段验证: 使用 binding 标签
+   - 字段注释: 使用 comment 标签
+   - 字段类型: 使用基本类型
+   - 字段命名: 使用驼峰命名
+
+4. 查询对象规范
+   - 命名规范: 以 Query 结尾
+   - 字段验证: 使用 binding 标签
+   - 字段注释: 使用 comment 标签
+   - 字段类型: 使用基本类型
+   - 字段命名: 使用驼峰命名
+
+5. DTO对象规范
+   - 命名规范: 以 DTO 结尾
+   - 字段注释: 使用 comment 标签
+   - 字段类型: 使用基本类型
+   - 字段命名: 使用驼峰命名
+   - 转换方法: 实现 ToDTO 方法
+
+6. 错误处理规范
+   - 错误定义: 使用 herrors 包
+   - 错误包装: 使用 herrors.Wrap
+   - 错误传递: 使用 *herrors.HError
+   - 错误日志: 使用结构化日志
+   - 错误响应: 使用统一响应格式
+   - 错误处理流程:
+     * 捕获领域服务错误
+     * 包装错误信息
+     * 添加错误上下文
+     * 记录错误日志
+     * 返回统一错误格式
+
+7. 缓存处理规范
+   - 缓存键: 使用 cache.NewKey
+   - 缓存操作: 使用 cache.Service
+   - 缓存过期: 使用 cache.DefaultExpiration
+   - 缓存删除: 使用 cache.Service.Delete
+   - 缓存更新: 使用 cache.Service.Set
+
+8. 日志处理规范
+   - 日志级别: 使用 log.Level
+   - 日志字段: 使用 log.Field
+   - 日志上下文: 使用 log.Context
+   - 日志错误: 使用 log.Err
+   - 日志追踪: 使用 log.Trace
+
+# 数据库规范
+[数据库规范]
+1. 使用 GORM 进行数据库操作
+2. 实现数据库迁移
+3. 使用事务管理
+4. 实现软删除
+5. 使用数据库索引
+6. 使用基础包中的数据库工具
+
+# 数据库实体规范
+[数据库实体规范]
+1. 所有实体必须嵌入 database.BaseModel
+2. 所有实体必须实现 TableName() 方法
+3. 所有实体必须实现 GetPrimaryKey() 方法
+4. 实体字段命名规范：
+   - 使用驼峰命名
+   - 必须包含注释
+   - 必须指定类型和约束
+5. 时间字段统一使用 int64 类型存储秒级时间戳
+6. 状态字段必须使用 int 类型并添加注释说明状态值
+7. JSON 字段使用 string 类型存储，并添加 type:json 标签
+8. 索引字段必须添加 index 标签
+9. 唯一索引字段必须添加 uniqueIndex 标签
+10. 必填字段必须添加 not null 标签
+
+# 仓储接口规范
+[仓储接口规范]
+1. 接口命名规范：
+   - 以 I 开头
+   - 以 Repository 结尾
+   - 例如：IDeclarationTemplateRepository
+2. 所有仓储接口必须继承 baserepo.IBaseRepo
+3. 泛型参数：
+   - 第一个参数为实体类型
+   - 第二个参数为主键类型
+4. 接口方法命名规范：
+   - Create：创建
+   - Update：更新
+   - Delete：删除
+   - FindByID：根据ID查询
+   - List：查询列表
+   - 其他查询方法以 FindBy 开头
+
+# 仓储实现规范
+[仓储实现规范]
+1. 实现命名规范：
+   - 去掉接口的 I 前缀
+   - 例如：DeclarationTemplateRepository
+2. 必须实现对应的仓储接口
+3. 必须包含私有字段 repo 用于存储基础仓储实例
+4. 构造函数命名规范：
+   - 以 New 开头
+   - 例如：NewDeclarationTemplateRepository
+5. 构造函数必须接收基础仓储实例作为参数
+6. 所有方法必须包含 context.Context 参数
+7. 必须处理 JSON 序列化和反序列化
+8. 必须处理错误并返回适当的错误信息
+9. 查询方法必须支持分页
+10. 必须实现数据库表自动迁移
+
+# 错误处理规范
+[错误处理规范]
+1. 错误定义规范
+   - 错误类型: 统一使用 herrors.HError
+   - 错误别名: 使用 herrors.Herr
+   - 错误创建:
+     * 业务错误: 使用 herrors.NewBusinessServerError
+     * 服务器错误: 使用 herrors.NewServerError
+     * 参数错误: 使用 herrors.NewParameterError
+     * HTTP错误: 使用对应的 NewXXXHError 函数
+   - 错误码使用:
+     * 500: 服务器内部错误
+     * 400: 参数错误
+     * 401: 认证错误
+     * 403: 权限错误
+     * 404: 资源不存在
+     * 409: 资源冲突
+   - 国际化规范:
+     * 错误消息必须使用国际化 key
+     * key 必须与 /apps/admin/configs/localize 和 /apps/app/configs/localize 目录下的国际化文件保持一致
+     * 国际化文件包括: zh.yaml, en.yaml, es.yaml, zh-Hant.yaml
+     * 错误 key 必须在这四个文件中都有对应的翻译
+     * 错误 key 命名规范:
+       - 通用错误: 使用通用前缀，如 QUERY_FAIL, CREATE_FAIL
+       - 模块错误: 使用模块前缀，如 UserNotFind, ProductNotExist
+       - 业务错误: 使用业务前缀，如 AccountAlreadyExists, InsufficientAccountBalance
+
+2. 错误处理规范
+   - 错误判断:
+     * 使用 herrors.IsNilError 判断错误是否为 nil
+     * 使用 herrors.IsHError 判断是否为 HError 类型
+     * 使用 herrors.TohError 转换为 HError 类型
+   - 错误包装:
+     * 使用 WithCode 添加错误码
+     * 使用 WithDefMsg 添加错误消息（使用国际化 key）
+     * 使用 WithReason 添加错误原因（使用国际化 key）
+     * 使用 WithBusinessError 添加业务错误
+   - 错误传递:
+     * 领域服务返回 *herrors.HError
+     * 应用层处理器返回 *herrors.HError
+     * 统一错误处理中间件处理错误响应
+
+3. 错误使用规范
+   - 业务错误:
+     * 使用 herrors.NewBusinessServerError 创建
+     * 传入国际化 key 作为错误原因
+     * 例如: herrors.NewBusinessServerError("UserNotFind")
+   - 服务器错误:
+     * 使用 herrors.NewServerError 创建
+     * 定义时传入国际化 key 作为错误原因
+     * 使用时传入具体错误
+     * 例如: herrors.NewServerError("QUERY_FAIL")(err)
+   - 参数错误:
+     * 使用 herrors.NewParameterError 创建
+     * 定义时传入国际化 key 作为错误原因
+     * 使用时传入具体错误
+     * 例如: herrors.NewParameterError("PARAMETER_ERROR")(err)
+   - 在github.com/flare-admin/flare-server-go/framework/pkg/hserver/herrors 包下定义了许多可直接使用的基础错误
+	BaseServerError           = New(DefaultServerErrorCode, "ServerError", "SERVER_ERROR")      // 服务器错误
+	BaseParameterError        = New(DefaultParameterError, "ParameterError", "PARAMETER_ERROR") // 参数错误
+	BaseFrequentRequestsError = NewBusinessServerError("BaseFrequentRequestsError")             // 请求过于频繁,请稍后再试
+	BaseTokenEmpty      = New(DefaultAuthError, "TokenEmpty", "TOKEN_EMPTY_ERROR")            // token 不存在
+	BaseTokenVerifyFail = New(DefaultAuthError, "TokenVerifyFail", "TOKEN_VERIFY_FAIL_ERROR") // token 失效
+	SystemMaintenance   = NewBusinessServerError("SystemMaintenance")                         //系统维护中
+	QueryFail           = NewServerError("QueryFail")                                         // 查询失败
+	CreateFail          = NewServerError("CreateFail")                                        // 创建失败
+	UpdateFail          = NewServerError("UpdateFail")                                        // 更新失败
+	DeleteFail          = NewServerError("DeleteFail")                                        // 删除失败
+	OperateFail         = NewServerError("OperateFail")                                       // 操作失败
+	NotFound            = NewServerError("NotFound")                                          // 未找到
+	DataIsExist         = NewBusinessServerError("DataIsExist")                               //数据已经存在
+	ErrRecordNotFount   = NewBusinessServerError("ErrRecordNotFount")                         //记录未找到
+	PleaseDoNotResubmit = NewBusinessServerError("PleaseDoNotResubmit")                       //请勿重复提交
+
+
+4. 错误响应规范
+   - 响应格式:
+     * code: 错误码
+     * reason: 错误原因（国际化 key）
+     * message: 错误消息（根据 key 翻译后的文本）
+     * business_error: 业务错误信息
+   - 错误码映射:
+     * 500: 服务器内部错误
+     * 400: 参数错误
+     * 401: 认证错误
+     * 403: 权限错误
+     * 404: 资源不存在
+     * 409: 资源冲突
+
+5. 错误日志规范
+   - 日志内容:
+     * 错误码
+     * 错误原因（国际化 key）
+     * 错误消息（翻译后的文本）
+     * 业务错误信息
+     * 错误堆栈
+   - 日志级别:
+     * ERROR: 服务器错误
+     * WARN: 业务错误
+     * INFO: 参数错误
+
+6. 错误处理流程
+   - 错误捕获:
+     * 使用 defer 和 recover 捕获 panic
+     * 使用 if err != nil 捕获错误
+   - 错误转换:
+     * 使用 herrors.TohError 转换为 HError
+     * 使用 herrors.NewErr 创建新错误
+   - 错误包装:
+     * 添加错误上下文
+     * 添加错误码
+     * 添加错误消息（使用国际化 key）
+   - 错误返回:
+     * 返回 *herrors.HError
+     * 使用统一错误处理中间件
+
+7. 错误处理最佳实践
+   - 错误判断:
+     * 使用 herrors.IsNilError 判断错误是否为 nil
+     * 避免直接使用 err != nil 判断
+   - 错误转换:
+     * 使用 herrors.TohError 转换错误
+     * 使用 herrors.NewErr 创建错误
+   - 错误包装:
+     * 使用 WithXXX 方法添加信息
+     * 保持错误链完整
+     * 确保使用国际化 key
+   - 错误返回:
+     * 统一返回 *herrors.HError
+     * 使用统一错误处理中间件
+
+8. 错误处理示例
+   ```go
+   // 业务错误
+   if user.Exists() {
+       return herrors.NewBusinessServerError("AccountAlreadyExists")
+   }
+
+   // 服务器错误
+   if err := db.Query(); err != nil {
+       return herrors.NewServerError("QUERY_FAIL")(err)
+   }
+
+   // 参数错误
+   if err := validate.Struct(req); err != nil {
+       return herrors.NewParameterError("PARAMETER_ERROR")(err)
+   }
+
+   // 错误包装
+   if err := service.Do(); err != nil {
+       return herrors.TohError(err).WithCode(500).WithDefMsg("STATUS_INTERNAL_SERVER_ERROR")
+   }
+   ```
+
+9. 国际化配置示例
+   ```yaml
+   # zh.yaml
+   QUERY_FAIL: "查询失败"
+   CREATE_FAIL: "创建失败"
+   UPDATE_FAIL: "更新失败"
+   DELETE_FAIL: "删除失败"
+   PARAMETER_ERROR: "参数错误"
+   STATUS_INTERNAL_SERVER_ERROR: "服务端错误"
+   AccountAlreadyExists: "账号已存在"
+   UserNotFind: "用户不存在"
+
+   # en.yaml
+   QUERY_FAIL: "Query failed"
+   CREATE_FAIL: "Create failed"
+   UPDATE_FAIL: "Update failed"
+   DELETE_FAIL: "Delete failed"
+   PARAMETER_ERROR: "Parameter error"
+   STATUS_INTERNAL_SERVER_ERROR: "Server error"
+   AccountAlreadyExists: "Account already exists"
+   UserNotFind: "User does not exist"
+
+   # es.yaml
+   QUERY_FAIL: "Error en la consulta"
+   CREATE_FAIL: "Error al crear"
+   UPDATE_FAIL: "Error al actualizar"
+   DELETE_FAIL: "Error al eliminar"
+   PARAMETER_ERROR: "Error en los parámetros"
+   STATUS_INTERNAL_SERVER_ERROR: "Error en el servidor"
+   AccountAlreadyExists: "La cuenta ya existe"
+   UserNotFind: "Usuario no encontrado"
+
+   # zh-Hant.yaml
+   QUERY_FAIL: "查詢失敗"
+   CREATE_FAIL: "建立失敗"
+   UPDATE_FAIL: "更新失敗"
+   DELETE_FAIL: "刪除失敗"
+   PARAMETER_ERROR: "參數錯誤"
+   STATUS_INTERNAL_SERVER_ERROR: "服務端錯誤"
+   AccountAlreadyExists: "帳號已存在"
+   UserNotFind: "使用者不存在"
+   ```
+
+# API规范
+[API规范]
+1. 使用 Hertz 框架
+2. 实现中间件
+3. 使用参数验证
+4. 实现 API 文档
+5. 使用统一响应格式
+6. 使用基础包中的 API 工具
+
+# 缓存规范
+[缓存规范]
+1. 使用 Redis 缓存
+2. 实现缓存策略
+3. 处理缓存失效
+4. 使用分布式锁
+5. 实现缓存预热
+6. 使用基础包中的缓存工具

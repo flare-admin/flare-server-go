@@ -1,0 +1,282 @@
+ServerBusy: 伺服器繁忙
+Success: 成功
+GetUserProfileErr: 取得取使用者資訊錯誤
+UserNotFind: 使用者不存在
+StatusInvalidParam: 參數錯誤
+tokenEmpty: 令牌不能為空，請重新登入
+tokenVerifyFail: 令牌無效，請重新登錄
+RPC_CALL_ERROR: 服務呼叫異常
+UNKNOWN: 未知錯誤
+PLEASE_DO_NOT_RESUBMIT: 請勿重複提交
+isNotAdminAccount: 不是管理帳號
+STATUS_INTERNAL_SERVER_ERROR: 服務端錯誤
+PARAMETER_ERROR: 參數錯誤
+sqlInjectionDetected: sql注入
+#通用
+QUERY_FAIL: 查詢失敗
+CREATE_FAIL: 建立失敗
+UPDATE_FAIL: 更新失敗
+DELETE_FAIL: 刪除失敗
+PARAMETER_TRANSFER_FAIL: 參數轉換失敗
+RESULT_TRANSFER_FAIL: 結果轉換失敗
+RealNameNotCompleted: 未完成實名認證
+#認證
+PasswordsDoNotMatch: 兩次密碼不一致
+IncorrectAccountOrPassword: 帳號或密碼不正確
+IncorrectVerificationCode: 驗證碼不正確
+AccountAlreadyExists: 帳號已存在
+ErrorGetTokenError: 產生token失敗
+OldPasswordFail: 舊密碼不正確
+VerifiedError: 實名認證失敗
+IDCardFailed: 身分證字號不正確
+RealNameApplicationFailed: 實名申請失敗
+TheUserHasCompletedRealNameAuthentication: 使用者已完成實名認證
+TooManyRegistrationsRorTheSameIP: 同一個ip註冊次數過多
+TooManyRealNameRorTheSameIP: 同一個ip實名次數太多
+VaptchaVerificationFailed: 請先完成驗證
+PayPasswordFailed: 支付密碼錯誤
+IDNumberHasBeenUsed: 身分證字號已被使用
+UserProhibitedFromLoggingIn: 使用者禁止登入
+
+#公告
+AddAnnouncementFail: 新增公告失敗
+EditAnnouncementFail: 修改公告失敗
+DeleteAnnouncementFail: 刪除公告失敗
+GetAnnouncementFail: 取得公告是失敗
+
+#申請
+HandleMaterialApplication: 處理物資申請失敗
+AddMaterialApplication: 新增物資申請失敗
+GetMaterialApplicationFail: 取得物資申請失敗
+NotMeetingApplicationRequirements: 未符合申請條件
+TheNumberOfDirectInviteesDidNotReach60: 直邀人數未達60人。
+
+PendingApplications: 有正在處理的請求
+ApplicationApproved: 申請已批准
+
+#團長申請
+HandleHeadOfGroupApplication: 處理團長申請失敗
+AddHeadOfGroupApplication: 新增團長申請失敗
+GetHeadOfGroupApplicationFail: 取得團長申請失敗
+
+#金融卡
+ChickBankCardField: 卡號校驗失敗
+BankCardField: 卡號錯誤
+AddBankField: 新增銀行卡是吧
+SetDefaultBankCardField: 設定預設銀行卡失敗
+DeleteBankCardField: 刪除銀行卡失敗
+GetBankListField: 取得銀行卡清單失敗
+TheCardNumberHasBeenBound: 卡號已綁定
+UpToThreeBankCardsCanBeBound: 最多只能綁定一張銀行卡
+UserIsNotRealName: 使用者未實名
+GetBankCardField: 取得銀行卡失敗
+
+# 訂單
+CreateOrderFailed: 建立訂單失敗
+EditOrderFailed: 編輯訂單失敗
+GetOrderFailed: 取得訂單失敗
+AmountIsEmpty: 訂單金額不能為空
+AmountFailed: 金額格式不正確
+ProductIsNotAvailable: 產品未上架
+LessThanTheMinimumPurchaseAmount: 小於最小購買金額
+GreaterThanTheMaximumPurchaseAmount: 大於最大購買金額
+ItemSoldOut: 產品已售空
+TheProductHasNotYetBeenSold: 商品未開始販售
+TheOrderingUserIsInconsistent2ithTheCurrentUser: 下單使用者和目前使用者不一致
+OrderOotCompleted: 訂單未完成
+TheOrderDoesNotSupportRedemption: 訂單不支援贖回
+RedemptionFailed: 贖回失敗
+YouNeedToActivateYourIdentityBeforePurchasing: 購買前需要先啟動身份
+ThePaymentAmountIsLessThanTheMinimumLimitOfTheChannel: 支付金額小於通道最小限額
+ThePaymentAmountIsGreaterTheMaximumLimitOfTheChannel: 支付金額大於通道最大限額
+TheCurrentLevelDoesDotDeedToBeUpgraded: 目前身分無需升級
+TopUpFail: 儲值失敗
+NeedToBindBankCard: 需要綁定銀行卡
+BuyNumExceedsLimit: 購買數量超出限制
+ExceedingTheLimitOfPlacingOrdersPerMinute: 超過每分鐘拉單限制
+UnapprovedHousingApplications: 沒有批准通過的住房申請
+
+#商品
+AddProductFail: 新增商品失敗
+EditProductFail: 編輯商品失敗
+GetProductFail: 取得商品失敗
+ProductNotExist: 商品不存在
+AddProductClassFail: 新增分類失敗
+GetProductClassFail: 取得商品分類失敗
+EditProductClassFail: 編輯商品分類失敗
+DeleteProductFail: 刪除商品失敗
+
+#rbac
+RbacPhoneOrNameIsExistError: 新增用戶，用戶手機號碼已存在錯誤
+RbacMenuNameIsExistError: 選單名稱已存在
+RbacRoleNameIsExistError: 角色名稱已存在
+AddMenuError: 新增選單失敗
+DeleteMenuError: 刪除選單失敗
+EditMenuError: 更改選單失敗
+GetMenuError: 取得才選單失敗
+NameRealNameInconsistentErr: 名稱或iocn為空
+AddUserError: 新增使用者失敗
+UpdatePasswordError: 更新密碼失敗
+
+#簽到
+GetSignInFail: 取得簽到記錄失敗
+SignInCompletedToday: 你已完成簽到
+
+#系統配置
+SysConfigurationTypeIsExist: 設定類型已存在
+CreateConfigurationFiled: 建立系統設定錯誤
+UpdateConfigurationFiled: 修改系統設定錯誤
+SysConfigurationNotExist: 設定不存在
+GetConfigurationFile: 取得系統設定錯誤
+
+#用戶
+AddUserFailed: 新增使用者失敗
+DelUserFailed: 刪除使用者失敗
+EditUserFailed: 編輯使用者失敗
+GetUserFailed: 取得使用者失敗
+UserNotFond: 使用者不存在
+InvitationCodeFailed: 推廣嗎無效
+PersonIdIsInvalid: 身分證有錯誤
+GetUserNumberOfInvitations: 取得推廣數量失敗
+GetUserApplicationFailed: 取得使用者申請失敗
+RealApplicationHasBeenProcessed: 實名認證已處理
+RealApplicationProcessedFail: 實名認證失敗
+PasswordGenerateFailed: 密碼產生失敗
+TheUserJasNotCompletedRealNameAuthentication: 使用者未完成實名認證
+
+#錢包
+OpenWalletError: 開通錢包失敗
+GetUserWalletError: 取得錢包失敗
+ChangeWalletStatusError: 更改錢包狀態失敗
+PleaseDoNotResubmit: 請勿重複提交
+WithdrawalPermissionIsNotEnabled: 沒有提現權限
+AmountCanNotBetLessThan: 金額低於最小金額
+TheAmountIsGreaterThanTheMaximumLimit: 金額超過最大限制
+WithdrawalField: 提現錯誤
+WithdrawalAmountField: 請求金額錯誤
+TodayWithdrawalNumUsed: 當天提領次數用完
+InsufficientAccountBalance: 帳戶餘額不足
+GetAccountRequestLogField: 或請求資訊失敗
+AccountWalletFrozen: 帳戶凍結
+HandleApplicationField: 處理請求失敗
+ApplicationHasBeenProcessed: 請求已處理
+AccountUnavailable: 帳戶不可用
+HdbField: 交易失敗
+GetHdbLogField: 取得交易記錄失敗
+GetWalletLockFail: 取得錢包鎖失敗
+WithdrawalsAreSuspendedDuringSystemUpgrade: 系統升級暫停提現
+TheTransferInAndOutCannotBeToTheSameAccount: 轉入和轉出不能 是同一個帳戶
+AmountCannotBeZero: 金額不能為零
+InvalidAmountFormat: 金額格式不正確
+TheAccountDoesNotSupportTransfers: 帳戶不支援轉賬
+InsufficientCashWithdrawalAmount: 可提現金額不足
+AccountsAndAccountsThatAreNotBoundToTheCurrentUser: 未與目前使用者綁定的帳戶和帳戶
+#统计
+GetAppTeamStatistics: 取得團隊統計失敗
+
+#用户任务
+AddUserTaskFail: 新增任务失败
+EditUserTaskFail: 修改任务失败
+GetUserTaskFail: 获取任务是失败
+ReceiveTaskRewards: 领取任务奖励失败
+GetUserTaskLockFail: 取得使用者任務鎖失敗
+MissionRewardsHaveBeenReceivedFail: 任務獎勵已領取
+TheTaskDoesNotMeetTheConditionsForReceiving: 任務不符合領取條件
+
+GetPaymentAddressFail: 取得付款地址失敗
+NoPaymentAddressAvailable: 暫無可用的付款地址
+
+#幸運大轉盤
+FailedToObtainTheNumberOfDraws: 取得抽獎次數失敗
+TheDrawTimesHaveBeenUsedUp: 抽獎次數已用完
+ThereAreNoProductsOnTheTurntable: 轉盤未上架任何獎品
+FailedToDrawPPrize: 開獎失敗
+ConsigneeCannotBeEmpty: 收貨人不能為空
+PhoneCannotBeEmpty: 手機號碼不能為空
+AddressCannotBeEmpty: 位址不能為空
+PrizesHaveNotBeenShippedYet: 獎品尚未出貨
+
+#任務管理
+AddTaskFail: 新增任務失敗
+EditTaskFail: 編輯任務失敗
+GetTaskFail: 獲取任務失敗
+DeleteTaskFail: 刪除任務失敗
+AddTaskCategoryFail: 新增任務分類失敗
+EditTaskCategoryFail: 編輯任務分類失敗
+GetTaskCategoryFail: 獲取任務分類失敗
+DeleteTaskCategoryFail: 刪除任務分類失敗
+GetTaskProgressFail: 獲取任務進度失敗
+UpdateTaskProgressFail: 更新任務進度失敗
+GetTaskRewardsFail: 獲取任務獎勵失敗
+UpdateTaskRewardsFail: 更新任務獎勵失敗
+GetTaskConditionsFail: 獲取任務條件失敗
+UpdateTaskConditionsFail: 更新任務條件失敗
+
+#任務業務
+TaskNotFound: 任務不存在
+TaskAlreadyExists: 任務已存在
+TaskDisabled: 任務已禁用
+TaskNotStarted: 任務未開始
+TaskExpired: 任務已過期
+TaskNotCompleted: 任務未完成
+TaskTypeError: 任務類型錯誤
+TaskConditionError: 任務條件錯誤
+TaskRewardError: 任務獎勵錯誤
+InvalidTaskTime: 任務時間無效
+TaskAlreadyCompleted: 任務已完成
+
+#任務分類
+CategoryNotFound: 分類不存在
+CategoryDisabled: 分類已禁用
+CategoryHasActiveTasks: 分類下存在進行中的任務
+CategoryTypeError: 分類類型錯誤
+DuplicateCategoryName: 分類名稱重複
+
+#任務獎勵
+RewardTypeError: 獎勵類型錯誤
+RewardClaimFailed: 領取獎勵失敗
+RewardAlreadyClaimed: 獎勵已領取
+InvalidRewardAmount: 獎勵金額無效
+InvalidWalletType: 錢包類型無效
+
+#任務進度
+TaskProgressError: 任務進度錯誤
+InvalidProgressType: 進度類型無效
+ProgressTypeRequired: 進度類型不能為空
+InvalidProgressValue: 進度值無效
+
+#任務重置
+ResetTypeError: 重置類型錯誤
+InvalidResetDays: 重置天數無效
+
+#簽到模組
+# 簽到管理相關錯誤
+AddSignConfigFail: 新增簽到配置失敗
+EditSignConfigFail: 編輯簽到配置失敗
+GetSignConfigFail: 獲取簽到配置失敗
+DeleteSignConfigFail: 刪除簽到配置失敗
+GetSignRecordFail: 獲取簽到記錄失敗
+UpdateSignRecordFail: 更新簽到記錄失敗
+CreateSignConfigFailed: 創建簽到配置失敗
+UpdateSignConfigFailed: 更新簽到配置失敗
+DeleteSignConfigFailed: 刪除簽到配置失敗
+GetSignConfigListFailed: 獲取簽到配置列表失敗
+
+# 簽到業務相關錯誤
+SignInFail: 簽到失敗
+AlreadySignedToday: 今日已簽到
+DailyLimitExceeded: 超出每日簽到次數限制
+SignConfigNotFound: 簽到配置不存在
+SignConfigDisabled: 簽到配置已禁用
+InvalidPeriodType: 無效的統計週期類型
+InvalidContinuousType: 無效的連續簽到類型
+InvalidPeriodDays: 無效的週期天數
+SignRecordNotFound: 簽到記錄不存在
+SignInFailed: 簽到操作失敗
+
+# 簽到統計相關錯誤
+GetSignCountFail: 獲取簽到次數失敗
+GetPeriodSignsFail: 獲取週期簽到記錄失敗
+GetContinuousSignFail: 獲取連續簽到記錄失敗
+GetSignInfoFailed: 獲取簽到信息失敗
+GetSignStatisticsFailed: 獲取簽到統計失敗

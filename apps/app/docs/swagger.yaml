@@ -1,0 +1,4913 @@
+basePath: /apps/app
+definitions:
+  base_info.Success:
+    properties:
+      code:
+        example: 200
+        type: integer
+      data: {}
+      msg:
+        example: err msg
+        type: string
+      reason:
+        example: success
+        type: string
+    type: object
+  base_info.Swagger400Resp:
+    properties:
+      code:
+        example: 400
+        type: integer
+      msg:
+        example: err msg
+        type: string
+      reason:
+        example: err_reason
+        type: string
+    type: object
+  base_info.Swagger401Resp:
+    properties:
+      code:
+        example: 401
+        type: integer
+      msg:
+        example: err msg
+        type: string
+      reason:
+        example: err_reason
+        type: string
+    type: object
+  base_info.Swagger500Resp:
+    properties:
+      code:
+        example: 500
+        type: integer
+      msg:
+        example: err msg
+        type: string
+      reason:
+        example: err_reason
+        type: string
+    type: object
+  command.CreateDeclarationCommand:
+    properties:
+      attachments:
+        items:
+          type: string
+        type: array
+      categoryCode:
+        type: string
+      content:
+        additionalProperties: true
+        type: object
+      userId:
+        type: string
+    type: object
+  command.LoginCommand:
+    properties:
+      account:
+        description: 账号
+        type: string
+      captchaId:
+        description: 验证码id
+        type: string
+      code:
+        description: 验证码
+        type: string
+      password:
+        description: 密码
+        type: string
+    type: object
+  command.PaymentCommand:
+    properties:
+      channelID:
+        description: 支付渠道ID
+        type: string
+      orderNo:
+        description: 订单号
+        type: string
+      returnURL:
+        description: 支付完成后的返回URL
+        type: string
+      userID:
+        description: 用户ID
+        type: string
+    type: object
+  command.RefreshTokenCommand:
+    properties:
+      refreshToken:
+        type: string
+    type: object
+  command.RegisterCommand:
+    properties:
+      account:
+        description: 账号
+        type: string
+      captchaId:
+        description: 验证码id
+        type: string
+      code:
+        description: 验证码
+        type: string
+      invitationCode:
+        description: 邀请码
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+      password:
+        description: 密码
+        type: string
+    type: object
+  command.UpdatePasswordCommand:
+    properties:
+      captchaId:
+        description: 验证码id
+        type: string
+      code:
+        description: 验证码
+        type: string
+      confirmPassword:
+        description: 确认密码
+        type: string
+      id:
+        description: 用户ID
+        type: string
+      oldPassword:
+        description: 旧密码
+        type: string
+      password:
+        description: 新密码
+        type: string
+    type: object
+  command.UpdateUserCommand:
+    properties:
+      age:
+        description: 年龄
+        type: integer
+      birth:
+        description: 生日
+        type: string
+      email:
+        description: 邮箱
+        type: string
+      faceURL:
+        description: 头像
+        type: string
+      gender:
+        description: 性别
+        type: integer
+      id:
+        description: 主键
+        type: string
+      nickname:
+        description: 昵称
+        type: string
+    type: object
+  command.UpdateUserPayPasswordCommand:
+    properties:
+      id:
+        type: string
+      password:
+        type: string
+    type: object
+  command.VerifiedCommand:
+    properties:
+      backOfIDCard:
+        description: 身份证反面
+        type: string
+      documentType:
+        description: 证件类型 1-身份证，2-其他 默认1
+        type: integer
+      frontOfIDCard:
+        description: 身份证正面
+        type: string
+      id:
+        description: 用户ID
+        type: string
+      name:
+        description: 姓名
+        type: string
+      personId:
+        description: 身份证号
+        type: string
+    type: object
+  dto.AddBankCardReq:
+    properties:
+      account:
+        description: 账号
+        type: string
+      address:
+        description: 地址
+        type: string
+      bank:
+        description: 银行
+        type: string
+      bankAbbreviation:
+        description: 银行简称
+        type: string
+      cardCode:
+        description: 卡号
+        type: string
+      fullName:
+        description: 真实姓名
+        type: string
+      phone:
+        description: 银行预留手机号
+        type: string
+      qrCode:
+        description: 收款码
+        type: string
+      type:
+        description: 类型 默认1->银行卡,2:收款码,3:地址
+        type: integer
+      userId:
+        description: 用户id
+        type: string
+    type: object
+  dto.AddressReq:
+    properties:
+      address:
+        description: 详细地址
+        type: string
+      city:
+        description: 城市
+        type: string
+      district:
+        description: 区县
+        type: string
+      is_default:
+        description: 是否默认地址
+        type: boolean
+      name:
+        description: 收货人姓名
+        type: string
+      phone:
+        description: 联系电话
+        type: string
+      postal_code:
+        description: 邮政编码
+        type: string
+      province:
+        description: 省份
+        type: string
+    required:
+    - address
+    - name
+    - phone
+    type: object
+  dto.AddressResp:
+    properties:
+      address:
+        description: 详细地址
+        type: string
+      city:
+        description: 城市
+        type: string
+      created_at:
+        description: 创建时间
+        type: integer
+      district:
+        description: 区县
+        type: string
+      id:
+        description: 地址ID
+        type: string
+      is_default:
+        description: 是否默认地址
+        type: boolean
+      name:
+        description: 收货人姓名
+        type: string
+      phone:
+        description: 联系电话
+        type: string
+      postal_code:
+        description: 邮政编码
+        type: string
+      province:
+        description: 省份
+        type: string
+      updated_at:
+        description: 更新时间
+        type: integer
+      user_id:
+        description: 用户ID
+        type: string
+    type: object
+  dto.AnnouncementModel:
+    properties:
+      area:
+        description: 地区
+        type: string
+      areaI18n:
+        description: 地区国际化
+        type: string
+      areaLabel:
+        description: 地区
+        type: string
+      content:
+        description: 公告内容
+        type: string
+      createdAt:
+        type: integer
+      deletedAt:
+        type: integer
+      fileName:
+        description: 文件名
+        type: string
+      id:
+        type: string
+      popUp:
+        description: 是否弹出 1->是，2->否
+        type: integer
+      status:
+        description: 公告状态 1->新增，2->发布，3->关闭
+        type: integer
+      title:
+        description: 标题
+        type: string
+      updatedAt:
+        type: integer
+      url:
+        description: 地址
+        type: string
+    type: object
+  dto.CaptchaResponse:
+    properties:
+      captchaId:
+        description: //验证码id
+        type: string
+      image:
+        description: 图片
+        type: string
+    type: object
+  dto.Category:
+    properties:
+      createdAt:
+        type: integer
+      creator:
+        type: string
+      deletedAt:
+        type: integer
+      description:
+        type: string
+      i18n_key:
+        description: 国际化key
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      tenantId:
+        type: string
+      updatedAt:
+        type: integer
+      updater:
+        type: string
+    type: object
+  dto.ChannelDTO:
+    properties:
+      code:
+        description: 渠道编码
+        type: string
+      createdAt:
+        description: 创建时间
+        type: integer
+      describe:
+        description: 渠道描述
+        type: string
+      exchangeRate:
+        description: 汇率
+        type: number
+      id:
+        description: 渠道ID
+        type: string
+      maxAmount:
+        description: 最大金额
+        type: number
+      merchantId:
+        description: 商户ID
+        type: string
+      minAmount:
+        description: 最小金额
+        type: number
+      name:
+        description: 渠道名称
+        type: string
+      sorting:
+        description: 排序
+        type: integer
+      status:
+        description: 状态：1-启用 2-禁用
+        type: integer
+      tenantId:
+        description: 租户ID
+        type: string
+      type:
+        description: 类型：1-普通通道 2-地址通道
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: integer
+    type: object
+  dto.CreateExchangeOrderReq:
+    properties:
+      address:
+        description: 收货地址
+        type: string
+      contact:
+        description: 联系人
+        type: string
+      id_card_no:
+        description: 身份证号
+        type: string
+      mobile:
+        description: 手机号码
+        type: string
+      num:
+        description: 兑换数量
+        type: integer
+      phone:
+        description: 联系电话
+        type: string
+      product_id:
+        description: 产品ID
+        type: string
+      remark:
+        description: 备注
+        type: string
+      user_id:
+        description: 用户ID
+        type: string
+    type: object
+  dto.CreateOrderReq:
+    properties:
+      amount:
+        type: string
+      product_id:
+        type: string
+      quantity:
+        description: 购买数量
+        type: integer
+      remark:
+        type: string
+      user_id:
+        type: string
+    type: object
+  dto.CreateOrderResp:
+    properties:
+      amount:
+        description: 订单金额
+        type: number
+      order_id:
+        description: 订单ID
+        type: string
+      order_no:
+        description: 订单编号
+        type: string
+      pay_amount:
+        description: 支付金额
+        type: number
+      status:
+        description: 订单状态
+        type: integer
+    type: object
+  dto.CreateRechargeOrderReq:
+    properties:
+      amount:
+        description: 充值金额
+        type: string
+      remark:
+        description: 备注
+        type: string
+      user_id:
+        description: 用户ID
+        type: string
+      wallet_id:
+        description: 钱包ID
+        type: integer
+    type: object
+  dto.DeclarationDTO:
+    properties:
+      approvedAt:
+        type: integer
+      approverId:
+        type: string
+      attachments:
+        items:
+          type: string
+        type: array
+      categoryCode:
+        type: string
+      categoryId:
+        type: string
+      content:
+        additionalProperties: true
+        type: object
+      createdAt:
+        type: integer
+      deletedAt:
+        type: integer
+      id:
+        type: string
+      rejectReason:
+        type: string
+      status:
+        type: integer
+      statusText:
+        type: string
+      updatedAt:
+        type: integer
+      userAccount:
+        type: string
+      userId:
+        type: string
+    type: object
+  dto.DeleteBankCardReq:
+    properties:
+      id:
+        description: 主件
+        type: string
+      userId:
+        type: string
+    type: object
+  dto.DrawReq:
+    properties:
+      categoryId:
+        description: 抽奖分类ID
+        type: string
+    type: object
+  dto.InformationModel:
+    properties:
+      cover:
+        description: 封面
+        type: string
+      createdAt:
+        type: integer
+      customId:
+        description: 自定义id
+        type: string
+      deletedAt:
+        type: integer
+      dis:
+        description: 描述
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      link:
+        description: 链接
+        type: string
+      name:
+        description: 名称
+        type: string
+      price:
+        description: 金额
+        type: number
+      sorting:
+        description: 排序数字越大越靠前
+        type: integer
+      updatedAt:
+        type: integer
+    type: object
+  dto.LotteryRecordDTO:
+    properties:
+      address:
+        description: 收货地址（实物奖品）
+        type: string
+      consignee:
+        description: 收货人姓名（实物奖品）
+        type: string
+      createdAt:
+        description: 创建时间（时间戳）
+        type: integer
+      id:
+        description: 抽奖记录ID
+        type: string
+      isPhysical:
+        description: 是否实物奖品（true:实物奖品, false:虚拟奖品）
+        type: boolean
+      phone:
+        description: 收货人电话（实物奖品）
+        type: string
+      prizeId:
+        description: 奖品ID
+        type: string
+      prizeName:
+        description: 奖品名称
+        type: string
+      remark:
+        description: 备注信息
+        type: string
+      status:
+        description: 发货状态（0:未发货, 1:已发货, 2:已签收）
+        type: integer
+      updatedAt:
+        description: 更新时间（时间戳）
+        type: integer
+      userId:
+        description: 用户ID
+        type: string
+    type: object
+  dto.LotteryResultDTO:
+    properties:
+      amount:
+        description: 中奖金额（元，虚拟奖品）
+        type: number
+      isPhysical:
+        description: 是否实物奖品（true:实物奖品, false:虚拟奖品）
+        type: boolean
+      isThanks:
+        description: 是否为"谢谢参与"（true:谢谢参与, false:中奖）
+        type: boolean
+      prizeId:
+        description: 中奖奖品ID
+        type: string
+      prizeName:
+        description: 中奖奖品名称
+        type: string
+      recordId:
+        description: 抽奖记录ID
+        type: string
+    type: object
+  dto.NewsDTO:
+    properties:
+      area:
+        type: string
+      classId:
+        type: string
+      content:
+        type: string
+      cover:
+        type: string
+      createdAt:
+        type: integer
+      fileName:
+        type: string
+      id:
+        type: string
+      introduction:
+        type: string
+      sorting:
+        type: integer
+      status:
+        type: integer
+      tenantId:
+        type: string
+      title:
+        type: string
+      updatedAt:
+        type: integer
+      url:
+        type: string
+    type: object
+  dto.ObtainPaymentLog:
+    properties:
+      amount:
+        description: 金额
+        type: number
+      changesMoney:
+        description: 变动后金额
+        type: string
+      createTime:
+        type: integer
+      createdAt:
+        description: 创建时间
+        type: integer
+      deletedAt:
+        type: integer
+      id:
+        type: string
+      logsType:
+        description: 变动类型
+        type: integer
+      money:
+        description: 变动金额
+        type: string
+      originalMoney:
+        description: 变动钱金额
+        type: string
+      remark:
+        description: 备注
+        type: string
+      sourceID:
+        description: 来源id
+        type: string
+      sourceName:
+        description: 来源名称
+        type: string
+      sourceRemark:
+        description: 来源备注
+        type: string
+      sourceType:
+        description: 来源类型
+        type: string
+      sourceUserID:
+        description: 来源用户ID
+        type: string
+      updatedAt:
+        type: integer
+      userID:
+        type: string
+    type: object
+  dto.OpeningBank:
+    properties:
+      bankAbbreviation:
+        description: 银行简称
+        type: string
+      bankName:
+        description: 银行
+        type: string
+    type: object
+  dto.OrderDTO:
+    properties:
+      actual_amount:
+        description: 实际支付金额(元)
+        type: number
+      cancel_time:
+        description: 取消时间
+        type: integer
+      channel_id:
+        description: 支付通道ID
+        type: string
+      complete_time:
+        description: 完成时间
+        type: integer
+      created_at:
+        description: 创建时间
+        type: integer
+      currency:
+        description: 货币类型
+        type: string
+      custom_data:
+        additionalProperties: true
+        description: 自定义扩展数据
+        type: object
+      extend_data:
+        additionalProperties: true
+        description: 扩展数据
+        type: object
+      id:
+        description: 订单ID
+        type: string
+      merchant_id:
+        description: 商户ID
+        type: string
+      need_confirmation:
+        description: 是否需要手动确认
+        type: integer
+      order_no:
+        description: 订单编号
+        type: string
+      pay_amount:
+        description: 需要支付金额(元)
+        type: number
+      pay_method:
+        description: 支付方式
+        type: integer
+      pay_order_no:
+        description: 支付相关
+        type: string
+      pay_time:
+        description: 支付时间
+        type: integer
+      product_id:
+        description: 产品ID
+        type: string
+      product_name:
+        description: 产品名称
+        type: string
+      quantity:
+        description: 数量
+        type: integer
+      remark:
+        description: 备注
+        type: string
+      source_remark:
+        description: 来源备注
+        type: string
+      source_user_id:
+        description: 来源用户ID
+        type: string
+      status:
+        allOf:
+        - $ref: '#/definitions/model.OrderStatus'
+        description: 订单状态
+      total_amount:
+        description: 订单金额
+        type: number
+      transaction_id:
+        description: 第三方交易号
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/model.OrderType'
+        description: 订单类型
+      updated_at:
+        description: 更新时间
+        type: integer
+      user_account:
+        description: 用户账号
+        type: string
+      user_id:
+        description: 用户ID
+        type: string
+      wallet_id:
+        description: 钱包ID
+        type: integer
+    type: object
+  dto.PaymentResultDTO:
+    properties:
+      needQuery:
+        description: 是否需要查询
+        type: boolean
+      orderNo:
+        description: 订单号
+        type: string
+      payAddress:
+        description: 支付地址
+        type: string
+      payAmount:
+        description: 支付金额(元)
+        type: number
+      payJumpUrl:
+        description: 支付跳转链接
+        type: string
+      payMethod:
+        description: 支付方式
+        type: string
+      payOrderNo:
+        description: 支付订单号
+        type: string
+      payParams:
+        description: 支付参数
+        type: string
+      payUrl:
+        description: 支付链接
+        type: string
+    type: object
+  dto.PrizeDTO:
+    properties:
+      amount:
+        description: 奖励金额（元，虚拟奖品使用）
+        type: number
+      id:
+        description: 奖品ID (即商品ID)
+        type: string
+      isPhysical:
+        description: 是否实物奖品（true:实物奖品, false:虚拟奖品）
+        type: boolean
+      lotteryWeight:
+        description: 抽奖权重（数值越大中奖概率越高）
+        type: integer
+      mainImage:
+        description: 奖品主图URL
+        type: string
+      name:
+        description: 奖品名称
+        type: string
+      walletId:
+        description: 到账钱包ID（虚拟奖品到账钱包）
+        type: integer
+    type: object
+  dto.ProductDTO:
+    properties:
+      area:
+        description: 地区编码
+        type: string
+      area_i18n:
+        description: 地区国际化键
+        type: string
+      area_label:
+        description: 地区显示名称
+        type: string
+      attributes:
+        additionalProperties:
+          type: string
+        description: 其他属性
+        type: object
+      category_id:
+        description: 分类ID
+        type: string
+      created_at:
+        description: 时间信息
+        type: integer
+      description:
+        description: 产品详细描述
+        type: string
+      expected_rate:
+        description: 预期收益率
+        type: number
+      features:
+        description: 产品特点，JSON格式
+        type: string
+      finance_settlement_type:
+        description: 结算方式配置
+        type: integer
+      fixed_price:
+        description: 是否固定价格
+        type: boolean
+      id:
+        description: 基础信息
+        type: string
+      images:
+        description: 图片列表URL
+        items:
+          type: string
+        type: array
+      investment_period:
+        description: 投资理财配置
+        type: integer
+      is_physical:
+        description: 是否实物奖品
+        type: boolean
+      is_thanks:
+        description: 是否谢谢参与(未中奖)
+        type: boolean
+      limit_by_total:
+        description: 是否受总数量限制
+        type: boolean
+      lottery_weight:
+        description: 抽奖配置
+        type: integer
+      main_image:
+        description: 图片信息
+        type: string
+      max_number:
+        description: 最大购买数量
+        type: integer
+      max_price:
+        description: 最高价格，单位：元
+        type: number
+      min_number:
+        description: 数量限制
+        type: integer
+      min_price:
+        description: 最低价格，单位：元
+        type: number
+      name:
+        description: 产品名称
+        type: string
+      need_confirmation:
+        description: 是否需要确认 1:是 2:否
+        type: integer
+      payment_method_id:
+        description: 支付与收益
+        type: integer
+      person_limit:
+        description: 个人限购数量
+        type: integer
+      price:
+        description: 固定价格，单位：元
+        type: number
+      principal_deduction:
+        description: 提前赎回本金扣除比例
+        type: number
+      profit_wallet:
+        description: 收益钱包ID
+        type: integer
+      return_principal:
+        description: 是否返本
+        type: boolean
+      return_principal_wallet:
+        description: 返本钱包ID
+        type: integer
+      reward_amount:
+        description: 奖励金额（元）
+        type: number
+      sales_volume:
+        description: 销售量
+        type: integer
+      settlement_amount:
+        description: 固定结算金额，单位：元
+        type: number
+      settlement_cycle:
+        description: 结算周期 1:天 2:周 3:月 4:年 5:自定义天数
+        type: integer
+      settlement_days:
+        description: 自定义结算天数
+        type: integer
+      settlement_delay:
+        description: 结算延迟天数
+        type: integer
+      settlement_ratio:
+        description: 结算比例
+        type: number
+      settlement_start_day:
+        description: 结算开始日 1:当天 2:次日
+        type: integer
+      settlement_time:
+        description: 结算时间，24小时制
+        type: integer
+      sorting:
+        description: 排序与价格
+        type: integer
+      status:
+        description: 状态信息
+        type: integer
+      total_quantity:
+        description: 商品总数量
+        type: integer
+      type:
+        description: 商品类型：1-充值 2-兑换 3-抽奖 4-投资理财
+        type: integer
+      updated_at:
+        description: 更新时间戳
+        type: integer
+      workday_only:
+        description: 结算时间配置
+        type: boolean
+    type: object
+  dto.RealNameApplicationResponse:
+    properties:
+      account:
+        description: 账号
+        type: string
+      backOfIdCard:
+        description: 身份证反面照片
+        type: string
+      createdAt:
+        description: 创建时间
+        type: integer
+      documentType:
+        description: 证件类型
+        type: integer
+      frontOfIdCard:
+        description: 身份证正面照片
+        type: string
+      fullName:
+        description: 真实姓名
+        type: string
+      id:
+        description: 申请ID
+        type: string
+      nickname:
+        description: 用户昵称
+        type: string
+      personId:
+        description: 身份证号
+        type: string
+      remark:
+        description: 备注
+        type: string
+      status:
+        description: 状态
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: integer
+      userId:
+        description: 用户ID
+        type: string
+    type: object
+  dto.RefundOrderReq:
+    properties:
+      amount:
+        type: number
+      order_no:
+        type: string
+      remark:
+        type: string
+    type: object
+  dto.SetDefaultBankCardReq:
+    properties:
+      cardCode:
+        description: 卡号
+        type: string
+      userId:
+        type: string
+    type: object
+  dto.SignConfigInfo:
+    properties:
+      continuous_rewards:
+        description: 连续签到奖励
+        items:
+          $ref: '#/definitions/dto.SignRewardInfo'
+        type: array
+      continuous_type:
+        description: 连续签到类型(1:断了就重置 2:周期内连续)
+        type: integer
+      daily_limit:
+        description: 每日签到次数限制，最小为1
+        type: integer
+      description:
+        description: 签到说明文案(支持HTML格式)
+        type: string
+      enable_time_end:
+        description: 每日可签到结束时间(格式:HH:mm)
+        type: string
+      enable_time_start:
+        description: 每日可签到开始时间(格式:HH:mm)
+        type: string
+      min_balance:
+        description: 最低余额要求(0:不限制)
+        type: number
+      min_level:
+        description: 最低等级要求(0:不限制)
+        type: integer
+      need_mobile:
+        description: 是否需要绑定手机(true:需要 false:不需要)
+        type: boolean
+      need_real_name:
+        description: 签到限制条件
+        type: boolean
+      period_days:
+        description: 指定天数(当period_type=3时有效)
+        type: integer
+      period_type:
+        description: 统计周期类型(1:周 2:月 3:指定天数)
+        type: integer
+      rewards:
+        description: 普通签到奖励
+        items:
+          $ref: '#/definitions/dto.SignRewardInfo'
+        type: array
+      status:
+        description: 状态(1:启用 2:禁用)
+        type: integer
+    type: object
+  dto.SignInfo:
+    properties:
+      can_sign:
+        description: 当前是否可以签到(考虑时间段、次数等限制)
+        type: boolean
+      continuous_count:
+        description: 当前连续签到天数
+        type: integer
+      daily_count:
+        description: 今日已签到次数
+        type: integer
+      daily_remaining:
+        description: 今日剩余可签到次数
+        type: integer
+      description:
+        description: 签到说明文案(支持HTML格式)
+        type: string
+      has_signed_today:
+        description: 今日是否已签到
+        type: boolean
+      period_count:
+        description: 当前周期内累计签到天数
+        type: integer
+      period_day_index:
+        description: 今天是周期内的第几天
+        type: integer
+      period_sign_days:
+        description: 当前周期内已签到的日期列表，格式：YYYY-MM-DD
+        items:
+          type: string
+        type: array
+      period_total_days:
+        description: 当前周期总天数
+        type: integer
+      signed_day_indexes:
+        description: 周期内已签到的天数索引列表，从1开始
+        items:
+          type: integer
+        type: array
+    type: object
+  dto.SignRecordItem:
+    properties:
+      account:
+        description: 账号，仅在show_detail=true时返回
+        type: string
+      continuous_count:
+        description: 连续签到次数
+        type: integer
+      created_at:
+        description: 创建时间
+        type: integer
+      face_url:
+        description: 头像，仅在show_detail=true时返回
+        type: string
+      gender:
+        description: 性别，仅在show_detail=true时返回
+        type: integer
+      id:
+        description: 记录ID
+        type: string
+      nickname:
+        description: 详情字段
+        type: string
+      period_count:
+        description: 当前周期签到次数
+        type: integer
+      reward_amount:
+        description: 签到奖励金额
+        type: string
+      reward_type:
+        description: 奖励类型
+        type: string
+      sign_date:
+        description: 签到日期 YYYY-MM-DD
+        type: string
+      sign_time:
+        description: 签到时间 HH:mm:ss
+        type: string
+      user_id:
+        description: 用户ID
+        type: string
+    type: object
+  dto.SignRewardInfo:
+    properties:
+      amount:
+        description: 奖励金额
+        type: number
+      days:
+        description: 连续天数
+        type: integer
+      id:
+        type: string
+      reward_type:
+        description: 奖励类型
+        type: integer
+      sort:
+        description: 排序
+        type: integer
+      status:
+        description: 状态
+        type: integer
+      wallet_type:
+        description: 钱包类型
+        type: integer
+    type: object
+  dto.TaskConditionItem:
+    properties:
+      description:
+        type: string
+      operator:
+        type: string
+      sort:
+        type: integer
+      target:
+        type: string
+      type:
+        type: integer
+      value:
+        type: string
+    type: object
+  dto.TaskInfo:
+    properties:
+      categoryId:
+        type: string
+      conditions:
+        items:
+          $ref: '#/definitions/dto.TaskConditionItem'
+        type: array
+      createdAt:
+        type: integer
+      description:
+        type: string
+      endTime:
+        type: integer
+      id:
+        type: string
+      progressType:
+        description: 用于标识进度来源
+        type: string
+      rebates:
+        description: 任务返佣：返佣项列表
+        items:
+          $ref: '#/definitions/dto.TaskRebateItem'
+        type: array
+      rewardType:
+        description: 奖励类型 1:自动到账 2:用户领取
+        type: integer
+      rewards:
+        items:
+          $ref: '#/definitions/dto.TaskRewardInfo'
+        type: array
+      sort:
+        description: CompleteType int8                 `json:"completeType" binding:"completeType"`
+          // 完成方式 1:手动完成 2:进度自动完成 3:可重复完成
+        type: integer
+      startTime:
+        type: integer
+      status:
+        type: integer
+      taskType:
+        description: 任务类型：1-普通任务 2-立即触发任务
+        type: integer
+      title:
+        type: string
+    type: object
+  dto.TaskRebateItem:
+    properties:
+      amount:
+        description: 返佣金额：精确到小数点后2位
+        type: number
+      description:
+        description: 返佣描述：对返佣的文字说明
+        type: string
+      funding_type:
+        description: 资金类型 1:余额 2:冻结金额 3:可提现额度
+        type: integer
+      rebateRatio:
+        description: 返佣比例：字符串分割的数字，如："0.1,0.2,0.3"
+        type: string
+      sort:
+        description: 排序值：值越小越靠前，最小为0
+        minimum: 0
+        type: integer
+      sourceType:
+        description: 资金来源类型
+        type: string
+      walletType:
+        description: 钱包类型：1-现金 2-积分 3-虚拟币
+        type: integer
+    required:
+    - amount
+    - rebateRatio
+    - sourceType
+    - walletType
+    type: object
+  dto.TaskRewardInfo:
+    properties:
+      amount:
+        description: 奖励金额：精确到小数点后2位
+        type: number
+      description:
+        description: 奖励描述：对奖励的文字说明
+        type: string
+      funding_type:
+        description: 资金类型 1:余额 2:冻结金额 3:可提现额度
+        type: integer
+      id:
+        description: 奖励ID：唯一标识
+        type: string
+      sort:
+        description: 排序值：值越小越靠前
+        type: integer
+      sourceType:
+        description: 资金来源类型
+        type: string
+      taskId:
+        description: 任务ID：关联的任务
+        type: string
+      walletType:
+        description: 钱包类型：1-现金 2-积分 3-虚拟币
+        type: integer
+    required:
+    - sourceType
+    type: object
+  dto.TaskStatusInfo:
+    properties:
+      completeTime:
+        description: 完成时间：任务完成时间戳
+        type: integer
+      endTime:
+        description: 结束时间：任务结束时间戳
+        type: integer
+      rewardTime:
+        description: 领取时间：奖励领取时间戳
+        type: integer
+      rewardType:
+        description: 奖励类型：1-自动发放 2-手动领取
+        type: integer
+      startTime:
+        description: 开始时间：任务开始时间戳
+        type: integer
+      status:
+        description: 状态：0-未开始 1-进行中 2-已完成 3-已领取 4-已重置
+        type: integer
+      taskId:
+        description: 任务ID：唯一标识
+        type: string
+      taskName:
+        description: 任务名称：显示名称
+        type: string
+    type: object
+  dto.UserBankCard:
+    properties:
+      account:
+        description: 账号
+        type: string
+      address:
+        description: 地址
+        type: string
+      bank:
+        description: 银行
+        type: string
+      bankAbbreviation:
+        description: 银行简称
+        type: string
+      cardCode:
+        description: 卡号
+        type: string
+      createdAt:
+        type: integer
+      deletedAt:
+        type: integer
+      fullName:
+        type: string
+      id:
+        type: string
+      isDefault:
+        description: 是否默认
+        type: integer
+      phone:
+        description: 银行预留手机号
+        type: string
+      qrCode:
+        description: 收款码
+        type: string
+      type:
+        description: 类型 默认1->银行卡,2:收款码,3:地址
+        type: integer
+      updatedAt:
+        type: integer
+      userId:
+        description: 用户id
+        type: string
+    type: object
+  dto.UserDTO:
+    properties:
+      account:
+        description: 账号
+        type: string
+      age:
+        description: 年龄
+        type: integer
+      birth:
+        description: 生日
+        type: string
+      createdAt:
+        type: integer
+      deletedAt:
+        type: integer
+      email:
+        description: 邮箱
+        type: string
+      faceURL:
+        description: 头像
+        type: string
+      fromUID:
+        description: 来源用户
+        type: string
+      gender:
+        description: 性别 默认:1 女,2男
+        type: integer
+      id:
+        description: 主键
+        type: string
+      invitationCode:
+        description: 邀请码
+        type: string
+      isReal:
+        description: 是否实名认证，1:是;0:否
+        type: integer
+      level:
+        description: 等级，0:不是1:v1;2:v2;3:v3;4:v4
+        type: integer
+      nickname:
+        description: 昵称
+        type: string
+      personId:
+        description: 身份证号
+        type: string
+      phone:
+        description: 手机号
+        type: string
+      realAt:
+        description: 实名时间
+        type: integer
+      status:
+        description: 状态，1正常,2禁用
+        type: integer
+      tenantId:
+        description: 租户ID
+        type: string
+      testAccount:
+        description: 是否测试账号，1是,2否
+        type: integer
+      updatedAt:
+        type: integer
+    type: object
+  dto.UserWallet:
+    properties:
+      userId:
+        type: string
+      wallets:
+        description: 钱包账户
+        items:
+          $ref: '#/definitions/dto.UserWalletModel'
+        type: array
+    type: object
+  dto.UserWalletModel:
+    properties:
+      MaxWithdrawals:
+        description: 最大提现次数
+        type: integer
+      accountType:
+        description: 账户类型
+        type: integer
+      available_withdrawal_amount:
+        description: 可提现额度
+        type: string
+      availableMoney:
+        description: 金额
+        type: string
+      cardCode:
+        description: 卡号
+        type: string
+      cumulativePurchaseAmount:
+        description: 累积购买金额
+        type: string
+      cumulativeWithdrawalAmount:
+        description: 累积提现金额
+        type: string
+      frozenAmount:
+        description: 冻结金额
+        type: string
+      id:
+        description: 钱包id
+        type: string
+      localeKey:
+        description: 国际化标志
+        type: string
+      maxAmount:
+        description: 最da提现金额
+        type: number
+      minAmount:
+        description: 最小提现金额
+        type: number
+      needPassword:
+        description: 是否需要支付密码 1->是，2->否
+        type: integer
+      needReal:
+        description: 是否需要实名 1->是，2->否
+        type: integer
+      remake:
+        description: 钱包名称国际化
+        type: string
+      status:
+        description: 账户状态 1->激活, 2->冻结
+        type: integer
+      typeName:
+        description: 钱包类型名称
+        type: string
+    type: object
+  dto.WalletMoneyChangeReq:
+    properties:
+      accountType:
+        description: 账户类型
+        type: integer
+      amount:
+        description: 金额
+        type: string
+      bankID:
+        type: string
+      payPassword:
+        description: 支付密码
+        type: string
+      remark:
+        description: 申请备注
+        type: string
+      userID:
+        description: 用户ID
+        type: string
+    type: object
+  dto.WithdrawalApplicationDTO:
+    properties:
+      actualAmount:
+        description: 实际到账金额
+        type: integer
+      address:
+        description: 地址
+        type: string
+      amount:
+        description: 申请金额
+        type: integer
+      applicant:
+        description: 申请人
+        type: string
+      bankName:
+        description: 银行名称
+        type: string
+      bankType:
+        description: 类型 默认1->银行卡,2:收款码,3:地址
+        type: integer
+      cardCode:
+        description: 提现的卡号
+        type: string
+      cardHolder:
+        description: 持卡人姓名
+        type: string
+      createdAt:
+        description: 创建时间
+        type: integer
+      deletedAt:
+        description: 删除时间
+        type: integer
+      fundingType:
+        description: 资金类型
+        type: integer
+      handleRemark:
+        description: 处理意见
+        type: string
+      handleTime:
+        description: 处理时间
+        type: integer
+      handleUserID:
+        description: 处理人ID
+        type: string
+      handlingFees:
+        description: 手续费
+        type: integer
+      id:
+        description: 申请记录主键
+        type: string
+      qrCode:
+        description: 收款码
+        type: string
+      receivingAccount:
+        description: 收款账号
+        type: string
+      remark:
+        description: 申请备注
+        type: string
+      sameReal:
+        description: 和实名相同 1->是，2->否
+        type: integer
+      status:
+        description: 处理方式 1->待处理，2->同意，3->拒绝
+        type: integer
+      tenantId:
+        description: 租户ID
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: integer
+      userAccount:
+        description: 用户账号
+        type: string
+      userID:
+        description: 申请人ID
+        type: string
+    type: object
+  github_com_secret-pr_go-server-template_internal_address_dto.UpdateAddressReq:
+    properties:
+      address:
+        description: 详细地址
+        type: string
+      address_id:
+        description: 地址ID
+        type: string
+      city:
+        description: 城市
+        type: string
+      district:
+        description: 区县
+        type: string
+      is_default:
+        description: 是否默认地址
+        type: boolean
+      name:
+        description: 收货人姓名
+        type: string
+      phone:
+        description: 联系电话
+        type: string
+      postal_code:
+        description: 邮政编码
+        type: string
+      province:
+        description: 省份
+        type: string
+    required:
+    - address
+    - address_id
+    - name
+    - phone
+    type: object
+  github_com_secret-pr_go-server-template_internal_lottery_application_dto.UpdateAddressReq:
+    properties:
+      address:
+        description: 收货地址
+        type: string
+      consignee:
+        description: 收货人姓名
+        type: string
+      phone:
+        description: 收货人电话
+        type: string
+      recordId:
+        description: 抽奖记录ID
+        type: string
+      userId:
+        description: 用户ID（可选，如果不提供则从token中获取）
+        type: string
+    type: object
+  github_com_secret-pr_go-server-template_internal_user_application_dto.AuthDto:
+    properties:
+      access_token:
+        description: 令牌
+        type: string
+      expires_in:
+        description: 过期时间
+        type: integer
+      refresh_token:
+        description: 刷新令牌
+        type: string
+      refresh_token_expires_in:
+        description: 刷新令牌过期时间
+        type: integer
+    type: object
+  model.OrderStatus:
+    enum:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    type: integer
+    x-enum-comments:
+      OrderStatusCancelled: 已取消
+      OrderStatusCompleted: 已完成
+      OrderStatusExpired: 已过期
+      OrderStatusFailed: 失败
+      OrderStatusPaid: 已支付
+      OrderStatusPaying: 支付处理中
+      OrderStatusPending: 待支付
+      OrderStatusProcessing: 处理中
+      OrderStatusRefunded: 已退款
+    x-enum-varnames:
+    - OrderStatusPending
+    - OrderStatusPaying
+    - OrderStatusPaid
+    - OrderStatusCompleted
+    - OrderStatusCancelled
+    - OrderStatusRefunded
+    - OrderStatusProcessing
+    - OrderStatusFailed
+    - OrderStatusExpired
+  model.OrderType:
+    enum:
+    - 1
+    - 2
+    - 4
+    - 5
+    - 6
+    - 7
+    type: integer
+    x-enum-comments:
+      OrderTypeCustom: 自定义订单
+      OrderTypeExchange: 商品兑换
+      OrderTypeFinance: 理财订单
+      OrderTypeRecharge: 充值订单
+      OrderTypeTransfer: 内部转账
+      OrderTypeWithdraw: 提现订单
+    x-enum-varnames:
+    - OrderTypeRecharge
+    - OrderTypeExchange
+    - OrderTypeFinance
+    - OrderTypeTransfer
+    - OrderTypeWithdraw
+    - OrderTypeCustom
+  models.PageRes-dto_AnnouncementModel:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.AnnouncementModel'
+        type: array
+      total:
+        type: integer
+    type: object
+  models.PageRes-dto_DeclarationDTO:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.DeclarationDTO'
+        type: array
+      total:
+        type: integer
+    type: object
+  models.PageRes-dto_LotteryRecordDTO:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.LotteryRecordDTO'
+        type: array
+      total:
+        type: integer
+    type: object
+  models.PageRes-dto_NewsDTO:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.NewsDTO'
+        type: array
+      total:
+        type: integer
+    type: object
+  models.PageRes-dto_OrderDTO:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.OrderDTO'
+        type: array
+      total:
+        type: integer
+    type: object
+  models.PageRes-dto_ProductDTO:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/dto.ProductDTO'
+        type: array
+      total:
+        type: integer
+    type: object
+host: localhost:8848
+info:
+  contact:
+    name: go-server-template-app
+  description: This is a demo using go-server-template-app.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: go-server-template-app
+  version: "1.0"
+paths:
+  /v1/address:
+    get:
+      consumes:
+      - application/json
+      description: 获取地址列表
+      operationId: GetAddressList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.AddressResp'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取地址列表
+      tags:
+      - 地址管理
+    post:
+      consumes:
+      - application/json
+      description: 新增地址
+      operationId: AddAddress
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 属性说明请在对应model中查看
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AddressReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 新增地址
+      tags:
+      - 地址管理
+    put:
+      consumes:
+      - application/json
+      description: 更新地址
+      operationId: UpdateAddress
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 属性说明请在对应model中查看
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_secret-pr_go-server-template_internal_address_dto.UpdateAddressReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 更新地址
+      tags:
+      - 地址管理
+  /v1/address/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 删除地址
+      operationId: DeleteAddress
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: path
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 删除地址
+      tags:
+      - 地址管理
+  /v1/address/default:
+    get:
+      consumes:
+      - application/json
+      description: 获取默认地址
+      operationId: GetDefaultAddress
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.AddressResp'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取默认地址
+      tags:
+      - 地址管理
+  /v1/address/set_default/:id:
+    post:
+      consumes:
+      - application/json
+      description: 设置默认地址
+      operationId: SetDefaultAddress
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: path
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 设置默认地址
+      tags:
+      - 地址管理
+  /v1/announcement:
+    get:
+      consumes:
+      - application/json
+      description: 获取公告
+      operationId: GetAnnouncementList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 地区
+        in: query
+        name: area
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 是否弹出 1->是，2->否
+        in: query
+        name: popUp
+        type: integer
+      - description: 是否返回公告内容
+        in: query
+        name: showDetails
+        type: boolean
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - description: 公告状态 1->新增，2->发布，3->关闭
+        in: query
+        name: status
+        type: integer
+      - description: 标题
+        in: query
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PageRes-dto_AnnouncementModel'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取公告
+      tags:
+      - 公告
+  /v1/announcement/details:
+    get:
+      consumes:
+      - application/json
+      description: 获取公告详情
+      operationId: GetAnnouncementDetails
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PageRes-dto_AnnouncementModel'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取公告详情
+      tags:
+      - 公告
+  /v1/auth/captcha:
+    get:
+      consumes:
+      - application/json
+      description: 生成图形验证码
+      operationId: GenerateCaptcha
+      parameters:
+      - description: 图片高度
+        in: query
+        name: height
+        type: integer
+      - description: 图片宽度
+        in: query
+        name: width
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回验证码图片和ID
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CaptchaResponse'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 生成验证码
+      tags:
+      - 认证
+  /v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录接口
+      operationId: Login
+      parameters:
+      - description: 登录信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.LoginCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 登录成功返回token
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_secret-pr_go-server-template_internal_user_application_dto.AuthDto'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 用户登录
+      tags:
+      - 认证
+  /v1/auth/refresh_token:
+    post:
+      consumes:
+      - application/json
+      description: 使用refresh token获取新的access token
+      operationId: RefreshToken
+      parameters:
+      - description: 刷新token信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.RefreshTokenCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回新的token信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_secret-pr_go-server-template_internal_user_application_dto.AuthDto'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 刷新token
+      tags:
+      - 认证
+  /v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: 新用户注册接口
+      operationId: Register
+      parameters:
+      - description: 注册信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.RegisterCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功返回用户信息
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 用户注册
+      tags:
+      - 认证
+  /v1/auth/update_password:
+    post:
+      consumes:
+      - application/json
+      description: 用户修改密码
+      operationId: UpdatePassword
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 密码信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.UpdatePasswordCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 修改密码
+      tags:
+      - 认证
+  /v1/auth/verified:
+    post:
+      consumes:
+      - application/json
+      description: 用户实名认证
+      operationId: Verified
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 实名信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.VerifiedCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 认证成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 实名认证
+      tags:
+      - 认证
+  /v1/auth/verified/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前登录用户的实名认证信息
+      operationId: GetUserVerifiedInfo
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 返回用户实名信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.RealNameApplicationResponse'
+              type: object
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取用户实名信息
+      tags:
+      - 认证
+  /v1/auth/verified/record:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户实名认证申请记录
+      operationId: GetUserRealApplicationList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 认证记录列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.RealNameApplicationResponse'
+                  type: array
+              type: object
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取实名认证记录
+      tags:
+      - 认证
+  /v1/bank_card:
+    delete:
+      consumes:
+      - application/json
+      description: 删除银行卡
+      operationId: DeleteCard
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 属性说明请在对应model中查看
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.DeleteBankCardReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 删除银行卡
+      tags:
+      - 银行卡
+    get:
+      consumes:
+      - application/json
+      description: 获取银行卡
+      operationId: GetCardList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.UserBankCard'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取银行卡
+      tags:
+      - 银行卡
+    post:
+      consumes:
+      - application/json
+      description: 新增银行卡
+      operationId: AddBankCard
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 属性说明请在对应model中查看
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AddBankCardReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 新增银行卡
+      tags:
+      - 银行卡
+  /v1/bank_card/bank_list:
+    get:
+      consumes:
+      - application/json
+      description: 获取银行列表
+      operationId: GetOpeningBankList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.OpeningBank'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取银行列表
+      tags:
+      - 银行卡
+  /v1/bank_card/set_def:
+    post:
+      consumes:
+      - application/json
+      description: 设置默认银行卡
+      operationId: SetDefault
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 属性说明请在对应model中查看
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SetDefaultBankCardReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 设置默认银行卡
+      tags:
+      - 银行卡
+  /v1/declaration:
+    get:
+      consumes:
+      - application/json
+      description: 分页获取申报列表
+      operationId: GetDeclarationList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: categoryId
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - in: query
+        name: endTime
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - in: query
+        name: startTime
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 申报列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PageRes-dto_DeclarationDTO'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取申报列表
+      tags:
+      - 申报
+    post:
+      consumes:
+      - application/json
+      description: 提交新的申报
+      operationId: SubmitDeclaration
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 申报信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.CreateDeclarationCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 提交成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 提交申报
+      tags:
+      - 申报
+  /v1/declaration/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定申报的详细信息
+      operationId: GetDeclarationInfo
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 申报ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 申报信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.DeclarationDTO'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取申报信息
+      tags:
+      - 申报
+  /v1/declaration/withdraw/{id}:
+    put:
+      consumes:
+      - application/json
+      description: 撤回指定申报
+      operationId: WithdrawDeclaration
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 申报ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 撤回成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 撤回申报
+      tags:
+      - 申报
+  /v1/dictionary/classify/:id:
+    get:
+      consumes:
+      - application/json
+      description: 根据分类获取
+      operationId: GetByCategory
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.Category'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 根据分类获取
+      tags:
+      - 数据字典
+  /v1/information:
+    get:
+      consumes:
+      - application/json
+      description: 获取自定义信息
+      operationId: GetInformationList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 自定义id
+        in: query
+        name: customId
+        type: string
+      - description: 中文名称
+        in: query
+        name: name
+        type: string
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.InformationModel'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取自定义信息
+      tags:
+      - 自定义信息
+  /v1/information/:id:
+    get:
+      consumes:
+      - application/json
+      description: 根据id自定义信息
+      operationId: GetInformationById
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: path
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.InformationModel'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 根据id自定义信息
+      tags:
+      - 自定义信息
+  /v1/lottery/address:
+    put:
+      consumes:
+      - application/json
+      description: 用户为实物奖品填写或修改收货地址
+      operationId: UpdateLotteryAddress
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 地址信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_secret-pr_go-server-template_internal_lottery_application_dto.UpdateAddressReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 更新收货地址
+      tags:
+      - 抽奖
+  /v1/lottery/draw:
+    post:
+      consumes:
+      - application/json
+      description: 执行一次抽奖操作，成本将从商品属性中自动扣除
+      operationId: PerformLottery
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 抽奖请求
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.DrawReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.LotteryResultDTO'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 执行抽奖
+      tags:
+      - 抽奖
+  /v1/lottery/lucky-number:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户当前剩余的抽奖次数
+      operationId: GetLuckyNumber
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  type: integer
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取抽奖次数
+      tags:
+      - 抽奖
+  /v1/lottery/prizes/{categoryId}:
+    get:
+      consumes:
+      - application/json
+      description: 根据分类ID获取该次抽奖的所有奖品信息
+      operationId: GetPrizes
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 奖品分类ID
+        in: path
+        name: categoryId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.PrizeDTO'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取奖品列表
+      tags:
+      - 抽奖
+  /v1/lottery/records:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前用户的中奖记录，支持分页和条件筛选
+      operationId: GetLotteryRecords
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 收货地址筛选（支持模糊查询）
+        in: query
+        name: address
+        type: string
+      - description: 收货人姓名筛选（支持模糊查询）
+        in: query
+        name: consignee
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 收货人电话筛选（支持模糊查询）
+        in: query
+        name: phone
+        type: string
+      - description: 奖品ID筛选
+        in: query
+        name: prizeId
+        type: string
+      - description: 奖品名称筛选（支持模糊查询）
+        in: query
+        name: prizeName
+        type: string
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - description: 发货状态筛选（0:未发货, 1:已发货, 2:已签收）
+        in: query
+        name: status
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  allOf:
+                  - $ref: '#/definitions/models.PageRes-dto_LotteryRecordDTO'
+                  - properties:
+                      list:
+                        items:
+                          $ref: '#/definitions/dto.LotteryRecordDTO'
+                        type: array
+                    type: object
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取抽奖记录
+      tags:
+      - 抽奖
+  /v1/lottery/sign-for/{recordId}:
+    put:
+      consumes:
+      - application/json
+      description: 用户确认收到实物奖品
+      operationId: SignFor
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 中奖记录ID
+        in: path
+        name: recordId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 用户签收
+      tags:
+      - 抽奖
+  /v1/news:
+    get:
+      consumes:
+      - application/json
+      description: 获取资讯列表
+      operationId: GetNewsList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: area
+        type: string
+      - in: query
+        name: classId
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - in: query
+        name: sortField
+        type: string
+      - in: query
+        name: sortOrder
+        type: string
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PageRes-dto_NewsDTO'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取资讯列表
+      tags:
+      - 新闻资讯
+  /v1/news/:id:
+    get:
+      consumes:
+      - application/json
+      description: 获取资讯详情
+      operationId: GetNewsDetails
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: path
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.NewsDTO'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取资讯详情
+      tags:
+      - 新闻资讯
+  /v1/news/categories/all:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有新闻分类列表
+      operationId: GetAllList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: area
+        type: string
+      - in: query
+        name: status
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.NewsDTO'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取所有新闻分类列表
+      tags:
+      - 新闻资讯
+  /v1/order:
+    get:
+      consumes:
+      - application/json
+      description: 获取订单列表
+      operationId: GetOrderList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - in: query
+        name: end_time
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - in: query
+        name: start_time
+        type: integer
+      - in: query
+        name: status
+        type: integer
+      - in: query
+        name: type
+        type: integer
+      - in: query
+        name: user_id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PageRes-dto_OrderDTO'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取订单列表
+      tags:
+      - 订单
+    post:
+      consumes:
+      - application/json
+      description: 创建订单（支持普通订单、理财订单等）
+      operationId: CreateOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 创建订单参数
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CreateOrderResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 创建订单
+      tags:
+      - 订单
+  /v1/order/{id}:
+    get:
+      consumes:
+      - application/json
+      description: 获取订单详情
+      operationId: GetOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 订单id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.OrderDTO'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取订单详情
+      tags:
+      - 订单
+  /v1/order/{id}/refund:
+    put:
+      consumes:
+      - application/json
+      description: 退款
+      operationId: RefundOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 订单id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: 退款参数
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RefundOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 退款
+      tags:
+      - 订单
+  /v1/order/cancel:
+    put:
+      consumes:
+      - application/json
+      description: 取消订单
+      operationId: CancelOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 订单id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 取消订单
+      tags:
+      - 订单
+  /v1/order/exchange:
+    post:
+      consumes:
+      - application/json
+      description: 创建兑换订单
+      operationId: CreateExchangeOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 创建兑换订单参数
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateExchangeOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CreateOrderResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 创建兑换订单
+      tags:
+      - 订单
+  /v1/order/recharge:
+    post:
+      consumes:
+      - application/json
+      description: 创建充值订单
+      operationId: CreateRechargeOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 创建充值订单参数
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateRechargeOrderReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.CreateOrderResp'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 创建充值订单
+      tags:
+      - 订单
+  /v1/pay/channel/enabled:
+    get:
+      consumes:
+      - application/json
+      description: 获取所有启用的渠道列表
+      operationId: GetEnabledChannelList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: code
+        type: string
+      - in: query
+        name: merchantId
+        type: string
+      - in: query
+        name: name
+        type: string
+      - in: query
+        name: type
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 渠道列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.ChannelDTO'
+                  type: array
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取所有启用的渠道列表
+      tags:
+      - 支付
+  /v1/pay/channel/merchant/{merchantId}/enabled:
+    get:
+      consumes:
+      - application/json
+      description: 获取指定商户下所有启用的渠道列表
+      operationId: GetMerchantEnabledChannels
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 商户ID
+        in: path
+        name: merchantId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 渠道列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.ChannelDTO'
+                  type: array
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取商户下所有启用的渠道列表
+      tags:
+      - 支付
+  /v1/pay/order:
+    post:
+      consumes:
+      - application/json
+      description: 支付订单
+      operationId: PaymentOrder
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 支付订单参数
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.PaymentCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 支付结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.PaymentResultDTO'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 支付订单
+      tags:
+      - 支付
+  /v1/product:
+    get:
+      consumes:
+      - application/json
+      description: 获取商品
+      operationId: GetProductList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 地区
+        in: query
+        name: area
+        type: string
+      - description: 分类ID
+        in: query
+        name: category_id
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 产品名称，模糊查询
+        in: query
+        name: name
+        type: string
+      - description: 支付方式ID
+        in: query
+        name: payment_method_id
+        type: integer
+      - description: 收益钱包
+        in: query
+        name: profit_wallet
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - description: 产品状态
+        in: query
+        name: status
+        type: integer
+      - description: 用户账号
+        in: query
+        name: user_account
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.PageRes-dto_ProductDTO'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取商品
+      tags:
+      - 商品
+  /v1/product/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取商品信息
+      operationId: GetProductInfo
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ProductDTO'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取商品信息
+      tags:
+      - 商品
+  /v1/sign:
+    post:
+      consumes:
+      - application/json
+      description: 用户签到
+      operationId: Sign
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 签到成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 签到
+      tags:
+      - 签到
+  /v1/sign/config:
+    get:
+      consumes:
+      - application/json
+      description: 获取签到系统的配置信息
+      operationId: GetSignConfig
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 签到配置信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.SignConfigInfo'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取签到配置
+      tags:
+      - 签到
+  /v1/sign/continuous_count:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户当前的连续签到天数
+      operationId: GetContinuousSignCount
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 连续签到天数
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  type: integer
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取连续签到天数
+      tags:
+      - 签到
+  /v1/sign/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户的签到状态、连续签到天数等信息
+      operationId: GetSignInfo
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 签到信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.SignInfo'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取签到信息
+      tags:
+      - 签到
+  /v1/sign/period_count:
+    get:
+      consumes:
+      - application/json
+      description: 获取用户在当前周期内的签到天数
+      operationId: GetPeriodSignCount
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 签到天数
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  type: integer
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取周期内签到天数
+      tags:
+      - 签到
+  /v1/sign/records:
+    get:
+      consumes:
+      - application/json
+      description: 获取签到记录列表，支持时间范围查询、分页和用户信息显示
+      operationId: GetSignRecords
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码
+        in: query
+        minimum: 1
+        name: current
+        required: true
+        type: integer
+      - description: 每页数量
+        in: query
+        maximum: 100
+        minimum: 1
+        name: size
+        required: true
+        type: integer
+      - description: 开始时间戳
+        in: query
+        name: start_time
+        type: integer
+      - description: 结束时间戳
+        in: query
+        name: end_time
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 签到记录列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.SignRecordItem'
+                  type: array
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取签到记录列表
+      tags:
+      - 签到
+  /v1/sign/today:
+    get:
+      consumes:
+      - application/json
+      description: 检查用户今日是否已完成签到
+      operationId: CheckTodaySign
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 是否已签到
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  type: boolean
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 检查今日是否已签到
+      tags:
+      - 签到
+  /v1/user/get_subordinates:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前用户的下级用户列表
+      operationId: GetSubordinates
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 等级，1:一级,2:二级，3：三级
+        in: query
+        name: level
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - description: 用户ID
+        in: query
+        name: userId
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 下级用户列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.UserDTO'
+                  type: array
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取下级用户
+      tags:
+      - 用户
+  /v1/user/get_user_invitation_and_real_name_num_by_regin:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前用户在指定时间范围内邀请的实名用户数量
+      operationId: GetRealNameNumberByRegin
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 结束时间
+        in: query
+        name: end
+        type: integer
+      - description: 开始时间
+        in: query
+        name: start
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 实名用户数量
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  type: integer
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取指定时间范围内的实名用户数量
+      tags:
+      - 用户
+  /v1/user/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取当前登录用户的详细信息
+      operationId: GetInfo
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 用户信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.UserDTO'
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取用户信息
+      tags:
+      - 用户
+    put:
+      consumes:
+      - application/json
+      description: 更新当前登录用户的基本信息
+      operationId: UpdateUserInfo
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.UpdateUserCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 更新用户信息
+      tags:
+      - 用户
+  /v1/user/task:
+    get:
+      consumes:
+      - application/json
+      description: 根据任务分类获取任务列表
+      operationId: GetAllTasksByCategory
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 通用string类型Id(用于在path或param接受参数)
+        in: query
+        name: id
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.TaskInfo'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 根据任务分类获取任务列表
+      tags:
+      - 任务
+  /v1/user/task/receive_rewards:
+    get:
+      consumes:
+      - application/json
+      description: 领取任务奖励
+      operationId: ReceiveRewards
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 任务ID
+        in: query
+        name: taskId
+        required: true
+        type: string
+      - description: 用户ID
+        in: query
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 领取任务奖励
+      tags:
+      - 任务
+  /v1/user/task/status:
+    get:
+      consumes:
+      - application/json
+      description: 获取分类下任务状态
+      operationId: GetCategoryTaskStatus
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: categoryId
+        required: true
+        type: string
+      - in: query
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.TaskStatusInfo'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取分类下任务状态
+      tags:
+      - 任务
+  /v1/user/update_pay_password:
+    put:
+      consumes:
+      - application/json
+      description: 修改当前用户的支付密码
+      operationId: UpdateUserPayPassword
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 支付密码信息
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/command.UpdateUserPayPasswordCommand'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改成功
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 修改支付密码
+      tags:
+      - 用户
+  /v1/wallet/application:
+    get:
+      consumes:
+      - application/json
+      description: 获取申请记录
+      operationId: GetAccountRequestList
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 搜索字段，账号
+        in: query
+        name: account
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 结束时间
+        in: query
+        name: endTime
+        type: integer
+      - description: 资金类型 1->保障金，2->圆梦金，3->救助金
+        in: query
+        name: fundingType
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - description: 开始时间
+        in: query
+        name: startTime
+        type: integer
+      - description: 处理方式 1->待处理,2->拒绝,3->同意
+        in: query
+        name: status
+        type: integer
+      - description: app
+        in: query
+        name: userID
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/dto.WithdrawalApplicationDTO'
+                  type: array
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取申请记录
+      tags:
+      - 钱包
+    post:
+      consumes:
+      - application/json
+      description: 提交提现申请
+      operationId: WalletChangeApplication
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 属性说明请在对应model中查看
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/dto.WalletMoneyChangeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            $ref: '#/definitions/base_info.Success'
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 提交提现申请
+      tags:
+      - 钱包
+  /v1/wallet/info:
+    get:
+      consumes:
+      - application/json
+      description: 获取钱包信息
+      operationId: GetUserWallet
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.UserWallet'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取钱包信息
+      tags:
+      - 钱包
+  /v1/wallet/transaction_record:
+    get:
+      consumes:
+      - application/json
+      description: 交易记录
+      operationId: ObtainPaymentLog
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 变动金额（小于）
+        in: query
+        name: changeMoney
+        type: integer
+      - description: 用户
+        in: query
+        name: creator
+        type: string
+      - description: 页码，从1开始
+        in: query
+        name: current
+        type: integer
+      - description: 结束时间
+        in: query
+        name: endTime
+        type: integer
+      - description: 资金类型 1->保障金，2->圆梦金，3->救助金
+        in: query
+        name: fundingType
+        type: integer
+      - description: 记录类型
+        in: query
+        name: logs_type
+        type: integer
+      - description: 页码大小，最大100
+        in: query
+        name: size
+        type: integer
+      - description: 来源类型
+        in: query
+        name: sourceType
+        type: string
+      - description: 开始时间
+        in: query
+        name: startTime
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: data的属性说明请在对应model中查看
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.Success'
+            - properties:
+                data:
+                  $ref: '#/definitions/dto.ObtainPaymentLog'
+              type: object
+        "400":
+          description: code为400 参数输入错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "401":
+          description: code为401 token未带上
+          schema:
+            $ref: '#/definitions/base_info.Swagger401Resp'
+        "500":
+          description: code为500 服务端内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 交易记录
+      tags:
+      - 钱包
+schemes:
+- http
+swagger: "2.0"

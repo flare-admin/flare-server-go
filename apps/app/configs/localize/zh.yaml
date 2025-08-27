@@ -1,0 +1,298 @@
+ServerBusy: 服务器繁忙
+Success: 成功
+GetUserProfileErr: 获取取用户信息错误
+UserNotFind: 用户不存在
+StatusInvalidParam: 参数错误
+tokenEmpty: 令牌不能为空，请重新登录
+tokenVerifyFail: 令牌无效，请重新登录
+RPC_CALL_ERROR: 服务调用异常
+UNKNOWN: 未知错误
+PLEASE_DO_NOT_RESUBMIT: 请勿重复提交
+isNotAdminAccount: 不是管理账号
+STATUS_INTERNAL_SERVER_ERROR: 服务端错误
+PARAMETER_ERROR: 参数错误
+sqlInjectionDetected: sql注入
+#通用
+QUERY_FAIL: 查询失败
+CREATE_FAIL: 创建失败
+UPDATE_FAIL: 更新失败
+DELETE_FAIL: 删除失败
+PARAMETER_TRANSFER_FAIL: 参数转换失败
+RESULT_TRANSFER_FAIL: 结果转换失败
+RealNameNotCompleted: 未完成实名认证
+#认证
+PasswordsDoNotMatch: 两次密码不一致
+IncorrectAccountOrPassword: 账号或密码不正确
+IncorrectVerificationCode: 验证码不正确
+AccountAlreadyExists: 账号已存在
+ErrorGetTokenError: 生成token失败
+OldPasswordFail: 旧密码不正确
+VerifiedError: 实名认证失败
+IDCardFailed: 身份证号不正确
+RealNameApplicationFailed: 实名申请失败
+TheUserHasCompletedRealNameAuthentication: 用户已完成实名认证
+TooManyRegistrationsRorTheSameIP: 同一个ip注册次数过多
+TooManyRealNameRorTheSameIP: 同一个ip实名次数过多
+VaptchaVerificationFailed: 请先完成验证
+PayPasswordFailed: 支付密码错误
+IDNumberHasBeenUsed: 身份证号已被使用
+UserProhibitedFromLoggingIn: 用户禁止登录
+
+#公告
+AddAnnouncementFail: 新增公告失败
+EditAnnouncementFail: 修改公告失败
+DeleteAnnouncementFail: 删除公告失败
+GetAnnouncementFail: 获取公告是失败
+
+#申请
+HandleMaterialApplication: 处理物资申请失败
+AddMaterialApplication: 新增物资申请失败
+GetMaterialApplicationFail: 获取物资申请失败
+NotMeetingApplicationRequirements: 未满足申请条件
+TheNumberOfDirectInviteesDidNotReach60: 直邀人数没达到60人。
+
+PendingApplications: 有正在处理的请求
+ApplicationApproved: 申请已批准
+
+#团长申请
+HandleHeadOfGroupApplication: 处理团长申请失败
+AddHeadOfGroupApplication: 新增团长申请失败
+GetHeadOfGroupApplicationFail: 获取团长申请失败
+
+#银行卡
+ChickBankCardField: 卡号校验失败
+BankCardField: 卡号错误
+AddBankField: 新增银行卡失败
+SetDefaultBankCardField: 设置默认银行卡失败
+DeleteBankCardField: 删除银行卡失败
+GetBankListField: 获取银行卡列表失败
+TheCardNumberHasBeenBound: 卡号已绑定
+UpToThreeBankCardsCanBeBound: 最多只能绑定一张银行卡
+UserIsNotRealName: 用户未实名
+GetBankCardField: 获取银行卡失败
+
+# 订单
+CreateOrderFailed: 创建订单失败
+EditOrderFailed: 编辑订单失败
+GetOrderFailed: 获取订单失败
+AmountIsEmpty: 订单金额不能为空
+AmountFailed: 金额格式不正确
+ProductIsNotAvailable: 产品未上架
+LessThanTheMinimumPurchaseAmount: 小于最小购买金额
+GreaterThanTheMaximumPurchaseAmount: 大于最大购买金额
+ItemSoldOut: 产品已经售空
+TheProductHasNotYetBeenSold: 商品未开始销售
+TheOrderingUserIsInconsistent2ithTheCurrentUser: 下单用户和当前用户不一致
+OrderOotCompleted: 订单未完成
+TheOrderDoesNotSupportRedemption: 订单不支持赎回
+RedemptionFailed: 赎回失败
+TheSharesHeldDoNotMeetRheUpgradeConditions: 所持股份不满足升级条件
+GetUserAccessFailed: 获取用户资产失败
+YouNeedToActivateYourIdentityBeforePurchasing: 购买前需要先激活身份
+ThePaymentAmountIsLessThanTheMinimumLimitOfTheChannel: 支付金额小于通道最小限额
+ThePaymentAmountIsGreaterTheMaximumLimitOfTheChannel: 支付金额大于通道最大限额
+TheCurrentLevelDoesDotDeedToBeUpgraded: 当前身份无需升级
+TopUpFail: 充值失败
+BuyNumExceedsLimit: 购买数量超出限制
+ExceedingTheLimitOfPlacingOrdersPerMinute: 超过每分钟拉单限制
+UnapprovedHousingApplications: 没有审批通过的住房申请
+
+#商品
+AddProductFail: 添加商品失败
+EditProductFail: 编辑商品失败
+GetProductFail: 获取商品失败
+ProductNotExist: 商品不存在
+AddProductClassFail: 新增分类失败
+GetProductClassFail: 获取商品分类失败
+EditProductClassFail: 编辑商品分类失败
+DeleteProductFail: 删除商品失败
+
+#rbac
+RbacPhoneOrNameIsExistError: 添加用户，用户手机号已存在错误
+RbacMenuNameIsExistError: 菜单名称已存在
+RbacRoleNameIsExistError:  角色名称已存在
+AddMenuError: 添加菜单失败
+DeleteMenuError: 删除菜单失败
+EditMenuError: 更改菜单失败
+GetMenuError: 获取才菜单失败
+NameRealNameInconsistentErr: 名称或iocn为空
+AddUserError: 新增用户失败
+UpdatePasswordError: 更新密码失败
+
+#签到
+GetSignInFail: 获取签到记录失败
+SignInCompletedToday: 你已完成签到
+
+#系统配置
+SysConfigurationTypeIsExist: 配置类型已存在
+CreateConfigurationFiled: 创建系统配置错误
+UpdateConfigurationFiled: 修改系统配置错误
+SysConfigurationNotExist: 配置不存在
+GetConfigurationFile: 获取系统配置错误
+
+#用户
+AddUserFailed: 新增用户失败
+DelUserFailed: 删除用户失败
+EditUserFailed: 编辑用户失败
+GetUserFailed: 获取用户失败
+UserNotFond: 用户不存在
+InvitationCodeFailed: 推广吗无效
+PersonIdIsInvalid: 身份证有错误
+GetUserNumberOfInvitations: 获取推广数量失败
+GetUserApplicationFailed: 获取用户申请失败
+RealApplicationHasBeenProcessed: 实名认证已处理
+RealApplicationProcessedFail: 实名认证失败
+PasswordGenerateFailed: 密码生成失败
+TheUserJasNotCompletedRealNameAuthentication: 用户未完成实名认证
+
+#钱包
+OpenWalletError: 开通钱包失败
+GetUserWalletError: 获取钱包失败
+ChangeWalletStatusError: 更改钱包状态失败
+PleaseDoNotResubmit: 请勿重复提交
+WithdrawalPermissionIsNotEnabled: 没有提现权限
+AmountCanNotBetLessThan: 金额低于最小金额
+TheAmountIsGreaterThanTheMaximumLimit: 金额超过最大限制
+WithdrawalField: 提现错误
+WithdrawalAmountField: 请求金额错误
+TodayWithdrawalNumUsed: 当天提现次数用完
+InsufficientAccountBalance: 账户余额不足
+GetAccountRequestLogField: 或请求信息失败
+AccountWalletFrozen: 账户冻结
+HandleApplicationField: 处理请求失败
+ApplicationHasBeenProcessed: 请求已被处理
+AccountUnavailable: 账户不可用
+HdbField: 交易失败
+GetHdbLogField: 获取交易记录失败
+GetWalletLockFail: 获取钱包锁失败
+WithdrawalsAreSuspendedDuringSystemUpgrade: 系统升级中暂停提现
+TheTransferInAndOutCannotBeToTheSameAccount: 转入和转出不能 是同一个账户
+AmountCannotBeZero: 金额不能为零
+InvalidAmountFormat: 金额格式不正确
+TheAccountDoesNotSupportTransfers: 帐户不支持转账
+InsufficientCashWithdrawalAmount: 可提现金额不足
+AccountsAndAccountsThatAreNotBoundToTheCurrentUser: 未与当前用户绑定的帐户和帐户
+NeedToBindBankCard: 需要先绑定银行卡
+
+#统计
+GetAppTeamStatistics: 获取团队统计失败
+
+#用户任务
+AddUserTaskFail: 新增任务失败
+EditUserTaskFail: 修改任务失败
+GetUserTaskFail: 获取任务是失败
+ReceiveTaskRewards: 领取任务奖励失败
+GetUserTaskLockFail: 获取用户任务锁失败
+MissionRewardsHaveBeenReceivedFail: 任务奖励已领取
+TheTaskDoesNotMeetTheConditionsForReceiving: 任务不满足领取条件
+
+
+GetPaymentAddressFail: 获取支付地址失败
+NoPaymentAddressAvailable: 暂无可用的支付地址
+
+#幸运大转盘
+FailedToObtainTheNumberOfDraws: 获取抽奖次数失败
+TheDrawTimesHaveBeenUsedUp: 抽奖次数已用完
+ThereAreNoProductsOnTheTurntable: 转盘未上架任何奖品
+FailedToDrawPPrize: 开奖失败
+ConsigneeCannotBeEmpty: 收货人不能为空
+PhoneCannotBeEmpty: 手机号不能为空
+AddressCannotBeEmpty: 地址不能为空
+PrizesHaveNotBeenShippedYet: 奖品还未发货
+
+#任务管理
+AddTaskFail: 新增任务失败
+EditTaskFail: 编辑任务失败
+GetTaskFail: 获取任务失败
+DeleteTaskFail: 删除任务失败
+AddTaskCategoryFail: 新增任务分类失败
+EditTaskCategoryFail: 编辑任务分类失败
+GetTaskCategoryFail: 获取任务分类失败
+DeleteTaskCategoryFail: 删除任务分类失败
+GetTaskProgressFail: 获取任务进度失败
+UpdateTaskProgressFail: 更新任务进度失败
+GetTaskRewardsFail: 获取任务奖励失败
+UpdateTaskRewardsFail: 更新任务奖励失败
+GetTaskConditionsFail: 获取任务条件失败
+UpdateTaskConditionsFail: 更新任务条件失败
+
+#任务业务
+TaskNotFound: 任务不存在
+TaskAlreadyExists: 任务已存在
+TaskDisabled: 任务已禁用
+TaskNotStarted: 任务未开始
+TaskExpired: 任务已过期
+TaskNotCompleted: 任务未完成
+TaskTypeError: 任务类型错误
+TaskConditionError: 任务条件错误
+TaskRewardError: 任务奖励错误
+InvalidTaskTime: 任务时间无效
+TaskAlreadyCompleted: 任务已完成
+
+#任务分类
+CategoryNotFound: 分类不存在
+CategoryDisabled: 分类已禁用
+CategoryHasActiveTasks: 分类下存在进行中的任务
+CategoryTypeError: 分类类型错误
+DuplicateCategoryName: 分类名称重复
+
+#任务奖励
+RewardTypeError: 奖励类型错误
+RewardClaimFailed: 领取奖励失败
+RewardAlreadyClaimed: 奖励已领取
+InvalidRewardAmount: 奖励金额无效
+InvalidWalletType: 钱包类型无效
+
+#任务进度
+TaskProgressError: 任务进度错误
+InvalidProgressType: 进度类型无效
+ProgressTypeRequired: 进度类型不能为空
+InvalidProgressValue: 进度值无效
+
+#任务重置
+ResetTypeError: 重置类型错误
+InvalidResetDays: 重置天数无效
+
+#签到模块
+# 签到管理相关错误
+AddSignConfigFail: 新增签到配置失败
+EditSignConfigFail: 编辑签到配置失败
+GetSignConfigFail: 获取签到配置失败
+DeleteSignConfigFail: 删除签到配置失败
+GetSignRecordFail: 获取签到记录失败
+UpdateSignRecordFail: 更新签到记录失败
+CreateSignConfigFailed: 创建签到配置失败
+UpdateSignConfigFail: 更新签到配置失败
+DeleteSignConfigFailed: 删除签到配置失败
+GetSignConfigListFailed: 获取签到配置列表失败
+
+# 签到业务相关错误
+SignInFail: 签到失败
+AlreadySignedToday: 今日已签到
+DailyLimitExceeded: 超出每日签到次数限制
+SignConfigNotFound: 签到配置不存在
+SignConfigDisabled: 签到配置已禁用
+InvalidPeriodType: 无效的统计周期类型
+InvalidContinuousType: 无效的连续签到类型
+InvalidPeriodDays: 无效的周期天数
+SignRecordNotFound: 签到记录不存在
+SignInFailed: 签到操作失败
+
+# 签到统计相关错误
+GetSignCountFail: 获取签到次数失败
+GetPeriodSignsFail: 获取周期签到记录失败
+GetContinuousSignFail: 获取连续签到记录失败
+GetSignInfoFailed: 获取签到信息失败
+GetSignStatisticsFailed: 获取签到统计失败
+
+# 签到条件相关错误
+RealNameRequired: 需要完成实名认证才能签到
+MobileBindRequired: 需要绑定手机号才能签到
+UserLevelNotEnough: 用户等级不足，无法签到
+UserBalanceNotEnough: 用户余额不足，无法签到
+SignTimeNotAllowed: 当前时间不在可签到时间范围内
+
+# 在签到模块部分添加
+GetSignRecordsFail: 获取签到记录列表失败
+InvalidTimeRange: 无效的时间范围
+InvalidPageParams: 无效的分页参数

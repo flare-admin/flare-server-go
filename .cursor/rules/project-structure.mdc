@@ -1,0 +1,42 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 项目结构指南
+
+本项目采用 DDD + CQRS 架构，主要包含以下核心目录：
+
+## 核心目录结构
+
+- `application/` - 应用服务层
+  - 包含命令处理器和查询处理器
+  - 实现 CQRS 模式
+  - 处理业务用例
+
+- `domain/` - 领域层
+  - 包含实体、聚合根
+  - 定义领域服务接口
+  - 定义仓储接口
+
+- `infrastructure/` - 基础设施层
+  - 实现数据库访问
+  - 实现缓存服务
+  - 实现第三方服务集成
+
+- `interfaces/` - 接口层
+  - 处理 HTTP 请求
+  - 实现 API 路由
+  - 处理参数验证
+
+## 依赖注入
+
+项目使用 Google Wire 进行依赖注入，主要配置文件：
+- [wire.go](mdc:internal/declaration/wire.go) - 声明模块的依赖注入配置
+
+## 技术栈
+
+- 框架：Go + Hertz
+- 数据库：PostgreSQL + GORM
+- 缓存：Redis
+- API：RESTful
