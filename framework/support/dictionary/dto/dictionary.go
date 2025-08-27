@@ -9,7 +9,7 @@ import (
 type CategoryCreateReq struct {
 	ID          string `json:"id" binding:"required"`
 	Name        string `json:"name" binding:"required"`
-	I18nKey     string `json:"i18n_key"` // 国际化key
+	I18nKey     string `json:"i18nKey"` // 国际化key
 	Description string `json:"description"`
 }
 
@@ -17,7 +17,7 @@ type CategoryCreateReq struct {
 type CategoryUpdateReq struct {
 	ID          string `json:"id" path:"id"`
 	Name        string `json:"name"`
-	I18nKey     string `json:"i18n_key"` // 国际化key
+	I18nKey     string `json:"i18nKey"` // 国际化key
 	Description string `json:"description"`
 }
 
@@ -26,23 +26,23 @@ type CategoryQueryReq struct {
 	db_query.Page
 	Id      string `json:"id" query:"id"`
 	Name    string `json:"name" query:"name"`
-	I18nKey string `json:"i18n_key" query:"i18n_key"`
+	I18nKey string `json:"i18nKey" query:"i18nKey"`
 }
 
 type Category struct {
 	database.BaseModel
 	ID          string `json:"id"`
 	Name        string `json:"name"`
-	I18nKey     string `json:"i18n_key"` // 国际化key
+	I18nKey     string `json:"i18nKey"` // 国际化key
 	Description string `json:"description"`
 }
 
 // OptionCreateReq 创建选项请求
 type OptionCreateReq struct {
-	CategoryID string `json:"category_id" binding:"required"`
+	CategoryID string `json:"categoryId" binding:"required"`
 	Label      string `json:"label"` //默认名称
 	Value      string `json:"value" binding:"required"`
-	I18nKey    string `json:"i18n_key"` // 国际化key
+	I18nKey    string `json:"i18nKey"` // 国际化key
 	Sort       int    `json:"sort"`
 	Status     int    `json:"status"`
 	Remark     string `json:"remark"`
@@ -53,7 +53,7 @@ type OptionUpdateReq struct {
 	ID      string `json:"id" path:"id"`
 	Label   string `json:"label"` //默认名称
 	Value   string `json:"value"`
-	I18nKey string `json:"i18n_key"` // 国际化key
+	I18nKey string `json:"i18nKey"` // 国际化key
 	Sort    int    `json:"sort"`
 	Status  int    `json:"status"`
 	Remark  string `json:"remark"`
@@ -61,19 +61,19 @@ type OptionUpdateReq struct {
 
 // OptionQueryReq 查询选项请求
 type OptionQueryReq struct {
-	CategoryID string `json:"category_id" query:"category_id"`
+	CategoryID string `json:"categoryId" query:"categoryId"`
 	Keyword    string `json:"keyword" query:"keyword"`
 	Status     *int   `json:"status" query:"status"`
 }
 
 type Option struct {
 	database.BaseModel
-	ID         string `json:"id"`          // 选项ID
-	CategoryID string `json:"category_id"` //分类ID
-	Label      string `json:"label"`       //默认名称
-	I18nKey    string `json:"i18n_key"`    //国际化key
-	Value      string `json:"value"`       //选项值
-	Sort       int    `json:"sort"`        // 排序号
-	Status     int    `json:"status"`      // 状态:1-启用,0-禁用
-	Remark     string `json:"remark"`      // 备注
+	ID         string `json:"id"`         // 选项ID
+	CategoryID string `json:"categoryId"` //分类ID
+	Label      string `json:"label"`      //默认名称
+	I18nKey    string `json:"i18nKey"`    //国际化key
+	Value      string `json:"value"`      //选项值
+	Sort       int    `json:"sort"`       // 排序号
+	Status     int    `json:"status"`     // 状态:1-启用,0-禁用
+	Remark     string `json:"remark"`     // 备注
 }

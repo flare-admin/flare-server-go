@@ -6,6 +6,7 @@ import (
 	"github.com/flare-admin/flare-server-go/framework/support/base"
 	cache "github.com/flare-admin/flare-server-go/framework/support/cache/interfaces/rest"
 	configcenter "github.com/flare-admin/flare-server-go/framework/support/config_center/interfaces/rest"
+	dictionaryinterfaces "github.com/flare-admin/flare-server-go/framework/support/dictionary/interfaces"
 	monrest "github.com/flare-admin/flare-server-go/framework/support/monitoring/interfaces/rest"
 	"github.com/flare-admin/flare-server-go/framework/support/rule_engine"
 	syseventservice "github.com/flare-admin/flare-server-go/framework/support/sysevent/interfaces"
@@ -22,6 +23,7 @@ type Server struct {
 	rs       *rule_engine.RuleEngineServer
 	systask  *systaskinterfaces.TaskService
 	sysevent *syseventservice.EventService
+	dictions *dictionaryinterfaces.DictionaryService
 }
 
 func NewServer(
@@ -33,6 +35,7 @@ func NewServer(
 	rs *rule_engine.RuleEngineServer,
 	systask *systaskinterfaces.TaskService,
 	sysevent *syseventservice.EventService,
+	dictions *dictionaryinterfaces.DictionaryService,
 ) *Server {
 	return &Server{
 		metrice:  metrice,
@@ -43,6 +46,7 @@ func NewServer(
 		rs:       rs,
 		systask:  systask,
 		sysevent: sysevent,
+		dictions: dictions,
 	}
 }
 
@@ -54,6 +58,8 @@ func (s *Server) RegisterRouter(rg *route.RouterGroup, tk token.IToken) {
 	s.ts.RegisterRouter(rg, tk)
 	s.rs.RegisterRouter(rg, tk)
 
+	// 支撑业务模块
 	s.systask.RegisterRouter(rg, tk)
 	s.sysevent.RegisterRouter(rg, tk)
+	s.dictions.RegisterRouter(rg, tk)
 }

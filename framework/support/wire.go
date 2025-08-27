@@ -23,7 +23,7 @@ var ProviderSet = wire.NewSet(
 	sysevent.ProviderSet,
 	config_center.ProviderSet,
 	cache.ProviderSet,
-	dictionary.ProviderSet,
+	dictionary.AdminProviderSet,
 	template.ProviderSet,
 	rule_engine.ProviderSet,
 	NewServer,

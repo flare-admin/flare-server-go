@@ -41,6 +41,10 @@ import (
 	handlers5 "github.com/flare-admin/flare-server-go/framework/support/config_center/application/handlers"
 	repository2 "github.com/flare-admin/flare-server-go/framework/support/config_center/infrastructure/repository"
 	rest3 "github.com/flare-admin/flare-server-go/framework/support/config_center/interfaces/rest"
+	biz3 "github.com/flare-admin/flare-server-go/framework/support/dictionary/biz"
+	data6 "github.com/flare-admin/flare-server-go/framework/support/dictionary/data"
+	"github.com/flare-admin/flare-server-go/framework/support/dictionary/interfaces"
+	"github.com/flare-admin/flare-server-go/framework/support/dictionary/translator"
 	"github.com/flare-admin/flare-server-go/framework/support/monitoring/application/handlers"
 	"github.com/flare-admin/flare-server-go/framework/support/monitoring/domain/service"
 	"github.com/flare-admin/flare-server-go/framework/support/monitoring/interfaces/rest"
@@ -54,7 +58,7 @@ import (
 	"github.com/flare-admin/flare-server-go/framework/support/storage/application"
 	"github.com/flare-admin/flare-server-go/framework/support/storage/domain"
 	"github.com/flare-admin/flare-server-go/framework/support/storage/infrastructure"
-	data6 "github.com/flare-admin/flare-server-go/framework/support/storage/infrastructure/persistence/data"
+	data7 "github.com/flare-admin/flare-server-go/framework/support/storage/infrastructure/persistence/data"
 	repository5 "github.com/flare-admin/flare-server-go/framework/support/storage/infrastructure/persistence/repository"
 	base2 "github.com/flare-admin/flare-server-go/framework/support/sysevent/base"
 	biz2 "github.com/flare-admin/flare-server-go/framework/support/sysevent/biz"
@@ -257,7 +261,12 @@ func wireApp(bootstrap *configs.Bootstrap, configsData *configs.Data) (*app, fun
 	iSubscribeServerApi := biz2.NewSubscribeUseCase(iSubscribeRepo, iDataBase, iSubscribeParameterRepo, eventManager, iDeadLetterSubscribeRepo, client)
 	iDeadLetterServiceApi := biz2.NewDeadLetterSubscribeUseCase(iDeadLetterSubscribeRepo, iSubscribeRepo, eventManager, iDataBase)
 	eventService := sysevent_service.NewEventService(iEventServerApi, iSubscribeServerApi, iDeadLetterServiceApi, enforcer)
-	modelsServer := support.NewServer(metricsController, baseServer, configHandler, restCacheHandler, tempServer, ruleEngineServer, taskService, eventService)
+	iDictionaryRepo := data6.NewDictionaryRepo(iDataBase)
+	client2 := database.NewRedisClient(redisClient)
+	iTranslator := translator.NewTranslator(iDictionaryRepo, client2)
+	iDictionaryService := biz3.NewDictionaryUseCase(iDictionaryRepo, iTranslator, iIdGenerate)
+	dictionaryService := dictionaryinterfaces.NewDictionaryService(iDictionaryService, enforcer)
+	supportServer := support.NewServer(metricsController, baseServer, configHandler, restCacheHandler, tempServer, ruleEngineServer, taskService, eventService, dictionaryService)
 	sysCronService, cleanup4, err := service8.NewSysCronService(iTaskManager)
 	if err != nil {
 		cleanup3()
@@ -274,12 +283,12 @@ func wireApp(bootstrap *configs.Bootstrap, configsData *configs.Data) (*app, fun
 		cleanup()
 		return nil, nil, err
 	}
-	iFileRepository := data6.NewFileRepository(iDataBase)
+	iFileRepository := data7.NewFileRepository(iDataBase)
 	storageRepository := repository5.NewStorageRepo(iFileRepository)
 	storageService := domain.NewStorageService(storageAdapter, storageRepository)
 	applicationStorageService := application.NewStorageService(storageService)
 	storage_restService := server.NewFileService(applicationStorageService)
-	serve := server.NewServer(bootstrap, iToken, iDbOperationLogWrite, modelsServer, sysCronService, storage_restService)
+	serve := server.NewServer(bootstrap, iToken, iDbOperationLogWrite, supportServer, sysCronService, storage_restService)
 	mainApp := newApp(serve, eventManager)
 	return mainApp, func() {
 		cleanup4()
