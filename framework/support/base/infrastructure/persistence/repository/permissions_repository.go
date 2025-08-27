@@ -70,7 +70,7 @@ func (r *permissionsRepository) Update(ctx context.Context, permissions *model.P
 	permEntity, resources := r.mapper.ToEntity(permissions)
 	return r.repo.GetDb().InTx(ctx, func(ctx context.Context) error {
 		// 更新权限基本信息
-		err := r.repo.EditById(ctx, permEntity.ID, permEntity)
+		err := r.repo.GetDb().DB(ctx).Save(permEntity).Error
 		if err != nil {
 			return err
 		}

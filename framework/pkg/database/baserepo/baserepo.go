@@ -4,12 +4,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"reflect"
+	"time"
+
 	"github.com/flare-admin/flare-server-go/framework/pkg/database"
 	"github.com/flare-admin/flare-server-go/framework/pkg/database/db_query"
 	"github.com/flare-admin/flare-server-go/framework/pkg/utils"
 	"golang.org/x/exp/constraints"
 	"gorm.io/gorm"
-	"reflect"
 )
 
 // SupportedIDTypes 支持的 ID 类型
@@ -17,271 +19,125 @@ type SupportedIDTypes interface {
 	constraints.Integer | ~string
 }
 
+// IModel 数据模型接口
 type IModel interface {
-	GetPrimaryKey() string // 获取主键
-	TableName() string     //模型表名
+	GetPrimaryKey() string
+	TableName() string
 }
 
-// IBaseRepo [T IModel,I SupportedIDTypes] ， 基础数据层方法
+// IBaseRepo 基础仓库接口
 type IBaseRepo[T IModel, I SupportedIDTypes] interface {
-	FindById(ctx context.Context, id I) (*T, error)                      // 根据 id 获取模型
-	FindByIds(ctx context.Context, ids []I) ([]*T, error)                // 根据 id 获取模型
-	DelById(ctx context.Context, id I) error                             // 根据 id 删除
-	DelByIds(ctx context.Context, ids []I) error                         // 根据 id 批量删除
-	DelByIdUnScoped(ctx context.Context, id I) error                     // 根据 id 物理删除（可单个可批量）
-	DelByIdsUnScoped(ctx context.Context, ids []I) error                 // 根据 id 物理删除（可单个可批量）
-	EditById(ctx context.Context, id I, data *T) error                   // 上下文/id/需要更新的数据模型或者map
-	Add(ctx context.Context, data *T) (*T, error)                        // 创建并返回模型
-	BathAdd(ctx context.Context, data ...*T) error                       // 批量插入
-	Count(ctx context.Context, qb *db_query.QueryBuilder) (int64, error) // 计数
-	Find(ctx context.Context, qb *db_query.QueryBuilder) ([]*T, error)   // 查询
-	Db(ctx context.Context) *gorm.DB                                     // 获取db
-	GetDb() database.IDataBase                                           // 获取database
-	// InTx 下面2个方法配合使用，在InTx方法中执行ORM操作的时候需要使用DB方法获取db！
+	FindById(ctx context.Context, id I) (*T, error)
+	FindByIds(ctx context.Context, ids []I) ([]*T, error)
+	DelById(ctx context.Context, id I) error
+	DelByIds(ctx context.Context, ids []I) error
+	DelByIdUnScoped(ctx context.Context, id I) error
+	DelByIdsUnScoped(ctx context.Context, ids []I) error
+	EditById(ctx context.Context, id I, data *T) error
+	Add(ctx context.Context, data *T) (*T, error)
+	BathAdd(ctx context.Context, data ...*T) error
+	Count(ctx context.Context, qb *db_query.QueryBuilder) (int64, error)
+	Find(ctx context.Context, qb *db_query.QueryBuilder) ([]*T, error)
+	Db(ctx context.Context) *gorm.DB
+	GetDb() database.IDataBase
 	InTx(ctx context.Context, fn func(ctx context.Context) error) error
-	// InIndependentTx 开启独立事物
 	InIndependentTx(ctx context.Context, fn func(ctx context.Context) error) error
 	GenStringId() string
 	GenInt64Id() int64
 }
 
-// BaseRepo [T interface{}] ， 基础数据层方法
+// BaseRepo 基础仓库实现
 type BaseRepo[T IModel, I SupportedIDTypes] struct {
-	Model T                  // 模型
-	db    database.IDataBase // 数据库连接
+	Model T
+	db    database.IDataBase
 }
 
 func NewBaseRepo[T IModel, I SupportedIDTypes](db database.IDataBase, model T) *BaseRepo[T, I] {
-	return &BaseRepo[T, I]{
-		db:    db,
-		Model: model,
-	}
+	return &BaseRepo[T, I]{db: db, Model: model}
 }
 
-// FindById ， 根据 id 获取模型
-// 参数：
-//
-//	ctx ： 上下文
-//	id ： 模型 id
-//
-// 返回值：
-//
-//	*T ：desc
-//	error ：desc
+// --------------------------- 基础查询 ---------------------------
+
 func (r *BaseRepo[T, I]) FindById(ctx context.Context, id I) (*T, error) {
 	var res T
-	resDb := r.db.DB(ctx).Model(r.Model)
-	v := reflect.ValueOf(r.Model)
-	if v.FieldByName("DeletedAt").IsValid() {
-		resDb.Where("deleted_at = 0")
+	db := r.db.DB(ctx).Model(r.Model)
+	if hasDeletedField(r.Model) {
+		db = db.Where("deleted_at = 0")
 	}
-	//根据id查询
-	if err := resDb.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).First(&res).Error; err != nil {
+	if err := db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).First(&res).Error; err != nil {
 		return nil, err
 	}
 	return &res, nil
 }
 
-// FindByIds ， 根据 id 获取模型
-// 参数：
-//
-//	ctx ： 上下文
-//	id ： 模型 id
-//
-// 返回值：
-//
-//	*T ：desc
-//	error ：desc
 func (r *BaseRepo[T, I]) FindByIds(ctx context.Context, ids []I) ([]*T, error) {
 	var res []*T
-	resDb := r.db.DB(ctx).Model(r.Model)
-	v := reflect.ValueOf(r.Model)
-	if v.FieldByName("DeletedAt").IsValid() {
-		resDb.Where("deleted_at = 0")
+	db := r.db.DB(ctx).Model(r.Model)
+	if hasDeletedField(r.Model) {
+		db = db.Where("deleted_at = 0")
 	}
-	//根据id查询
-	if err := resDb.Where(fmt.Sprintf("%s in (?)", r.Model.GetPrimaryKey()), ids).Scan(&res).Error; err != nil {
+	if err := db.Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Find(&res).Error; err != nil {
 		return nil, err
 	}
 	return res, nil
 }
 
-// DelById ， 根据 id 删除
-// 参数：
-//
-//	ctx ： 上下文
-//	id ： 模型 id
-//
-// 返回值：
-//
-//	error ：desc
+// --------------------------- 删除 ---------------------------
+
 func (r *BaseRepo[T, I]) DelById(ctx context.Context, id I) error {
-	db := r.db.DB(ctx)
-	v := reflect.ValueOf(r.Model)
-	if v.FieldByName("DeletedAt").IsValid() {
+	db := r.db.DB(ctx).Model(r.Model)
+	if hasDeletedField(r.Model) {
 		if r.Model.GetPrimaryKey() == "" {
-			// todo 可以用反射
-			return errors.New("base repo model pk is not defined")
+			return errors.New("primary key not defined")
 		}
-		db.Model(r.Model).Where(fmt.Sprintf("%v = ?", r.Model.GetPrimaryKey()), id).Update("deleted_at", utils.GetDateUnixMilli())
-	} else {
-		db.Delete(&r.Model, id)
+		return db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).Update("deleted_at", utils.GetDateUnixMilli()).Error
 	}
-	if err := db.Error; err != nil {
-		return err
-	}
-	return nil
+	return db.Delete(r.Model, id).Error
 }
 
-// DelByIds ， 根据 id 批量删除
-// 参数：
-//
-//	ctx ： 上下文
-//	ids ： 模型 id 数组
-//
-// 返回值：
-//
-//	error ：desc
 func (r *BaseRepo[T, I]) DelByIds(ctx context.Context, ids []I) error {
-
-	db := r.db.DB(ctx)
-	v := reflect.ValueOf(r.Model)
-	if v.FieldByName("DeletedAt").IsValid() {
+	db := r.db.DB(ctx).Model(r.Model)
+	if hasDeletedField(r.Model) {
 		if r.Model.GetPrimaryKey() == "" {
-			return errors.New("base repo model pk is not defined")
+			return errors.New("primary key not defined")
 		}
-		db.Model(r.Model).Where(fmt.Sprintf("%v in ?", r.Model.GetPrimaryKey()), ids).Update("deleted_at", utils.GetDateUnixMilli())
-	} else {
-		db.Delete(&r.Model).Where(fmt.Sprintf("%v in ?", r.Model.GetPrimaryKey()), ids)
+		return db.Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Update("deleted_at", utils.GetDateUnixMilli()).Error
 	}
-	if err := db.Error; err != nil {
-		return err
-	}
-
-	return nil
+	return db.Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Delete(r.Model).Error
 }
 
-// DelByIdUnScoped ， 根据 id 删除(物理删除)
-// 参数：
-//
-//	ctx ： 上下文
-//	id ： 模型 id
-//
-// 返回值：
-//
-//	error ：desc
 func (r *BaseRepo[T, I]) DelByIdUnScoped(ctx context.Context, id I) error {
-	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%v = ?", r.Model.GetPrimaryKey()), id).Delete(&r.Model).Error
+	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).Delete(r.Model).Error
 }
 
-// DelByIdsUnScoped ， 根据 ids 批量删除(物理删除)
-// 参数：
-//
-//	ctx ： 上下文
-//	ids ： 模型 id 数组
-//
-// 返回值：
-//
-//	error ：desc
 func (r *BaseRepo[T, I]) DelByIdsUnScoped(ctx context.Context, ids []I) error {
-	db := r.db.DB(ctx).Unscoped()
-	v := reflect.ValueOf(r.Model)
-	if v.FieldByName("DeletedAt").IsValid() {
-		if r.Model.GetPrimaryKey() == "" {
-			return errors.New("base repo model pk is not defined")
-		}
-		db.Model(r.Model).Where(fmt.Sprintf("%v in ?", r.Model.GetPrimaryKey()), ids).Update("deleted_at", utils.GetDateUnixMilli())
-	} else {
-		db.Delete(&r.Model).Where(fmt.Sprintf("%v in ?", r.Model.GetPrimaryKey()), ids)
-	}
-	if err := db.Error; err != nil {
-		return err
-	}
-	return nil
+	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Delete(r.Model).Error
 }
 
-// EditById ， 根据 id 更新 模型
-// 参数：
-//
-//	ctx ： desc
-//	id ： desc
-//	data ： desc
-//
-// 返回值：
-//
-//	error ：desc
+// --------------------------- 更新 ---------------------------
+
 func (r *BaseRepo[T, I]) EditById(ctx context.Context, id I, data *T) error {
-	if r.Model.GetPrimaryKey() == "" {
-		return errors.New("base repo model pk is not defined")
+	if data == nil {
+		return errors.New("update data is nil")
 	}
 	db := r.db.DB(ctx).Model(r.Model)
-	v := reflect.ValueOf(r.Model)
-	if v.FieldByName("DeletedAt").IsValid() {
-		db.Where("deleted_at = 0")
+	if hasDeletedField(r.Model) {
+		db = db.Where("deleted_at = 0")
 	}
-	v = reflect.ValueOf(data)
-	if v.Kind() != reflect.Map {
-		updated := v.Elem().FieldByName("UpdatedAt")
-		if updated.IsValid() {
-			updated.SetInt(utils.GetDateUnixMilli())
-		}
-	}
-	if err := db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).Updates(data).Error; err != nil {
-		return err
-	}
-	return nil
+	db = db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id)
+
+	setUpdatedAt(data)
+	return db.Updates(data).Error
 }
 
-// Add ， 创建模型
-// 参数：
-//
-//	ctx ： 上下文
-//	data ： 模型数据
-//
-// 返回值：
-//
-//	error ：desc
+// --------------------------- 添加 ---------------------------
+
 func (r *BaseRepo[T, I]) Add(ctx context.Context, data *T) (*T, error) {
-	v := reflect.ValueOf(data)
-	if v.Kind() != reflect.Ptr || v.IsNil() {
-		return nil, errors.New("data must be a non-nil pointer")
+	if data == nil {
+		return nil, errors.New("data is nil")
 	}
-	created := v.Elem().FieldByName("CreatedAt")
-	if created.IsValid() {
-		created.SetInt(utils.GetDateUnixMilli())
-	}
-	v = v.Elem()
-	t := v.Type()
-	// 查找 Id 字段，且自动生成 id
-	for i := 0; i < t.NumField(); i++ {
-		field := t.Field(i)
-		if field.Name == "Id" || field.Name == "ID" || field.Tag.Get("pk") == "true" {
-			f := v.Field(i)
-			if !f.CanSet() {
-				continue
-			}
-			// 判断ID是否已有值
-			hasValue := false
-			switch f.Kind() {
-			case reflect.Int, reflect.Int8, reflect.Int64, reflect.Uint32, reflect.Uint, reflect.Uint64, reflect.Int32:
-				hasValue = f.Int() != 0
-			case reflect.String:
-				hasValue = f.String() != ""
-			}
-			// 只有在ID没有值的情况下才生成新ID
-			if !hasValue && field.Tag.Get("autofill") != "false" {
-				switch f.Kind() {
-				case reflect.Int, reflect.Int64, reflect.Uint, reflect.Uint64, reflect.Int32:
-					f.SetInt(r.db.GenInt64Id())
-				case reflect.String:
-					f.SetString(r.db.GenStringId())
-				default:
-					return nil, fmt.Errorf("unsupported Id type: %v", f.Kind())
-				}
-			}
-			break // 只处理一个 Id 字段
-		}
-	}
+	setCreatedAt(data)
+	setIDIfEmpty(r, data)
 	if err := r.db.DB(ctx).Create(data).Error; err != nil {
 		return nil, err
 	}
@@ -289,10 +145,18 @@ func (r *BaseRepo[T, I]) Add(ctx context.Context, data *T) (*T, error) {
 }
 
 func (r *BaseRepo[T, I]) BathAdd(ctx context.Context, data ...*T) error {
+	if len(data) == 0 {
+		return nil
+	}
+	for _, d := range data {
+		setCreatedAt(d)
+		setIDIfEmpty(r, d)
+	}
 	return r.db.DB(ctx).Create(data).Error
 }
 
-// 计数
+// --------------------------- 查询 ---------------------------
+
 func (r *BaseRepo[T, I]) Count(ctx context.Context, qb *db_query.QueryBuilder) (int64, error) {
 	var count int64
 	db := r.db.DB(ctx).Model(r.Model)
@@ -302,19 +166,17 @@ func (r *BaseRepo[T, I]) Count(ctx context.Context, qb *db_query.QueryBuilder) (
 	return count, db.Count(&count).Error
 }
 
-// 查询
 func (r *BaseRepo[T, I]) Find(ctx context.Context, qb *db_query.QueryBuilder) ([]*T, error) {
 	var res []*T
 	db := r.db.DB(ctx).Model(r.Model)
 	if where, values := qb.BuildWhere(); where != "" {
 		db = db.Where(where, values...)
 	}
-	if orderBy := qb.BuildOrderBy(); orderBy != "" {
-		db = db.Order(orderBy)
+	if order := qb.BuildOrderBy(); order != "" {
+		db = db.Order(order)
 	}
-
-	if limit, values := qb.BuildLimit(); limit != "" {
-		db = db.Offset(values[0]).Limit(values[1])
+	if limit, vals := qb.BuildLimit(); limit != "" {
+		db = db.Offset(vals[0]).Limit(vals[1])
 	}
 	err := db.Find(&res).Error
 	if database.IfErrorNotFound(err) {
@@ -322,6 +184,8 @@ func (r *BaseRepo[T, I]) Find(ctx context.Context, qb *db_query.QueryBuilder) ([
 	}
 	return res, err
 }
+
+// --------------------------- 事务 & DB ---------------------------
 
 func (r *BaseRepo[T, I]) Db(ctx context.Context) *gorm.DB {
 	return r.db.DB(ctx)
@@ -331,18 +195,75 @@ func (r *BaseRepo[T, I]) GetDb() database.IDataBase {
 	return r.db
 }
 
-// InTx 下面2个方法配合使用，在InTx方法中执行ORM操作的时候需要使用DB方法获取db！
 func (r *BaseRepo[T, I]) InTx(ctx context.Context, fn func(ctx context.Context) error) error {
 	return r.db.InTx(ctx, fn)
 }
 
-// InIndependentTx 开启独立事物
 func (r *BaseRepo[T, I]) InIndependentTx(ctx context.Context, fn func(ctx context.Context) error) error {
 	return r.db.InIndependentTx(ctx, fn)
 }
+
 func (r *BaseRepo[T, I]) GenStringId() string {
 	return r.db.GenStringId()
 }
+
 func (r *BaseRepo[T, I]) GenInt64Id() int64 {
 	return r.db.GenInt64Id()
+}
+
+// --------------------------- 工具函数 ---------------------------
+
+// 检查是否有 DeletedAt 字段
+func hasDeletedField[T IModel](model T) bool {
+	v := reflect.ValueOf(model)
+	if v.Kind() == reflect.Ptr {
+		v = v.Elem()
+	}
+	_, ok := v.Type().FieldByName("DeletedAt")
+	return ok
+}
+
+// 设置 UpdatedAt
+func setUpdatedAt[T IModel](data *T) {
+	v := reflect.ValueOf(data).Elem()
+	if f := v.FieldByName("UpdatedAt"); f.IsValid() && f.CanSet() {
+		f.SetInt(time.Now().UnixMilli())
+	}
+}
+
+// 设置 CreatedAt
+func setCreatedAt[T IModel](data *T) {
+	v := reflect.ValueOf(data).Elem()
+	if f := v.FieldByName("CreatedAt"); f.IsValid() && f.CanSet() {
+		f.SetInt(time.Now().UnixMilli())
+	}
+}
+
+// 自动生成 ID
+func setIDIfEmpty[T IModel, I SupportedIDTypes](r *BaseRepo[T, I], data *T) {
+	v := reflect.ValueOf(data).Elem()
+	t := v.Type()
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		f := v.Field(i)
+		if !f.CanSet() {
+			continue
+		}
+		if field.Name == "ID" || field.Name == "Id" || field.Tag.Get("pk") == "true" {
+			isEmpty := false
+			switch f.Kind() {
+			case reflect.Int, reflect.Int64, reflect.Uint, reflect.Uint64, reflect.Int32:
+				isEmpty = f.Int() == 0
+				if isEmpty {
+					f.SetInt(r.db.GenInt64Id())
+				}
+			case reflect.String:
+				isEmpty = f.String() == ""
+				if isEmpty {
+					f.SetString(r.db.GenStringId())
+				}
+			}
+			break
+		}
+	}
 }
