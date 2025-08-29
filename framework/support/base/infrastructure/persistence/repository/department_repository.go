@@ -44,7 +44,7 @@ func (r *departmentRepository) Create(ctx context.Context, dept *model.Departmen
 
 func (r *departmentRepository) Update(ctx context.Context, dept *model.Department) error {
 	deptEntity := r.mapper.ToEntity(dept)
-	return r.repo.EditById(ctx, deptEntity.ID, deptEntity)
+	return r.repo.EditById(ctx, deptEntity)
 }
 
 func (r *departmentRepository) Delete(ctx context.Context, id string) error {

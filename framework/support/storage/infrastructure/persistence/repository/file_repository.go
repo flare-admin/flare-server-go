@@ -28,7 +28,7 @@ func (s StorageRepo) Save(ctx context.Context, info *model.File) error {
 			return err
 		}
 	} else {
-		if err := s.rp.EditById(ctx, entity.ID, entity); err != nil {
+		if err := s.rp.EditById(ctx, entity); err != nil {
 			hlog.CtxErrorf(ctx, "Save file error: %v", err)
 			return err
 		}

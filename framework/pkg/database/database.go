@@ -2,6 +2,8 @@ package database
 
 import (
 	"context"
+	"reflect"
+	"strings"
 	"time"
 
 	"github.com/cloudwego/hertz/pkg/common/hlog"
@@ -119,4 +121,51 @@ func (d Data) GenStringId() string {
 }
 func (d Data) GenInt64Id() int64 {
 	return d.ig.GenInt64Id()
+}
+
+// GetPrimaryKey 自动获取主键字段名
+func GetPrimaryKey[T any](model T) string {
+	t := reflect.TypeOf(model)
+	if t.Kind() == reflect.Ptr {
+		t = t.Elem()
+	}
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+
+		// 优先找 gorm:"primaryKey"
+		if tag := field.Tag.Get("gorm"); strings.Contains(tag, "primaryKey") {
+			// 如果 gorm tag 有 column 指定字段，用 column
+			if strings.Contains(tag, "column:") {
+				parts := strings.Split(tag, ";")
+				for _, part := range parts {
+					if strings.HasPrefix(part, "column:") {
+						return strings.TrimPrefix(part, "column:")
+					}
+				}
+			}
+			// 否则用字段名转 snake_case
+			return ToSnakeCase(field.Name)
+		}
+
+		// 默认规则 ID / Id
+		if field.Name == "ID" || field.Name == "Id" {
+			return "id"
+		}
+	}
+	return "id"
+}
+
+func ToSnakeCase(str string) string {
+	// 默认规则 ID / Id
+	if str == "id" || str == "ID" {
+		return strings.ToLower(str)
+	}
+	var result []rune
+	for i, r := range str {
+		if i > 0 && r >= 'A' && r <= 'Z' {
+			result = append(result, '_')
+		}
+		result = append(result, r)
+	}
+	return strings.ToLower(string(result))
 }

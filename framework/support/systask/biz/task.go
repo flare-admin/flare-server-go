@@ -86,7 +86,7 @@ func (uc *TaskUseCase) UpdateTask(ctx context.Context, req *dto.UpdateTask) herr
 		Remark:    req.Remark,
 	}
 
-	if err := uc.repo.EditById(ctx, req.ID, task); err != nil {
+	if err := uc.repo.EditById(ctx, task); err != nil {
 		return herrors.UpdateFail(fmt.Errorf("update task error: %v", err))
 	}
 
@@ -117,7 +117,7 @@ func (uc *TaskUseCase) EnableTask(ctx context.Context, taskID string) herrors.He
 	}
 
 	task.Status = 1
-	if err := uc.repo.EditById(ctx, taskID, task); err != nil {
+	if err := uc.repo.EditById(ctx, task); err != nil {
 		return herrors.UpdateFail(fmt.Errorf("update task status error: %v", err))
 	}
 
@@ -135,7 +135,7 @@ func (uc *TaskUseCase) DisableTask(ctx context.Context, taskID string) herrors.H
 	}
 
 	task.Status = 2
-	if err := uc.repo.EditById(ctx, taskID, task); err != nil {
+	if err := uc.repo.EditById(ctx, task); err != nil {
 		return herrors.UpdateFail(fmt.Errorf("update task status error: %v", err))
 	}
 

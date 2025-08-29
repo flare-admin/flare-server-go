@@ -102,7 +102,7 @@ func (s SubscribeUseCase) UpdateStatus(ctx context.Context, id string, status in
 		return nil
 	}
 	su.Status = int8(status)
-	err := s.repo.EditById(ctx, id, su)
+	err := s.repo.EditById(ctx, su)
 	if err != nil {
 		hlog.CtxErrorf(ctx, "edit subscribe failed: %v", err)
 		return event_err.EditSubscribeFail(err)
@@ -129,7 +129,7 @@ func (s SubscribeUseCase) Update(ctx context.Context, req *dto.UpdateSubscribeRe
 		sub.Dis = req.Dis
 	}
 	if err = s.db.InTx(ctx, func(ctx1 context.Context) error {
-		if err = s.repo.EditById(ctx, req.Id, sub); err != nil {
+		if err = s.repo.EditById(ctx, sub); err != nil {
 			hlog.CtxErrorf(ctx, "edit subscribe fiels tx err: %v", err)
 			return err
 		}
@@ -205,7 +205,7 @@ func (s SubscribeUseCase) Enable(ctx context.Context, id string, ignoringHistory
 	sub.Status = int8(manager.StatusEnable)
 	sub.Start = utils.GetDateUnix()
 	if err = s.db.InTx(ctx, func(ctx context.Context) error {
-		if err := s.repo.EditById(ctx, id, sub); err != nil {
+		if err := s.repo.EditById(ctx, sub); err != nil {
 			hlog.CtxErrorf(ctx, "update subscribe status err: %v", err)
 			return fmt.Errorf("update subscribe status err: %v", err)
 		}
@@ -230,7 +230,7 @@ func (s SubscribeUseCase) Disable(ctx context.Context, id string) herrors.Herr {
 	sub.Status = int8(manager.StatusDisable)
 	sub.Start = utils.GetDateUnix()
 	if err = s.db.InTx(ctx, func(ctx context.Context) error {
-		if err = s.repo.EditById(ctx, id, sub); err != nil {
+		if err = s.repo.EditById(ctx, sub); err != nil {
 			hlog.CtxErrorf(ctx, "update subscribe status err: %v", err)
 			return fmt.Errorf("update subscribe status err: %v", err)
 		}
@@ -363,7 +363,7 @@ func (s SubscribeUseCase) BathUpdateParameter(ctx context.Context, data []*dto.S
 	if len(update) > 0 {
 		//处理更新
 		for _, attribute := range update {
-			if err = s.par.EditById(ctx, attribute.Id, attribute); err != nil {
+			if err = s.par.EditById(ctx, attribute); err != nil {
 				hlog.CtxErrorf(ctx, "BathUpdateParameter update parameter err: %v", err)
 				return err
 			}

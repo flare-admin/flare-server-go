@@ -105,7 +105,7 @@ func (h *ConfigGroupCommandHandler) HandleUpdate(ctx context.Context, cmd comman
 	group.UpdatedAt = utils.GetDateUnix()
 
 	// 保存到数据库
-	if err = h.configGroupRepo.EditById(ctx, cmd.ID, group); err != nil {
+	if err = h.configGroupRepo.EditById(ctx, group); err != nil {
 		hlog.CtxErrorf(ctx, "Save config group error: %v", err)
 		return errors.EditConfigGroupFail(err)
 	}
@@ -162,7 +162,7 @@ func (h *ConfigGroupCommandHandler) HandleUpdateStatus(ctx context.Context, cmd 
 	group.UpdatedAt = utils.GetDateUnix()
 
 	// 保存到数据库
-	if err := h.configGroupRepo.EditById(ctx, group.ID, group); err != nil {
+	if err := h.configGroupRepo.EditById(ctx, group); err != nil {
 		hlog.CtxErrorf(ctx, "Save config group error: %v", err)
 		return errors.EditConfigGroupFail(err)
 	}

@@ -24,7 +24,7 @@ func NewEventRepo(data database.IDataBase) biz.IEventRepo {
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &eventRepo{
-		BaseRepo: baserepo.NewBaseRepo[model.Event, string](data, model.Event{}),
+		BaseRepo: baserepo.NewBaseRepo[model.Event, string](data),
 	}
 }
 

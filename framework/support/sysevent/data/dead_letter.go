@@ -23,7 +23,7 @@ func NewDeadLetterSubscribeRepo(data database.IDataBase) biz.IDeadLetterSubscrib
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &deadLetterRepo{
-		BaseRepo: baserepo.NewBaseRepo[model.DeadLetterSubscribe, string](data, model.DeadLetterSubscribe{}),
+		BaseRepo: baserepo.NewBaseRepo[model.DeadLetterSubscribe, string](data),
 	}
 }
 func (d deadLetterRepo) GetBy(ctx context.Context, topic, channel, messageId string) (*model.DeadLetterSubscribe, error) {

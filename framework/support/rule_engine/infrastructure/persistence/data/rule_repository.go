@@ -26,7 +26,7 @@ func NewRuleRepository(data database.IDataBase) repository.IRuleRepository {
 		hlog.Fatalf("sync rule tables error: %v", err)
 	}
 	return &ruleRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.Rule, string](data, entity.Rule{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Rule, string](data),
 	}
 }
 
@@ -177,7 +177,7 @@ func (r *ruleRepository) UpdateExecuteStats(ctx context.Context, ruleID string, 
 	}
 	rule.LastExecuteAt = utils.GetDateUnix()
 
-	return r.EditById(ctx, ruleID, rule)
+	return r.EditById(ctx, rule)
 }
 
 // FindByBusinessType 根据业务类型查询规则列表

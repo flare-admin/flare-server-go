@@ -30,7 +30,7 @@ func NewConfigRepository(db database.IDataBase) IConfigRepository {
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &configRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.Config, string](db, entity.Config{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Config, string](db),
 	}
 }
 

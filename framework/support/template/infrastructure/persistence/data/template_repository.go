@@ -24,7 +24,7 @@ func NewTemplateRepository(data database.IDataBase) repository.ITemplateReposito
 		hlog.Fatalf("sync tables error: %v", err)
 	}
 	return &templateRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.Template, string](data, entity.Template{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Template, string](data),
 	}
 }
 

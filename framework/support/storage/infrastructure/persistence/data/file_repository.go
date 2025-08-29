@@ -32,7 +32,7 @@ func NewFileRepository(db database.IDataBase) IFileRepository {
 		hlog.Fatalf("sync tables error: %v", err)
 	}
 	return &fileRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.File, string](db, entity.File{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.File, string](db),
 	}
 }
 

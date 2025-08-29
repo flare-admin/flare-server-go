@@ -44,7 +44,7 @@ func NewDictionaryRepo(data database.IDataBase) IDictionaryRepo {
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &categoryRepo{
-		BaseRepo: baserepo.NewBaseRepo[model.Category, string](data, model.Category{}),
+		BaseRepo: baserepo.NewBaseRepo[model.Category, string](data),
 	}
 }
 

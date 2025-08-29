@@ -24,7 +24,7 @@ func NewSubscribeRepo(data database.IDataBase) biz.ISubscribeRepo {
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &subscribeRepo{
-		BaseRepo: baserepo.NewBaseRepo[model.Subscribe, string](data, model.Subscribe{}),
+		BaseRepo: baserepo.NewBaseRepo[model.Subscribe, string](data),
 	}
 }
 func (s subscribeRepo) GetByStatus(ctx context.Context, status int8) ([]*model.Subscribe, error) {
@@ -62,7 +62,7 @@ func NewSubscribeParameterRepo(data database.IDataBase) biz.ISubscribeParameterR
 		hlog.Fatalf("sync Parameter tables to mysql error: %v", err)
 	}
 	return &subscribeParameterRepo{
-		BaseRepo: baserepo.NewBaseRepo[model.SubscribeParameter, string](data, model.SubscribeParameter{}),
+		BaseRepo: baserepo.NewBaseRepo[model.SubscribeParameter, string](data),
 	}
 }
 func (s subscribeParameterRepo) GetBySubscribe(ctx context.Context, subscribe string) ([]*model.SubscribeParameter, error) {

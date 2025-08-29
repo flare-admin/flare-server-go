@@ -21,7 +21,7 @@ func NewSysDepartmentRepo(data database.IDataBase) repository.ISysDepartmentRepo
 		hlog.Fatalf("sync sys department tables to db error: %v", err)
 	}
 	return &sysDepartmentRepo{
-		BaseRepo: baserepo.NewBaseRepo[entity.Department, string](data, entity.Department{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Department, string](data),
 	}
 }
 

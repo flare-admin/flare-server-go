@@ -24,7 +24,7 @@ func NewSysRoleRepo(data database.IDataBase) repository.ISysRoleRepo {
 		hlog.Fatalf("sync sys user tables to db error: %v", err)
 	}
 	return &sysRoleRepo{
-		BaseRepo: baserepo.NewBaseRepo[entity.Role, int64](data, entity.Role{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Role, int64](data),
 	}
 }
 

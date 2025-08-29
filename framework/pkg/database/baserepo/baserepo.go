@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"strings"
 	"time"
 
 	"github.com/flare-admin/flare-server-go/framework/pkg/database"
@@ -21,7 +22,6 @@ type SupportedIDTypes interface {
 
 // IModel 数据模型接口
 type IModel interface {
-	GetPrimaryKey() string
 	TableName() string
 }
 
@@ -33,7 +33,7 @@ type IBaseRepo[T IModel, I SupportedIDTypes] interface {
 	DelByIds(ctx context.Context, ids []I) error
 	DelByIdUnScoped(ctx context.Context, id I) error
 	DelByIdsUnScoped(ctx context.Context, ids []I) error
-	EditById(ctx context.Context, id I, data *T) error
+	EditById(ctx context.Context, data *T) error
 	Add(ctx context.Context, data *T) (*T, error)
 	BathAdd(ctx context.Context, data ...*T) error
 	Count(ctx context.Context, qb *db_query.QueryBuilder) (int64, error)
@@ -48,23 +48,27 @@ type IBaseRepo[T IModel, I SupportedIDTypes] interface {
 
 // BaseRepo 基础仓库实现
 type BaseRepo[T IModel, I SupportedIDTypes] struct {
-	Model T
-	db    database.IDataBase
+	Model      T
+	db         database.IDataBase
+	primaryKey string
+	getPKValue func(*T) any
 }
 
-func NewBaseRepo[T IModel, I SupportedIDTypes](db database.IDataBase, model T) *BaseRepo[T, I] {
-	return &BaseRepo[T, I]{db: db, Model: model}
+func NewBaseRepo[T IModel, I SupportedIDTypes](db database.IDataBase) *BaseRepo[T, I] {
+	var model T
+	pkName, getter := buildPKInfo[T]()
+	return &BaseRepo[T, I]{db: db, Model: model, primaryKey: pkName, getPKValue: getter}
 }
 
 // --------------------------- 基础查询 ---------------------------
 
 func (r *BaseRepo[T, I]) FindById(ctx context.Context, id I) (*T, error) {
 	var res T
-	db := r.db.DB(ctx).Model(r.Model)
+	db := r.db.DB(ctx).Model(&r.Model)
 	if hasDeletedField(r.Model) {
 		db = db.Where("deleted_at = 0")
 	}
-	if err := db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).First(&res).Error; err != nil {
+	if err := db.Where(fmt.Sprintf("%s = ?", r.primaryKey), id).First(&res).Error; err != nil {
 		return nil, err
 	}
 	return &res, nil
@@ -72,11 +76,11 @@ func (r *BaseRepo[T, I]) FindById(ctx context.Context, id I) (*T, error) {
 
 func (r *BaseRepo[T, I]) FindByIds(ctx context.Context, ids []I) ([]*T, error) {
 	var res []*T
-	db := r.db.DB(ctx).Model(r.Model)
+	db := r.db.DB(ctx).Model(&r.Model)
 	if hasDeletedField(r.Model) {
 		db = db.Where("deleted_at = 0")
 	}
-	if err := db.Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Find(&res).Error; err != nil {
+	if err := db.Where(fmt.Sprintf("%s in ?", r.primaryKey), ids).Find(&res).Error; err != nil {
 		return nil, err
 	}
 	return res, nil
@@ -85,46 +89,46 @@ func (r *BaseRepo[T, I]) FindByIds(ctx context.Context, ids []I) ([]*T, error) {
 // --------------------------- 删除 ---------------------------
 
 func (r *BaseRepo[T, I]) DelById(ctx context.Context, id I) error {
-	db := r.db.DB(ctx).Model(r.Model)
+	db := r.db.DB(ctx).Model(&r.Model)
 	if hasDeletedField(r.Model) {
-		if r.Model.GetPrimaryKey() == "" {
-			return errors.New("primary key not defined")
-		}
-		return db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).Update("deleted_at", utils.GetDateUnixMilli()).Error
+		return db.Where(fmt.Sprintf("%s = ?", r.primaryKey), id).Update("deleted_at", utils.GetDateUnixMilli()).Error
 	}
 	return db.Delete(r.Model, id).Error
 }
 
 func (r *BaseRepo[T, I]) DelByIds(ctx context.Context, ids []I) error {
-	db := r.db.DB(ctx).Model(r.Model)
+	db := r.db.DB(ctx).Model(&r.Model)
 	if hasDeletedField(r.Model) {
-		if r.Model.GetPrimaryKey() == "" {
-			return errors.New("primary key not defined")
-		}
-		return db.Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Update("deleted_at", utils.GetDateUnixMilli()).Error
+		return db.Where(fmt.Sprintf("%s in ?", r.primaryKey), ids).Update("deleted_at", utils.GetDateUnixMilli()).Error
 	}
-	return db.Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Delete(r.Model).Error
+	return db.Where(fmt.Sprintf("%s in ?", r.primaryKey), ids).Delete(r.Model).Error
 }
 
 func (r *BaseRepo[T, I]) DelByIdUnScoped(ctx context.Context, id I) error {
-	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id).Delete(r.Model).Error
+	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%s = ?", r.primaryKey), id).Delete(r.Model).Error
 }
 
 func (r *BaseRepo[T, I]) DelByIdsUnScoped(ctx context.Context, ids []I) error {
-	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%s in ?", r.Model.GetPrimaryKey()), ids).Delete(r.Model).Error
+	return r.db.DB(ctx).Unscoped().Where(fmt.Sprintf("%s in ?", r.primaryKey), ids).Delete(r.Model).Error
 }
 
 // --------------------------- 更新 ---------------------------
 
-func (r *BaseRepo[T, I]) EditById(ctx context.Context, id I, data *T) error {
+func (r *BaseRepo[T, I]) EditById(ctx context.Context, data *T) error {
 	if data == nil {
 		return errors.New("update data is nil")
 	}
-	db := r.db.DB(ctx).Model(r.Model)
+	pkValue := r.getPKValue(data)
+	if pkValue == nil {
+		return fmt.Errorf("primary key %s value is nil", r.primaryKey)
+	}
+
+	db := r.db.DB(ctx).Model(&r.Model)
 	if hasDeletedField(r.Model) {
 		db = db.Where("deleted_at = 0")
 	}
-	db = db.Where(fmt.Sprintf("%s = ?", r.Model.GetPrimaryKey()), id)
+
+	db = db.Where(fmt.Sprintf("%s = ?", r.primaryKey), pkValue)
 
 	setUpdatedAt(data)
 	return db.Updates(data).Error
@@ -159,7 +163,7 @@ func (r *BaseRepo[T, I]) BathAdd(ctx context.Context, data ...*T) error {
 
 func (r *BaseRepo[T, I]) Count(ctx context.Context, qb *db_query.QueryBuilder) (int64, error) {
 	var count int64
-	db := r.db.DB(ctx).Model(r.Model)
+	db := r.db.DB(ctx).Model(&r.Model)
 	if where, values := qb.BuildWhere(); where != "" {
 		db = db.Where(where, values...)
 	}
@@ -168,7 +172,7 @@ func (r *BaseRepo[T, I]) Count(ctx context.Context, qb *db_query.QueryBuilder) (
 
 func (r *BaseRepo[T, I]) Find(ctx context.Context, qb *db_query.QueryBuilder) ([]*T, error) {
 	var res []*T
-	db := r.db.DB(ctx).Model(r.Model)
+	db := r.db.DB(ctx).Model(&r.Model)
 	if where, values := qb.BuildWhere(); where != "" {
 		db = db.Where(where, values...)
 	}
@@ -266,4 +270,22 @@ func setIDIfEmpty[T IModel, I SupportedIDTypes](r *BaseRepo[T, I], data *T) {
 			break
 		}
 	}
+}
+
+// --------------------------- 主键缓存 ---------------------------
+
+func buildPKInfo[T any]() (string, func(*T) any) {
+	t := reflect.TypeOf(new(T)).Elem()
+	for i := 0; i < t.NumField(); i++ {
+		f := t.Field(i)
+		if strings.Contains(f.Tag.Get("gorm"), "primaryKey") || f.Name == "ID" || f.Name == "Id" {
+			pkName := database.ToSnakeCase(f.Name)
+			getter := func(m *T) any {
+				return reflect.ValueOf(m).Elem().Field(i).Interface()
+			}
+			return pkName, getter
+		}
+	}
+	modelName := t.Name()
+	panic(fmt.Sprintf("primary key not found in struct %s", modelName))
 }

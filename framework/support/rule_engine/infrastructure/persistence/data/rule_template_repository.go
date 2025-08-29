@@ -26,7 +26,7 @@ func NewRuleTemplateRepository(data database.IDataBase) repository.IRuleTemplate
 		hlog.Fatalf("sync rule template tables error: %v", err)
 	}
 	return &ruleTemplateRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.RuleTemplate, string](data, entity.RuleTemplate{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.RuleTemplate, string](data),
 	}
 }
 

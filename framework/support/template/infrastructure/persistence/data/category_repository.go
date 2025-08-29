@@ -24,7 +24,7 @@ func NewCategoryRepository(data database.IDataBase) repository.ICategoryReposito
 		hlog.Fatalf("sync tables error: %v", err)
 	}
 	return &categoryRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.Category, string](data, entity.Category{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Category, string](data),
 	}
 }
 

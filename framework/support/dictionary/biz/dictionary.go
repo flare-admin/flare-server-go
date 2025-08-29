@@ -61,7 +61,7 @@ func (uc *DictionaryUseCase) UpdateCategory(ctx context.Context, id string, req 
 		I18nKey:     req.I18nKey,
 		Description: req.Description,
 	}
-	err := uc.repo.EditById(ctx, id, category)
+	err := uc.repo.EditById(ctx, category)
 	if err != nil {
 		return herrors.UpdateFail(err)
 	}

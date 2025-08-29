@@ -72,7 +72,7 @@ func (d TemplateRepository) Update(ctx context.Context, template *model.Template
 		Attributes:  string(attributesJSON),
 		Status:      template.Status,
 	}
-	return d.repo.EditById(ctx, template.ID, entity)
+	return d.repo.EditById(ctx, entity)
 }
 
 // Delete 删除模板

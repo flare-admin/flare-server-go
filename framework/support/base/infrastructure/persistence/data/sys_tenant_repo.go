@@ -27,7 +27,7 @@ func NewSysTenantRepo(data database.IDataBase) repository.ISysTenantRepo {
 		hlog.Fatalf("sync tenant tables to db error: %v", err)
 	}
 	return &sysTenantRepo{
-		BaseRepo: baserepo.NewBaseRepo[entity.Tenant, string](data, entity.Tenant{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Tenant, string](data),
 	}
 }
 func (r *sysTenantRepo) CommonGetByID(ctx context.Context, id string) (*entity.Tenant, error) {

@@ -27,7 +27,7 @@ func NewRuleCategoryRepository(data database.IDataBase) repository.IRuleCategory
 		hlog.Fatalf("sync rule category tables error: %v", err)
 	}
 	return &ruleCategoryRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.RuleCategory, string](data, entity.RuleCategory{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.RuleCategory, string](data),
 	}
 }
 

@@ -32,7 +32,7 @@ func NewTaskRepo(data database.IDataBase) ITaskRepo {
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &taskRepo{
-		BaseRepo: baserepo.NewBaseRepo[model.Task, string](data, model.Task{}),
+		BaseRepo: baserepo.NewBaseRepo[model.Task, string](data),
 	}
 }
 

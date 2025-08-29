@@ -84,7 +84,7 @@ func (r *RuleTemplateRepository) Update(ctx context.Context, template *model.Rul
 		Sorting:     template.Sorting,
 		TenantID:    template.TenantID,
 	}
-	return r.repo.EditById(ctx, template.ID, entity)
+	return r.repo.EditById(ctx, entity)
 }
 
 // Delete 删除模板

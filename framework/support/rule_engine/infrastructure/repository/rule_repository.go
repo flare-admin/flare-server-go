@@ -57,7 +57,7 @@ func (r *RuleRepository) Create(ctx context.Context, rule *model.Rule) error {
 func (r *RuleRepository) Update(ctx context.Context, rule *model.Rule) error {
 	// 转换为数据库实体
 	entity := r.toEntity(rule)
-	return r.repo.EditById(ctx, rule.ID, entity)
+	return r.repo.EditById(ctx, entity)
 }
 
 // Delete 删除规则

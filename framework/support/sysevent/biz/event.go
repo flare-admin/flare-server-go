@@ -66,7 +66,7 @@ func (e EventUseCase) UpdateStatus(ctx context.Context, id string, status int32)
 		return event_err.GetEventFail(err2)
 	}
 	ev.Status = int8(status)
-	err := e.repo.EditById(ctx, id, ev)
+	err := e.repo.EditById(ctx, ev)
 	if err != nil {
 		hlog.CtxErrorf(ctx, "edit event failed: %v", err)
 		return event_err.EditEventFail(err)
@@ -91,7 +91,7 @@ func (e EventUseCase) Update(ctx context.Context, req *dto.UpdateEventReq) herro
 	if req.Dis != "" {
 		ev.Dis = req.Dis
 	}
-	err := e.repo.EditById(ctx, req.Id, ev)
+	err := e.repo.EditById(ctx, ev)
 	if err != nil {
 		hlog.CtxErrorf(ctx, "edit event failed: %v", err)
 		return event_err.EditEventFail(err)

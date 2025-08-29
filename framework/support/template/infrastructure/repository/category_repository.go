@@ -55,7 +55,7 @@ func (d CategoryRepository) Update(ctx context.Context, category *model.Category
 		Sort:        category.Sort,
 		Status:      category.Status,
 	}
-	return d.repo.EditById(ctx, category.ID, entity)
+	return d.repo.EditById(ctx, entity)
 }
 
 // Delete 删除分类

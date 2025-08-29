@@ -33,7 +33,7 @@ func NewSysUserRepo(data database.IDataBase) repository.ISysUserRepo {
 		hlog.Fatalf("sync sys user tables to db error: %v", err)
 	}
 	return &sysUserRepo{
-		BaseRepo: baserepo.NewBaseRepo[entity.SysUser, string](data, entity.SysUser{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.SysUser, string](data),
 	}
 }
 func (r *sysUserRepo) GetByUsername(ctx context.Context, username string) (*entity.SysUser, error) {

@@ -29,7 +29,7 @@ func NewConfigGroupRepository(db database.IDataBase) IConfigGroupRepository {
 		hlog.Fatalf("sync tables  error: %v", err)
 	}
 	return &configGroupRepository{
-		BaseRepo: baserepo.NewBaseRepo[entity.ConfigGroup, string](db, entity.ConfigGroup{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.ConfigGroup, string](db),
 	}
 }
 func (r *configGroupRepository) FindByCode(ctx context.Context, code string) (*entity.ConfigGroup, error) {

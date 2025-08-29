@@ -92,7 +92,7 @@ func (r *userRepository) Create(ctx context.Context, user *model.User) error {
 func (r *userRepository) Update(ctx context.Context, user *model.User) error {
 	userEntity := r.mapper.ToEntity(user)
 	err := r.repo.GetDb().InTx(ctx, func(ctx context.Context) error {
-		err := r.repo.EditById(ctx, userEntity.ID, userEntity)
+		err := r.repo.EditById(ctx, userEntity)
 		if err != nil {
 			return err
 		}

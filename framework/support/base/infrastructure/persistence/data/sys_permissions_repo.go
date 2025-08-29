@@ -33,7 +33,7 @@ func NewSysMenuRepo(data database.IDataBase) repository.IPermissionsRepo {
 		hlog.Fatalf("sync sys user tables to db error: %v", err)
 	}
 	return &sysMenuRepo{
-		BaseRepo: baserepo.NewBaseRepo[entity.Permissions, int64](data, entity.Permissions{}),
+		BaseRepo: baserepo.NewBaseRepo[entity.Permissions, int64](data),
 	}
 }
 func (r *sysMenuRepo) DelByPermissionsId(ctx context.Context, permissionsId int64) error {

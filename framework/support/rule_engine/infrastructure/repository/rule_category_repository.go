@@ -80,7 +80,7 @@ func (r *RuleCategoryRepository) Update(ctx context.Context, category *model.Rul
 		BusinessType: category.BusinessType,
 		TenantID:     category.TenantID,
 	}
-	return r.repo.EditById(ctx, category.ID, entity)
+	return r.repo.EditById(ctx, entity)
 }
 
 // Delete 删除分类

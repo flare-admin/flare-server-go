@@ -78,7 +78,7 @@ func (r *roleRepository) Create(ctx context.Context, role *model.Role) error {
 func (r *roleRepository) Update(ctx context.Context, role *model.Role) error {
 	roleEntity := r.mapper.ToEntity(role)
 	err := r.repo.GetDb().InTx(ctx, func(ctx context.Context) error {
-		err := r.repo.EditById(ctx, roleEntity.ID, roleEntity)
+		err := r.repo.EditById(ctx, roleEntity)
 		if err != nil {
 			return err
 		}

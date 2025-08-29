@@ -108,7 +108,7 @@ func (h *ConfigCommandHandler) HandleUpdate(ctx context.Context, cmd commands.Up
 	config.UpdatedAt = utils.GetDateUnix()
 
 	// 保存到数据库
-	if err = h.configRepo.EditById(ctx, cmd.ID, config); err != nil {
+	if err = h.configRepo.EditById(ctx, config); err != nil {
 		hlog.CtxErrorf(ctx, "Save config error: %v", err)
 		return errors.EditConfigFail(err)
 	}
@@ -160,7 +160,7 @@ func (h *ConfigCommandHandler) HandleUpdateStatus(ctx context.Context, cmd comma
 	config.UpdatedAt = utils.GetDateUnix()
 
 	// 保存到数据库
-	if err := h.configRepo.EditById(ctx, config.ID, config); err != nil {
+	if err := h.configRepo.EditById(ctx, config); err != nil {
 		hlog.CtxErrorf(ctx, "Save config error: %v", err)
 		return errors.EditConfigFail(err)
 	}
